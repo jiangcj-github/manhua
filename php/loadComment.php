@@ -1,16 +1,20 @@
 <?php
 require("config.php");
 
-$mid=$_GET["mid"];
-$chapter =$_GET["chapter"];
-$offset=$_GET["offset"];
+if(!isset($_REQUEST["mid"])||!isset($_REQUEST["chapter"]) ||!isset($_REQUEST["offset"])){
+    include("404.php");
+}
+
+$mid=$_REQUEST["mid"];
+$chapter =$_REQUEST["chapter"];
+$offset=$_REQUEST["offset"];
 
 $conn = new mysqli($mysql["host"], $mysql["user"], $mysql["password"], $mysql["database"]);
 if($conn->connect_error){
     die("数据库连接错误");
 }
 $conn->set_charset("utf8");
-$stmt = $conn->prepare("select * from comment where mid=? and chapter=? limit 10 offset ?");
+$stmt = $conn->prepare("select * from comment where mid=? and chapter=? order by date desc limit 10 offset ?");
 if($stmt){
     $stmt->bind_param("iii",$mid,$chapter,$offset);
     $stmt->execute();
