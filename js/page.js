@@ -9,7 +9,7 @@ $(function(){
 //加载更多评论信息
 function moreComment(offset){
     $.ajax({
-        url:"/php/loadComment.php",
+        url:"../php/loadComment.php",
         data:{mid:mid,chapter:chapter,offset:offset},
         dataType:"json",
         success:function(data){
@@ -40,7 +40,7 @@ $("#cm-load").click(function(){
 //发送评论信息
 function sendComment(user,date,text){
     $.ajax({
-        url:"/php/sendComment.php",
+        url:"../php/sendComment.php",
         data:{mid:mid,chapter:chapter,user:user,date:date,text:text},
         dataType:"json",
         success:function(data){
