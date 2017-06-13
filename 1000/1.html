@@ -9,9 +9,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         img{width:100%;border:1px solid #333;}
-        .ci{font-weight:normal !important;}
+        #cm{padding:10px;}
+        .ci{font-weight:normal !important;padding: 10px;border-top: 1px solid #cccccc;}
+        .ci:last-child{border-bottom:1px solid #cccccc;}
         .ci-user{font-size:0.8em;margin-bottom:8px;color:#7a7a7a;}
-        .ci-body{word-break: break-all;}
+        .ci-body{word-break: break-all;min-height: 50px;line-height: 25px;}
     </style>
     <link rel="stylesheet" href="http://apps.bdimg.com/libs/jquerymobile/1.3.0/jquery.mobile-1.3.0.min.css">
 </head>
@@ -24,9 +26,11 @@
         <div data-role="content">
             <h3>第54话:这里是题目</h3>
             <div style="margin-top:-15px"></div>
+
             <img class="lazy" data-original="http://n.1whour.com/newkuku/2014/201412/1205b/%E4%B8%80%E6%8B%B3%E8%B6%85%E4%BA%BA/33-40/33001.jpg">
             <img class="lazy" data-original="http://n.1whour.com/newkuku/2014/201412/1205b/%E4%B8%80%E6%8B%B3%E8%B6%85%E4%BA%BA/33-40/33002.jpg">
             <img class="lazy" data-original="http://n.1whour.com/newkuku/2014/201412/1205b/%E4%B8%80%E6%8B%B3%E8%B6%85%E4%BA%BA/33-40/33003.jpg">
+            <!--
             <img class="lazy" data-original="http://n.1whour.com/newkuku/2014/201412/1205b/%E4%B8%80%E6%8B%B3%E8%B6%85%E4%BA%BA/33-40/33004.jpg">
             <img class="lazy" data-original="http://n.1whour.com/newkuku/2014/201412/1205b/%E4%B8%80%E6%8B%B3%E8%B6%85%E4%BA%BA/33-40/33005.jpg">
             <img class="lazy" data-original="http://n.1whour.com/newkuku/2014/201412/1205b/%E4%B8%80%E6%8B%B3%E8%B6%85%E4%BA%BA/33-40/33006.jpg">
@@ -41,21 +45,21 @@
             <img class="lazy" data-original="http://n.1whour.com/newkuku/2014/201412/1205b/%E4%B8%80%E6%8B%B3%E8%B6%85%E4%BA%BA/33-40/33015.jpg">
             <img class="lazy" data-original="http://n.1whour.com/newkuku/2014/201412/1205b/%E4%B8%80%E6%8B%B3%E8%B6%85%E4%BA%BA/33-40/33016.jpg">
             <img class="lazy" data-original="http://n.1whour.com/newkuku/2014/201412/1205b/%E4%B8%80%E6%8B%B3%E8%B6%85%E4%BA%BA/33-40/33017.jpg">
-
+            -->
             <h3>我要评论</h3>
-            <textarea style="margin-top:-15px;min-height:100px;" placeholder="不登录也可以发表评论，快来试试吧！"></textarea>
-            <a href="#" data-role="button">提交</a>
+            <textarea style="margin-top:-15px;min-height:100px;" id="text" placeholder="不登录也可以发表评论，快来试试吧！"></textarea>
+            <a href="#" data-role="button" id="cm-send">提交</a>
 
-            <h3>全部评论(113)</h3>
+            <h3>全部评论</h3>
             <ul data-role="listview" id="cm">
                 <script id="tpl-li" type="text/html">
                     <li class="ci">
-                        <div class="ci-user">{{ user }}北京市用户<span style="float:right">{{ date }}</span></div>
-                        <div class="ci-body">{{ text }}</div>
+                        <div class="ci-user">{{ user }}<span style="float:right">{{ date }}</span></div>
+                        <div class="ci-body">{{ content }}</div>
                     </li>
                 </script>
             </ul>
-            <div><a href="javascript:moreComment();" data-role="button" style="margin-top:20px;">加载更多</a></div>
+            <div><a href="javascript:void(0);" id="cm-load" data-role="button" style="margin-top:20px;">加载更多</a></div>
         </div>
         <div data-role="footer" data-position="fixed">
             <div data-role="navbar" data-iconpos="left">
@@ -73,9 +77,9 @@
     <script src="http://apps.bdimg.com/libs/jquery-lazyload/1.9.5/jquery.lazyload.min.js"></script>
     <script src="http://pv.sohu.com/cityjson"></script>
     <script src="/js/template-web.js"></script>
-    <script src="/manhua/js/page.js"></script>
+    <script src="/js/page.js"></script>
     <script>
-        var mid=1000,chapter=1,offset=0;
+        var mid=1000,chapter=1;
     </script>
 </body>
 </html>

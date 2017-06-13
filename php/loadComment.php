@@ -1,18 +1,26 @@
 <?php
 require("config.php");
 
-$mid = isset($_GET["mid"]) or die("404");
-$chapter = isset($_GET["chapter"]) or die("404");
-$offset = isset($_GET["offset"]) or die("404");
+if(!isset($_REQUEST["mid"])||!isset($_REQUEST["chapter"]) ||!isset($_REQUEST["offset"])){
+    include("404.php");
+}
+
+$mid=$_REQUEST["mid"];
+$chapter =$_REQUEST["chapter"];
+$offset=$_REQUEST["offset"];
 
 $conn = new mysqli($mysql["host"], $mysql["user"], $mysql["password"], $mysql["database"]);
-if ($conn->connect_error) {
+if($conn->connect_error){
     die("数据库连接错误");
 }
-$sql = "select * from comment";
-$result = $conn->query($sql);
-if()
-while($row = $result->fetch_assoc()){
-    //$row["id"]
+$conn->set_charset("utf8");
+$stmt = $conn->prepare("select * from comment where mid=? and chapter=? order by date desc limit 10 offset ?");
+if($stmt){
+    $stmt->bind_param("iii",$mid,$chapter,$offset);
+    $stmt->execute();
+    $result=$stmt->get_result();
+    echo json_encode($result->fetch_all(MYSQLI_ASSOC));
+    $result->close();
+    $stmt->close();
 }
 $conn->close();
