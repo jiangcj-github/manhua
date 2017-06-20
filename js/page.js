@@ -16,7 +16,7 @@ function moreComment(offset){
             for(var i=0;i<data.length;i++){
                 var li=template("tpl-li",{
                     user:data[i].user,
-                    date:data[i].date.split(" ")[0],
+                    date:data[i].date,
                     content:data[i].text
                 });
                 $("#cm").append(li);
@@ -46,7 +46,7 @@ function sendComment(user,date,text){
         success:function(data){
             var li=template("tpl-li",{
                 user:data.user,
-                date:data.date.split(" ")[0],
+                date:data.date,
                 content:data.text
             });
             $("#cm").prepend(li);
@@ -73,8 +73,8 @@ Date.prototype.Format = function (fmt) {
 $("#cm-send").click(function(){
     var text=$("#text").val();
     if(text==null||/^\s*$/.test(text)) return;
-    var date=new Date().Format("yyyy年MM月dd日 hh:mm:ss");
-    var user=returnCitySN.cname+"用户";
+    var date=new Date().Format("yyyy-MM-dd hh:mm:ss");
+    var user=returnCitySN.cname;
     sendComment(user,date,text);
     $("#text").val("");
 });
