@@ -1,8 +1,8 @@
 <?php
-require("config.php");
+require_once("../../php/config.php");
 
 if(!isset($_REQUEST["mid"])||!isset($_REQUEST["chapter"]) ||!isset($_REQUEST["offset"])){
-    include("404.php");
+    include("../../php/404.php");
 }
 
 $mid=$_REQUEST["mid"];

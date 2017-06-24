@@ -1,16 +1,16 @@
 <?php
-require("config.php");
+require_once("../../php/config.php");
 
 if(!isset($_REQUEST["mid"])||!isset($_REQUEST["chapter"]) ||!isset($_REQUEST["chapter"])
     ||!isset($_REQUEST["chapter"]) ||!isset($_REQUEST["chapter"])){
-    include("404.php");
+    include("../../php/404.php");
 }
 
 $mid=$_REQUEST["mid"];
-$chapter =$_REQUEST["chapter"] or die("404");
-$user=$_REQUEST["user"] or die("404");
-$date=$_REQUEST["date"] or die("404");
-$text=$_REQUEST["text"] or die("404");
+$chapter =$_REQUEST["chapter"];
+$user=$_REQUEST["user"];
+$date=$_REQUEST["date"];
+$text=$_REQUEST["text"];
 
 $conn = new mysqli($mysql["host"], $mysql["user"], $mysql["password"], $mysql["database"]);
 if($conn->connect_error){
