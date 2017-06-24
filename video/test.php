@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿<?php require_once("../php/resource.php") ?>
+<!DOCTYPE html>
 <html>
 <head>
   <meta charset=utf-8 />
@@ -15,7 +16,7 @@
 <h1>Video.js Example Embed</h1>
 
 <video id="video_1" class="video-js" controls preload="auto" width="640" height="268" data-setup="{}" >
-  <source src="test.mp4" type="video/mp4">
+  <source src="<?php echo generateResourceUrl("/test.mp4") ?>" type="video/mp4">
 </video>
 
 
