@@ -8,13 +8,11 @@
   <link href="videojs/video-js.css" rel="stylesheet">
   <link href="videojs/video-js-custom.css" rel="stylesheet">
   <script src="videojs/video.js"></script>
-  <style>
-
-  </style>
+  <style></style>
 </head>
 <body>
+<?php include("../nav.php") ?>
 <h1>Video.js Example Embed</h1>
-
 <video id="video_1" class="video-js" controls preload="auto" width="640" height="268" data-setup="{}" >
   <source src="<?php echo generateResourceUrl("/test.mp4") ?>" type="video/mp4">
 </video>
