@@ -30,7 +30,7 @@
     ==<span>&nbsp;|&nbsp;</span>
     <?php
         if($isLogin){
-            echo "<a href='/user/signout.php'>登出</a>";
+            echo "<a href='/user/action/signout.php'>登出</a>";
         }else{
             echo "<a href='/user/signin.php'>登錄</a>";
         }

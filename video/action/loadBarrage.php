@@ -28,9 +28,10 @@ if($stmt){
     $result=$stmt->get_result();
     if($result){
         $data=$result->fetch_all(MYSQLI_ASSOC);
-        echo json_encode($data);
-        $result->close();
+        die(json_encode($data));
     }
     $stmt->close();
+}else{
+    die(json_encode(["msg"=>"查詢失敗"]));
 }
 $conn->close();
