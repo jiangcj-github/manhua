@@ -7,18 +7,18 @@
 /**
  * 自動構造資源url
  */
-function generateResourceUrl($fileName){
+function generateResourceUrl($fileName,$domain){
     $secret = "lindakai";
     $protectedPath = "/data/";
     $ipLimitation = true;
     $hexTime = dechex(time());
+    $fileName="/".$fileName;
     if ($ipLimitation) {
         $token = md5($secret . $fileName . $hexTime . $_SERVER["REMOTE_ADDR"]);
     }else{
         $token = md5($secret . $fileName. $hexTime);
     }
-    global $resourceServer;
-    $baseUrl="http://".$resourceServer["host"];
+    $baseUrl="http://".$domain;
     $url =$baseUrl .$protectedPath . $token. "/" . $hexTime . $fileName;
     return $url;
 }

@@ -1,5 +1,7 @@
 <?php
-require_once("php/config.php");
+require_once("../php/config.php");
+
+include("checkAdmin.php");
 
 $conn = new mysqli($mysql["host"], $mysql["user"], $mysql["password"], $mysql["database"]);
 if($conn->connect_error){

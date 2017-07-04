@@ -16,10 +16,3 @@ $mysql=array(
     "password"=>"root",
     "database"=>"manhua"
 );
-
-/**
- * 资源服务器配置
- */
-$resourceServer=array(
-    "host"=>"lindakai.com"
-);

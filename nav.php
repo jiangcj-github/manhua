@@ -37,4 +37,4 @@
     ?>
     &nbsp;<a href="/user/signup.php">免費註冊</a>
 </div>
-<script src="https://code.jquery.com/jquery-3.2.1.js""></script>
+<script src="common/jquery-3.2.1.js"></script>
