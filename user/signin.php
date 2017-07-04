@@ -35,17 +35,15 @@
         <div class="sec login-sec">
             <h3>登錄入口</h3>
             <div class="info">
-                <form method="post">
                 <table>
                     <tbody>
                         <tr><td colspan="2"><span style="font-weight:bold;">提示：您的瀏覽器必須支持cookie，否則系統無法記錄登錄狀態。</span></td></tr>
-                        <tr><td style="width:100px;">用戶名:</td><td><input type="text" name="user" value="<?php echo $user ?>"></td></tr>
-                        <tr><td style="width:100px;">密碼:</td><td><input type="password" name="pass" value="<?php echo $pass ?>"></td></tr>
-                        <tr><td style="width:100px;"></td><td><span class="err"><?php echo $err ?></span></td></tr>
+                        <tr><td style="width:100px;">用戶名:</td><td><input type="text" name="user"></td></tr>
+                        <tr><td style="width:100px;">密碼:</td><td><input type="password" name="pass"></td></tr>
+                        <tr><td style="width:100px;"></td><td><span class="err"></span></td></tr>
                         <tr><td style="width:100px;"></td><td><input type="submit" class="btn btn1" value="確認"></td></tr>
                     </tbody>
                 </table>
-                </form>
             </div>
         </div>
     </div>
@@ -58,6 +56,22 @@
             $("#org").html(response.org);
             $("#region").html(response.region);
         }, "jsonp");
+        function log(msg){
+            $(".err").html(msg);
+        }
+        $("[input[type=submit]").click(function(){
+           var user=$("[name=user]").val();
+           var pass=$("[name=pass]").val();
+           $.post("action/signin.php",{user:user,pass:pass},function(data){
+              if(data.ok){
+
+              }else if(data.msg){
+                  log(data.msg);
+              }else{
+                  log("查詢出錯");
+              }
+           });
+        });
     </script>
 </body>
 </html>

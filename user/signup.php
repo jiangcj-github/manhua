@@ -36,21 +36,19 @@
         <div class="sec login-sec">
             <h3>註冊信息</h3>
             <div class="info">
-                <form method="post">
-                    <input type="hidden" name="ip" id="ip-signup">
-                    <input type="hidden" name="country" id="country-signup">
-                    <input type="hidden" name="city" id="city-signup">
-                    <table>
-                        <tbody>
-                            <tr><td style="width:100px;">用戶名:</td><td style="width:180px"><input type="text" name="user" value="<?php echo $user ?>"></td><td>限制(0-9,a-z,A-Z,_,-)組合,5至15個字符</td></tr>
-                            <tr><td style="width:100px;">會員名:</td><td style="width:180px"><input type="text" name="nick" value="<?php echo $nick ?>"></td><td>非空字符</td></tr>
-                            <tr><td style="width:100px;">密碼:</td><td style="width:180px"><input type="password" name="pass" value="<?php echo $pass ?>"></td><td>限制(0-9,a-z,A-Z,_,-)組合,8至15個字符</td></tr>
-                            <tr><td style="width:100px;">重複密碼:</td style="width:180px"><td><input type="password" name="pass1" value="<?php echo $pass1 ?>"><td></td></tr>
-                            <tr><td style="width:100px;"></td><td colspan="2"><span class="err"><?php echo $err ?></span></td></tr>
-                            <tr><td style="width:100px;"></td><td colspan="2"><input type="submit" class="btn btn1" value="提交"></td></tr>
-                        </tbody>
-                    </table>
-                </form>
+                <input type="hidden" name="ip" id="ip-signup">
+                <input type="hidden" name="country" id="country-signup">
+                <input type="hidden" name="city" id="city-signup">
+                <table>
+                    <tbody>
+                        <tr><td style="width:100px;">用戶名:</td><td style="width:180px"><input type="text" name="user"></td><td>限制(0-9,a-z,A-Z,_,-)組合,5至15個字符</td></tr>
+                        <tr><td style="width:100px;">會員名:</td><td style="width:180px"><input type="text" name="nick"></td><td>非空字符</td></tr>
+                        <tr><td style="width:100px;">密碼:</td><td style="width:180px"><input type="password" name="pass"></td><td>限制(0-9,a-z,A-Z,_,-)組合,8至15個字符</td></tr>
+                        <tr><td style="width:100px;">重複密碼:</td style="width:180px"><td><input type="password" name="pass1"><td></td></tr>
+                        <tr><td style="width:100px;"></td><td colspan="2"><span class="err"></span></td></tr>
+                        <tr><td style="width:100px;"></td><td colspan="2"><input type="submit" class="btn btn1" value="提交"></td></tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -66,6 +64,27 @@
             $("#country-signup").val(response.country);
             $("#city-signup").val(response.city);
         }, "jsonp");
+        function log(msg){
+            $(".err").html(msg);
+        }
+        $("[input[type=submit]").click(function(){
+            var user=$("[name=user]").val();
+            var nick=$("[name=nick]").val();
+            var pass=$("[name=pass]").val();
+            var pass1=$("[name=pass1]").val();
+            var ip=$("[name=ip]").val();
+            var country=$("[name=country]").val();
+            var city=$("[name=city]").val();
+            $.post("action/signup.php",{user:user,nick:nick,pass:pass,pass1:pass1,ip:ip,country:country,city:city},function(data){
+                if(data.ok){
+                    location.href="signin.php";
+                }else if(data.msg){
+                    log(data.msg);
+                }else{
+                    log("查詢出錯");
+                }
+            });
+        });
     </script>
 </body>
 </html>
