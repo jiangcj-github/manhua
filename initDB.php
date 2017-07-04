@@ -26,7 +26,7 @@ $result=$conn->query("
         PRIMARY KEY(user)
     )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ");
-if ($result===true){
+if ($result){
     echo "user created"."<br>";
 }else{
     echo "user created failed"."<br>";
@@ -46,7 +46,7 @@ $result=$conn->query("
       PRIMARY KEY (id)
     ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
     ");
-if ($result===true){
+if ($result){
     echo "comment created"."<br>";
 }else{
     echo "comment created failed"."<br>";
@@ -127,5 +127,3 @@ if($result){
 }else{
     echo "video_barrage created failed"."<br>";
 }
-
-$conn->close();

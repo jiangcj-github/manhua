@@ -1,30 +1,31 @@
 <?php
 require_once("../../php/config.php");
+require_once("../../php/util.php");
+
+/**
+ *  成功返回:{ok:"",data:data}
+ *  錯誤返回:{msg:msg_text}
+ *  異常:其他
+ */
 
 //是否登錄
 session_start();
 if(!isset($_SESSION["nick"])){
-    die();
+    die_json(["msg"=>"用戶為登錄"]);
 }
 $nick=$_SESSION["nick"];
 //參數檢查
 if(!isset($_REQUEST["vid"])||!isset($_REQUEST["text"])){
-    die();
+    die_json(["msg"=>"缺少必需的參數"]);
 }
 $vid=$_REQUEST["vid"];
 $text=$_REQUEST["text"];
 $time=(new DateTime())->format("Y-m-d H:i:s");
 //數據庫操作
 $conn = new mysqli($mysql["host"], $mysql["user"], $mysql["password"], $mysql["database"]);
-if($conn->connect_error){
-    die("連接失敗");
-}
 $conn->set_charset("utf8");
 //插入評論
 $stmt=$conn->prepare("insert into video_comment(vid,nick,text,time) values(?,?,?,?)");
-if($stmt){
-    $stmt->bind_param("isss",$vid,$nick,$text,$time);
-    $stmt->execute();
-    $stmt->close();
-}
-$conn->close();
+$stmt->bind_param("isss",$vid,$nick,$text,$time);
+$stmt->execute();
+die_json(["ok"=>"","data"=>""]);

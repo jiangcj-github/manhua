@@ -1,9 +1,16 @@
 <?php
 require_once("../../php/config.php");
+require_once("../../php/util.php");
+
+/**
+ *  成功返回:{ok:"",data:data}
+ *  錯誤返回:{msg:msg_text}
+ *  異常:其他
+ */
 
 //參數檢查
 if(!isset($_REQUEST["vid"])){
-    die(json_encode(["msg"=>"缺少參數vid"]));
+    die_json(["msg"=>"缺少參數vid"]);
 }
 $vid=$_REQUEST["vid"];
 $limit=18446744073709551615;
@@ -16,22 +23,11 @@ if(isset($_REQUEST["offset"])){
 }
 //數據庫操作
 $conn = new mysqli($mysql["host"], $mysql["user"], $mysql["password"], $mysql["database"]);
-if($conn->connect_error){
-    die(json_encode(["msg"=>"連接失敗"]));
-}
 $conn->set_charset("utf8");
 //查詢
 $stmt=$conn->prepare("select * from video_barrage where vid = ? order by id desc limit ? offset ?");
-if($stmt){
-    $stmt->bind_param("iii",$vid,$limit,$offset);
-    $stmt->execute();
-    $result=$stmt->get_result();
-    if($result){
-        $data=$result->fetch_all(MYSQLI_ASSOC);
-        die(json_encode($data));
-    }
-    $stmt->close();
-}else{
-    die(json_encode(["msg"=>"查詢失敗"]));
-}
-$conn->close();
+$stmt->bind_param("iii",$vid,$limit,$offset);
+$stmt->execute();
+$result=$stmt->get_result();
+$data=$result->fetch_all(MYSQLI_ASSOC);
+die_json(["ok"=>"","data"=>$data]);
