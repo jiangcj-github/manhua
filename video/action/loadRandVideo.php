@@ -3,7 +3,7 @@ require_once("../../php/config.php");
 require_once("../../php/util.php");
 
 /**
- *  成功返回:{ok:"",data:data}
+ *  成功返回:{ok:"ok",data:data}
  *  錯誤返回:{msg:msg_text}
  *  異常:其他
  */
@@ -22,4 +22,4 @@ $stmt->bind_param("i",$limit);
 $stmt->execute();
 $result=$stmt->get_result();
 $data=$result->fetch_all(MYSQLI_ASSOC);
-die_json(["ok"=>"","data"=>$data]);
+die_json(["ok"=>"ok","data"=>$data]);

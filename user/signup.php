@@ -67,7 +67,7 @@
         function log(msg){
             $(".err").html(msg);
         }
-        $("[input[type=submit]").click(function(){
+        $("input[type=submit]").click(function(){
             var user=$("[name=user]").val();
             var nick=$("[name=nick]").val();
             var pass=$("[name=pass]").val();
@@ -75,13 +75,18 @@
             var ip=$("[name=ip]").val();
             var country=$("[name=country]").val();
             var city=$("[name=city]").val();
-            $.post("action/signup.php",{user:user,nick:nick,pass:pass,pass1:pass1,ip:ip,country:country,city:city},function(data){
-                if(data.ok){
-                    location.href="signin.php";
-                }else if(data.msg){
-                    log(data.msg);
-                }else{
-                    log("查詢出錯");
+            ajaxForm.action(this,{
+               type:"post",
+                url:"action/signup.php",
+                data:{user:user,nick:nick,pass:pass,pass1:pass1,ip:ip,country:country,city:city},
+                success:function(data){
+                    if(data.ok){
+                        location.href="signin.php";
+                    }else if(data.msg){
+                        log(data.msg);
+                    }else{
+                        log("查詢出錯");
+                    }
                 }
             });
         });

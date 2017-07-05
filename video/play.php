@@ -41,6 +41,9 @@ $stmt->close();
     <video class="video-js" controls preload="auto" width="640" height="268" data-setup="{}" >
         <source src="<?php echo generateResourceUrl($filename,$domain) ?>" type="video/mp4">
     </video>
+
+
+
     <input type="hidden" id="v_id" value="<?php echo $id ?>">
     <input type="hidden" id="v_duration" value="<?php echo $duration ?>">
 

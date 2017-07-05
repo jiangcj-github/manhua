@@ -59,17 +59,22 @@
         function log(msg){
             $(".err").html(msg);
         }
-        $("[input[type=submit]").click(function(){
+        $("input[type=submit]").click(function(){
            var user=$("[name=user]").val();
            var pass=$("[name=pass]").val();
-           $.post("action/signin.php",{user:user,pass:pass},function(data){
-              if(data.ok){
-
-              }else if(data.msg){
-                  log(data.msg);
-              }else{
-                  log("查詢出錯");
-              }
+           ajaxForm.action(this,{
+               type:"post",
+               url:"action/signin.php",
+               data:{user:user,pass:pass},
+               success:function(data){
+                   if(data.ok){
+                       alert("ok");
+                   }else if(data.msg){
+                       log(data.msg);
+                   }else{
+                       log("查詢出錯");
+                   }
+               }
            });
         });
     </script>
