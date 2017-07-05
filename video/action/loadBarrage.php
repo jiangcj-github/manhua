@@ -13,7 +13,7 @@ if(!isset($_REQUEST["vid"])){
     die_json(["msg"=>"缺少參數vid"]);
 }
 $vid=$_REQUEST["vid"];
-$limit=18446744073709551615;
+$limit=2147483648;
 $offset=0;
 if(isset($_REQUEST["limit"])){
     $limit=$_REQUEST["limit"];
@@ -25,7 +25,7 @@ if(isset($_REQUEST["offset"])){
 $conn = new mysqli($mysql["host"], $mysql["user"], $mysql["password"], $mysql["database"]);
 $conn->set_charset("utf8");
 //查詢
-$stmt=$conn->prepare("select * from video_barrage where vid = ? order by id desc limit ? offset ?");
+$stmt=$conn->prepare("select msg,pos from video_barrage where vid = ? order by pos asc limit ? offset ?");
 $stmt->bind_param("iii",$vid,$limit,$offset);
 $stmt->execute();
 $result=$stmt->get_result();

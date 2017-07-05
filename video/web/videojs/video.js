@@ -2874,7 +2874,7 @@ var ControlBar = function (_Component) {
 
 
 ControlBar.prototype.options_ = {
-  children: ['playToggle', 'volumeMenuButton', 'currentTimeDisplay', 'timeDivider', 'durationDisplay', 'progressControl', 'liveDisplay', 'remainingTimeDisplay', 'customControlSpacer', 'playbackRateMenuButton', 'chaptersButton', 'descriptionsButton', 'subtitlesButton', 'captionsButton', 'audioTrackButton', 'fullscreenToggle']
+  children: ['playToggle', 'volumeMenuButton','progressControl','currentTimeDisplay', 'timeDivider', 'durationDisplay', 'liveDisplay', 'remainingTimeDisplay', 'customControlSpacer', 'playbackRateMenuButton', 'chaptersButton', 'descriptionsButton', 'subtitlesButton', 'captionsButton', 'audioTrackButton', 'fullscreenToggle']
 };
 
 _component2['default'].registerComponent('ControlBar', ControlBar);
@@ -25170,7 +25170,8 @@ if (!window.VTTCue) {
         return null;
       }
       var element = window.document.createElement(tagName);
-      element.localName = tagName;
+      //noinspection JSAnnotator
+        element.localName = tagName;
       var name = TAG_ANNOTATION[type];
       if (name && annotation) {
         element[name] = annotation.trim();

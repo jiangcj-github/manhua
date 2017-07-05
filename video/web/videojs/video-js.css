@@ -975,6 +975,7 @@ body.vjs-full-window {
 .vjs-live .vjs-time-control {
   display: none; }
 
+/*
 .video-js .vjs-current-time,
 .vjs-no-flex .vjs-current-time {
   display: none; }
@@ -986,6 +987,7 @@ body.vjs-full-window {
 .vjs-time-divider {
   display: none;
   line-height: 3em; }
+  */
 
 .vjs-live .vjs-time-divider {
   display: none; }
