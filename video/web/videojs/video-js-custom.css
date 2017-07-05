@@ -11,6 +11,7 @@
   padding-right: 0;
   text-align: center;
 }
+/*barrage*/
 .barg-div{
   position:absolute;
   overflow:hidden;
@@ -37,3 +38,11 @@
   left:0;
   min-width:260px;
 }
+:fullscreen .barg-div>.path{height:45px;line-height:45px;font-size:24px;}
+:-moz-full-screen .barg-div>.path{height:45px;line-height:45px;font-size:24px;}
+:-ms-fullscreen .barg-div>.path{height:45px;line-height:45px;font-size:24px;}
+:-webkit-full-screen .barg-div>.path{height:45px;line-height:45px;font-size:24px;}
+:fullscreen .barg-div>.path>span{min-width:400px;}
+:-moz-full-screen .barg-div>.path>span{min-width:400px;}
+:-ms-fullscreen .barg-div>.path>span{min-width:400px;}
+:-webkit-full-screen .barg-div>.path>span{min-width:400px;}

@@ -15,12 +15,23 @@ if(!isset($_SESSION["login"])){
 }
 $nick=$_SESSION["login"]["nick"];
 //參數檢查
-if(!isset($_REQUEST["vid"])||!isset($_REQUEST["msg"])||!isset($_REQUEST["pos"])){
+if(!isset($_REQUEST["vid"])||!isset($_REQUEST["msg"])||!isset($_REQUEST["pos"])||!isset($_REQUEST["duration"])){
     die_json(["msg"=>"缺少必需的參數"]);
 }
 $vid=$_REQUEST["vid"];
 $msg=$_REQUEST["msg"];
 $pos=$_REQUEST["pos"];
+$duration=$_REQUEST["duration"];
+//參數有效性檢測
+if(mb_strlen($msg)<=0||mb_strlen($msg)>15){
+    die_json(["msg"=>"文本超過字符數限制"]);
+}
+if(preg_match("/^\s*$/",$msg)>0){
+    die_json(["msg"=>"無效文本"]);
+}
+if($pos<=0||$pos>=$duration){
+    die_json(["msg"=>"無效時間"]);
+}
 //數據庫操作
 $conn = new mysqli($mysql["host"], $mysql["user"], $mysql["password"], $mysql["database"]);
 $conn->set_charset("utf8");

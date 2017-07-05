@@ -60,9 +60,13 @@
             $(".err").html(msg);
         }
         $("input[type=submit]").click(function(){
-           var user=$("[name=user]").val();
-           var pass=$("[name=pass]").val();
-           ajaxForm.action(this,{
+            var user=$("[name=user]").val();
+            var pass=$("[name=pass]").val();
+            if(!/^[0-9a-zA-Z_-]{5,15}$/.test(user)||!/^[0-9a-zA-Z_-]{8,15}$/.test(pass)){
+                log("用戶名或密碼不正確");
+                return;
+            }
+            ajaxForm.action(this,{
                type:"post",
                url:"action/signin.php",
                data:{user:user,pass:pass},
@@ -75,7 +79,7 @@
                        log("查詢出錯");
                    }
                }
-           });
+            });
         });
     </script>
 </body>

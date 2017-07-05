@@ -21,6 +21,9 @@ if(!isset($_REQUEST["vid"])||!isset($_REQUEST["text"])){
 $vid=$_REQUEST["vid"];
 $text=$_REQUEST["text"];
 $time=(new DateTime())->format("Y-m-d H:i:s");
+if(preg_match("/^\s*$/",$text)>0){
+    die_json(["msg"=>"文本為空"]);
+}
 //數據庫操作
 $conn = new mysqli($mysql["host"], $mysql["user"], $mysql["password"], $mysql["database"]);
 $conn->set_charset("utf8");

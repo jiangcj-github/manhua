@@ -75,6 +75,22 @@
             var ip=$("[name=ip]").val();
             var country=$("[name=country]").val();
             var city=$("[name=city]").val();
+            if(!/^[0-9a-zA-Z_-]{5,15}$/.test(user)){
+                log("用戶名不符合規則");
+                return;
+            }
+            if(!/^[0-9a-zA-Z_-]{8,15}$/.test(pass)){
+                log("密碼不符合規則");
+                return;
+            }
+            if(pass!=pass1){
+                log("密碼輸入不一致");
+                return;
+            }
+            if(!/^\S+$/.test(nick)){
+                log("會員名不符合規則");
+                return;
+            }
             ajaxForm.action(this,{
                type:"post",
                 url:"action/signup.php",
