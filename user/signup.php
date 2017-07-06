@@ -46,7 +46,7 @@
                         <tr><td style="width:100px;">密碼:</td><td style="width:180px"><input type="password" name="pass"></td><td>限制(0-9,a-z,A-Z,_,-)組合,8至15個字符</td></tr>
                         <tr><td style="width:100px;">重複密碼:</td style="width:180px"><td><input type="password" name="pass1"><td></td></tr>
                         <tr><td style="width:100px;"></td><td colspan="2"><span class="err"></span></td></tr>
-                        <tr><td style="width:100px;"></td><td colspan="2"><input type="submit" class="btn1" value="提交"></td></tr>
+                        <tr><td style="width:100px;"></td><td colspan="2"><input type="submit" class="btn btn1" value="提交"></td></tr>
                     </tbody>
                 </table>
             </div>

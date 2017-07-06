@@ -41,7 +41,7 @@
                         <tr><td style="width:100px;">用戶名:</td><td><input type="text" name="user"></td></tr>
                         <tr><td style="width:100px;">密碼:</td><td><input type="password" name="pass"></td></tr>
                         <tr><td style="width:100px;"></td><td><span class="err"></span></td></tr>
-                        <tr><td style="width:100px;"></td><td><input type="submit" class="btn1" value="確認"></td></tr>
+                        <tr><td style="width:100px;"></td><td><input type="submit" class="btn btn1" value="確認"></td></tr>
                     </tbody>
                 </table>
             </div>

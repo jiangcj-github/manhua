@@ -42,7 +42,6 @@ $stmt->close();
         .bg-div{line-height:30px;}
         .bg-div label{cursor:pointer;}
         .bg-div .input-group{display:inline-flex;height:30px;}
-        .bg-div button{background:#A6CBE7;}
         .bg-div input[type=text]{border-color:#A6CBE7;border-right:none;width:300px;}
 
         .sm-div{}
@@ -77,7 +76,7 @@ $stmt->close();
             <table>
                 <tr>
                     <td><div><label><input type="checkbox" value="">彈幕</label></div></td>
-                    <td><div class="input-group"><input type="text" id="bg-text"><button id="bg-submit" class="btn2">提交</button></div></td>
+                    <td><div class="input-group"><input type="text" id="bg-text"><button id="bg-submit" class="btn btn2">提交</button></div></td>
                     <td><div class="err">dff</div></td>
                 </tr>
             </table>
@@ -85,7 +84,7 @@ $stmt->close();
 
         <div class="sec sm-div">
             <textarea id="cm-text"></textarea>
-            <button id="cm-submit" class="btn2 btn-lg">提交</button>
+            <button id="cm-submit" class="btn btn2 btn-lg">提交</button>
         </div>
 
         <div class="sec cm-div">
