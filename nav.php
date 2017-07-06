@@ -2,17 +2,12 @@
     session_start();
     $isLogin=isset($_SESSION["login"]);
 ?>
+<link href="/common/common.css" rel="stylesheet">
 <style>
-    body{margin:0;padding:0;background-color:#F7F6F2;font-family:"Tahoma";}
-    a{text-decoration:none;}
     .topBar{height:60px;background:#0F7884;color:#fff;}
     .topBar>.brand{font-weight: bold;font-size:40px;letter-spacing: 3px;}
     .topBar>a{display:inline-block;line-height:60px;color:#fff;padding:0 10px;}
     .menuBar{background-color:#B1D3E0;height:28px;color:#004c7d;line-height:28px;font-size:12px;padding:0 10px;}
-    .btn{-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;}
-    .btn1{border: 1px solid #c5abc0;display: inline-block;padding: 2px 10px;cursor: pointer;background: #A6CBE7;}
-    .btn1:not([disabled]):hover{border:1px solid #aba0a9;box-shadow: 0 0 1px #633359;text-shadow: 0 0 1px #c5abc0;}
-    .err{color:red;}
 </style>
 <div class="topBar">
     <a class="brand" href="#">網站標題</a>
