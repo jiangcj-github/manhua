@@ -36,7 +36,7 @@ if($pos<=0||$pos>=$duration){
 $conn = new mysqli($mysql["host"], $mysql["user"], $mysql["password"], $mysql["database"]);
 $conn->set_charset("utf8");
 //彈幕密度控制
-$speed=1;   //速度為: 1字符/s
+$speed=3;   //速度為: 1字符/s
 $numRow=5;  //彈道數目
 $stmt=$conn->prepare("
     delete from video_barrage 

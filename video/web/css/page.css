@@ -1,13 +1,3 @@
-
-.page{width:80%;margin:0 auto;padding:20px 0;}
-.page-2col{display:flex;min-width:1020px;}
-.page-2col>.left{flex-grow:1;border:1px solid #cfcfcf;}
-.page-2col>.right{margin-left:20px;width:200px;border:1px solid #cfcfcf;}
-
-.row{display:flex;margin:20px 0;padding:0 10px;}
-.col{width:20%;margin:0 10px;}
-.col>.col-img{width:100%;height:0;padding-bottom:67%;background-size:100% 100% !important;border:1px solid #cfcfcf;}
-
 .vpre{position:relative;}
 .vpre:before{
     background: url(../img/vpre.svg) no-repeat;
@@ -23,29 +13,18 @@
 }
 .vpre:hover:before{opacity:1;}
 .vpre:hover{cursor:pointer;}
-.vpre>img{width:100%;height:100%;}
+.vpre>img{width:100%;height:100%;border: 1px solid #e3e3e3;}
 .vpre>.label{
     position: absolute;
     bottom: 5px;
     left: 5px;
     z-index: 1000;
     font-size: 12px;
-    font-weight: bold;
-    background: #fff;
+    background: #333;
+    color:#ddd;
     padding: 3px 5px;
     opacity: 0.8;
     border-radius:3px;
 }
-
-.page-ctrl{padding:0 20px;text-align:right;}
-.page-ctrl>a{
-    display: inline-block;
-    padding: 5px 9px;
-    font-size: 12px;
-    background: #fff;
-    color: #666;
-    border: 1px solid #e6e6e6;
-}
-.page-ctrl>a:hover{color: #3e89fa;border: 1px solid #3e89fa;}
 
 

@@ -96,6 +96,9 @@ $result=$conn->query("
         vid INT NOT NULL,
         nick VARCHAR (255) NOT NULL,
         text TEXT NOT NULL,
+        suport INT DEFAULT 0,
+        object INT DEFAULT 0,
+        reply INT DEFAULT 0,
         time VARCHAR (255) NOT NULL,
         PRIMARY KEY (id)
     )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;;
@@ -104,6 +107,24 @@ if($result){
     echo "video_comment created"."<br>";
 }else{
     echo "video_comment created failed"."<br>";
+}
+
+//建video_reply表
+$result=$conn->query("
+    CREATE TABLE IF NOT EXISTS video_reply(
+        id INT NOT NULL AUTO_INCREMENT,
+        vid INT NOT NULL,
+        cid INT NOT NULL,
+        nick VARCHAR (255) NOT NULL,
+        text TEXT NOT NULL,
+        time VARCHAR (255) NOT NULL,
+        PRIMARY KEY (id)
+    )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;;
+");
+if($result){
+    echo "video_reply created"."<br>";
+}else{
+    echo "video_reply created failed"."<br>";
 }
 
 /**

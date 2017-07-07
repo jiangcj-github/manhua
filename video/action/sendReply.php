@@ -15,10 +15,11 @@ if(!isset($_SESSION["login"])){
 }
 $nick=$_SESSION["login"]["nick"];
 //參數檢查
-if(!isset($_REQUEST["vid"])||!isset($_REQUEST["text"])){
+if(!isset($_REQUEST["vid"])||!isset($_REQUEST["cid"])||!isset($_REQUEST["text"])){
     die_json(["msg"=>"缺少必需的參數"]);
 }
 $vid=$_REQUEST["vid"];
+$cid=$_REQUEST["cid"];
 $text=$_REQUEST["text"];
 $time=(new DateTime())->format("Y-m-d H:i:s");
 if(preg_match("/^\s*$/",$text)>0){
@@ -28,7 +29,7 @@ if(preg_match("/^\s*$/",$text)>0){
 $conn = new mysqli($mysql["host"], $mysql["user"], $mysql["password"], $mysql["database"]);
 $conn->set_charset("utf8");
 //插入評論
-$stmt=$conn->prepare("insert into video_comment(vid,nick,text,time) values(?,?,?,?)");
-$stmt->bind_param("isss",$vid,$nick,$text,$time);
+$stmt=$conn->prepare("insert into video_reply(vid,cid,nick,text,time) values(?,?,?,?,?)");
+$stmt->bind_param("iisss",$vid,$cid,$nick,$text,$time);
 $stmt->execute();
 die_json(["ok"=>"ok","data"=>""]);
