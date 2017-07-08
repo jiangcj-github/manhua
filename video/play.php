@@ -34,32 +34,35 @@ $stmt->close();
     <link href="web/videojs/video-js.css" rel="stylesheet">
     <link href="web/videojs/video-js-custom.css" rel="stylesheet">
     <link href="web/css/page.css" rel="stylesheet">
+    <link href="/common/honeySwitch/honeySwitch.css" rel="stylesheet">
     <script src="web/videojs/video.js"></script>
     <style>
         .page{width:80%;margin:20px auto;background:#fff;border:1px solid #ccc;}
-        .page.col2{display:flex;min-width:1020px;}
+        .page.col2{display:flex;min-width:1020px;max-width:1050px;}
         .page.col2>.left{flex-grow:1;}
         .page.col2>.right{border-left:1px solid #ccc;width:220px;}
 
         .sec{padding:20px;border-bottom:1px solid #ccc;}
 
-        .v-div{position:relative !important;width:700px;height:400px;}
+        .v-div{position:relative !important;height:400px;border-bottom:none;}
         .video-js{width:100%;height:100%;}
 
-        .bg-div{line-height:30px;}
-        .bg-div label{cursor:pointer;}
-        .bg-div .input-group{display:inline-flex;height:30px;}
-        .bg-div input[type=text]{border-color:#A6CBE7;border-right:none;width:300px;}
+        .bg-div{line-height: 30px;border-bottom: 1px solid #ccc;padding: 0 20px 20px 20px;margin-top: -10px;display:flex;}
+        .bg-div .bg-toggle{margin-right:10px;height:30px;}
+
+        .bg-div .input-group{display:inline-flex;height:30px;flex-grow:1;}
+        .bg-div input[type=text]{border-color:#A6CBE7;border-right:none;flex-grow:1;}
+        input[type=text]{padding:0 10px;}
 
         .sm-div{}
-        .sm-div textarea{display:block;resize:vertical;width:100%;min-height:100px;}
+        .sm-div textarea{outline:none;resize:vertical;width:100%;min-height:100px;box-sizing: border-box;margin-bottom:5px;padding:10px;}
 
         .cm-div{}
         .cm-div .li{display:flex;border:1px solid #e3e3e3;border-bottom:none;}
         .cm-div .li:nth-last-child(2){border-bottom:1px solid #e3e3e3;}
         .cm-div .li_l{width:130px;border-right:1px solid #e3e3e3;text-align:center;padding:10px 0;flex-shrink:0;}
         .cm-div .head{width:80px;height:80px;border:1px solid #41c7db;}
-        .cm-div .nick{font-size: 14px;line-height: 26px;text-overflow:ellipsis;color: darkgoldenrod;}
+        .cm-div .nick{font-size: 14px;line-height: 26px;text-overflow:ellipsis;color: darkgoldenrod;font-weight:bold;}
         .cm-div .li_r{flex-grow:1;padding:20px;}
         .cm-div .r_c{min-height:180px;}
         .cm-div .r_b{line-height: 20px;text-align: right;padding:10px 20px;}
@@ -74,7 +77,7 @@ $stmt->close();
         .cm-div .re_li_r_c .nick:after{content:"：";}
         .cm-div .re_li_r_b{line-height: 20px;text-align:right;color:gray;}
         .cm-div .re_sd{display:flex;height:30px;}
-        .cm-div .re_sd input{flex-grow:1;padding:0 10px;}
+        .cm-div .re_sd input{flex-grow:1;}
         .cm-div .re_sd button{flex-shrink:0;width:70px;}
 
         .cm-div .li-page{margin-top:10px;text-align:right;}
@@ -90,7 +93,7 @@ $stmt->close();
         .cm-div .li-page a.active{border:none;}
 
         .pane{padding:10px;border-bottom: 1px solid #ccc;}
-        .pane>h3{line-height:20px;padding:3px 5px;margin:0 0 3px 0;font-size:14px;}
+        .pane>h3{line-height:20px;padding:3px 5px;margin:0 0 3px 0;font-size:14px;color:#6f6f6f;}
         .pane>.item-v{margin:10px 0;width:185px;height:100px;}
         .pane>.item-a{line-height:26px;}
         .pane>.item-a:before{content:"»";}
@@ -120,18 +123,15 @@ $stmt->close();
                 </div>
                 -->
             </div>
+            <div class=" bg-div">
+                <div class="bg-toggle">
+                   <span class="switch-on" id="bg-toggle"></span>
+                </div>
+                <div class="input-group"><input type="text" id="bg-text" placeholder="說點什麼吧，不超過15個字">
+                    <button id="bg-submit" class="btn btn2">推送彈幕</button></div></td>
+            </div>
             <input type="hidden" id="v_id" value="<?php echo $id ?>">
             <input type="hidden" id="v_duration" value="<?php echo $duration ?>">
-
-            <div class="sec bg-div">
-                <table>
-                    <tr>
-                        <td><div><label><input type="checkbox" value="">彈幕</label></div></td>
-                        <td><div class="input-group"><input type="text" id="bg-text"><button id="bg-submit" class="btn btn2">提交</button></div></td>
-                        <td><div class="err">dff</div></td>
-                    </tr>
-                </table>
-            </div>
 
             <div class="sec sm-div">
                 <textarea id="cm-text"></textarea>
@@ -342,6 +342,7 @@ $stmt->close();
 
     <script src="web/js/page.js"></script>
     <script src="/common/template-web.js"></script>
+    <script src="/common/honeySwitch/honeySwitch.js"></script>
     <script id="cm-li" type="text/html">
         <div class="li">
             <div class="li_l">
@@ -406,6 +407,13 @@ $stmt->close();
             });
             this.on("timeupdate",function(){
                 $(".barg-div") && $(".barg-div>.path").css("left",-this.currentTime()*speed*16+"px");
+            });
+        });
+        $(function(){switchEvent("#bg-toggle",
+            function(){
+                $(".barg-div").show();
+            },function(){
+                $(".barg-div").hide();
             });
         });
         function log1(msg){

@@ -26,12 +26,12 @@
     ==<span>&nbsp;|&nbsp;</span>
     <?php
         if($isLogin){
-            echo "<a href='/user/signout.php'>登出</a>";
+            echo "<a href='/user/signout.php' target='_blank'>登出</a>";
         }else{
-            echo "<a href='/user/signin.php'>登錄</a>";
+            echo "<a href='/user/signin.php' target='_blank'>登錄</a>";
         }
     ?>
-    &nbsp;<a href="/user/signup.php">免費註冊</a>
+    &nbsp;<a href="/user/signup.php" target="_blank">免費註冊</a>
 </div>
 <script>var isLogin=<?php echo $isLogin?1:0 ?>;</script>
 <script src="/common/jquery-3.2.1.js"></script>
