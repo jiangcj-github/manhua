@@ -371,7 +371,7 @@ $stmt->close();
                     </div>
                     {{/each}}
                     <div class="re_sd" data-cid="{{cm.id}}">
-                        <input type="text" placeholder="說點什麼吧"><button class="btn btn2">回復</button>
+                        <input type="text" placeholder="說點什麼吧"><button class="btn btn2" onclick="sendReply(this)">回復</button>
                     </div>
                 </div>
             </div>
@@ -409,6 +409,7 @@ $stmt->close();
                 $(".barg-div") && $(".barg-div>.path").css("left",-this.currentTime()*speed*16+"px");
             });
         });
+        //barrage
         $(function(){switchEvent("#bg-toggle",
             function(){
                 $(".barg-div").show();
@@ -455,6 +456,7 @@ $stmt->close();
                 }
             });
         });
+        //comment
         function log2(msg){
             console.log(msg);
         }
@@ -484,7 +486,6 @@ $stmt->close();
                 }
             });
         });
-        //
         function loadComment(limit,offset){
             var vid=$("#v_id").val();
             ajaxForm.action(null,{
@@ -505,6 +506,28 @@ $stmt->close();
         $(function(){
             loadComment(10,0);
         });
+        //reply
+        function sendReply(btn){
+            var cid=$(btn).parents(".re_sd").data("cid");
+            var vid=$("#v_id").val();
+            var text=$(btn).parents(".rs_sd").find("input").val();
+            if(!isLogin){
+                log2("用戶未登錄");
+            }
+            if(/^\s*$/.test(text)){
+                log2("無效文本");
+            }
+            ajaxForm.action(btn,{
+                type:"post",
+                url:"action/sendReply.php",
+                data:{vid:vid,cid:cid,text:text},
+                success:function(data){
+                    if(data.ok){
+
+                    }
+                }
+            });
+        }
 </script>
 </body>
 </html>
