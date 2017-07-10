@@ -11,6 +11,7 @@
         .ip-sec>.info{padding:10px;}
         .login-sec{margin-top:10px;}
         .login-sec>.info{padding:10px;}
+        input[type=checkbox]{vertical-align:middle;}
     </style>
 </head>
 <body>
@@ -21,6 +22,7 @@
             <div class="info">
                 <table>
                     <tbody>
+                        <tr><td colspan="2"><span style="font-weight:bold">登錄操作，您的IP僅自己可見，我們不會記錄您的IP。<a href="#">詳細</a></span></td></tr>
                         <tr><td style="width:100px;">ip:</td><td><span id="ip"></span</td></tr>
                         <tr><td style="width:100px;">country:</td><td><span id="country"></span</td></tr>
                         <tr><td style="width:100px;">city:</td><td><span id="city"></span</td></tr>
@@ -38,8 +40,10 @@
                 <table>
                     <tbody>
                         <tr><td colspan="2"><span style="font-weight:bold;">提示：您的瀏覽器必須支持cookie，否則系統無法記錄登錄狀態。</span></td></tr>
+                        <tr><td colspan="2"><span style="font-weight:bold;">如果是您的私人設備，請選擇【自動登錄】以提高效率。如果是公共設備，請取消【自動登錄】以便保護您的隱私。<a href="#">詳細</a></span></td></tr>
                         <tr><td style="width:100px;">用戶名:</td><td><input type="text" name="user"></td></tr>
                         <tr><td style="width:100px;">密碼:</td><td><input type="password" name="pass"></td></tr>
+                        <tr><td style="width:100px;"></td><td><label style="cursor:pointer;"><input type="checkbox">自動登錄</label></td></tr>
                         <tr><td style="width:100px;"></td><td><span class="err"></span></td></tr>
                         <tr><td style="width:100px;"></td><td><input type="submit" class="btn btn1" value="確認"></td></tr>
                     </tbody>
@@ -72,8 +76,8 @@
                data:{user:user,pass:pass},
                success:function(data){
                    if(data.ok){
-                       alert("ok");
-                       setCookie("autosign",1,365*100);
+                       alert("SIGNIN OK");
+                       setCookie("autosign","auto",365*100);
                        setCookie("user",user,365*100);
                        setCookie("pass",pass,365*100);
                    }else if(data.msg){

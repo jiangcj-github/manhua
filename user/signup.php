@@ -22,6 +22,7 @@
             <div class="info">
                 <table>
                     <tbody>
+                        <tr><td colspan="2"><span style="font-weight:bold">我們會記錄您註冊時的IP，僅限於防止隨意註冊。除此之外，我們不會泄露您的IP地址。<a href="#">詳細</a></span></td></tr>
                         <tr><td style="width:100px;">ip:</td><td><span id="ip"></span</td></tr>
                         <tr><td style="width:100px;">country:</td><td><span id="country"></span</td></tr>
                         <tr><td style="width:100px;">city:</td><td><span id="city"></span</td></tr>
