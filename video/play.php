@@ -352,24 +352,24 @@ $stmt->close();
             <div class="li_r">
                 <div class="r_c">{{cm.text}}</div>
                 <div class="r_b">
-                    <span class="label1">{{index}}樓</span>
+                    <span class="label1">{{cm.count}}樓</span>
                     <span>{{cm.time}}</span>
                     <span><a href="#">頂[{{cm.suport}}]</a></span>
                     <span><a href="#">踩[{{cm.object}}]</a></span>
                     <span><a href="#">回復[{{cm.reply.length}}]</a></span>
                 </div>
                 <div class="r_re">
-                    {{each cm.reply}}
+                    <% for(var i=0;i<cm.reply.length;i++){ %>
                     <div class="re_li">
                         <div class="re_li_l">
                             <img src="web/1.png">
                         </div>
                         <div class="re_li_r">
-                            <div class="re_li_r_c"><span class="nick">{{value.nick}}</span>{{value.text}}</div>
-                            <div class="re_li_r_b">{{value.time}}</div>
+                            <div class="re_li_r_c"><span class="nick">{{cm.reply[i].nick}}</span>{{cm.reply[i].text}}</div>
+                            <div class="re_li_r_b">{{cm.reply[i].time}}</div>
                         </div>
                     </div>
-                    {{/each}}
+                    <% } %>
                     <div class="re_sd" data-cid="{{cm.id}}">
                         <input type="text" placeholder="說點什麼吧"><button class="btn btn2" onclick="sendReply(this)">回復</button>
                     </div>
@@ -496,7 +496,7 @@ $stmt->close();
                     if(data.ok){
                         var data=data.data;
                         for(var i=0;i<data.length;i++){
-                            var html=template("cm-id",{cm:data[i],index:limit+i+1});
+                            var html=template("cm-li",{cm:data[i]});
                             $(".li-page").before(html);
                         }
                     }
@@ -510,7 +510,7 @@ $stmt->close();
         function sendReply(btn){
             var cid=$(btn).parents(".re_sd").data("cid");
             var vid=$("#v_id").val();
-            var text=$(btn).parents(".rs_sd").find("input").val();
+            var text=$(btn).parents(".re_sd").find("input").val();
             if(!isLogin){
                 log2("用戶未登錄");
             }

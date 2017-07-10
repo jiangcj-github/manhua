@@ -39,9 +39,9 @@ if ($result){
  */
 $result=$conn->query("
     CREATE TABLE IF NOT EXISTS comment (
-      id bigint(64) unsigned zerofill NOT NULL AUTO_INCREMENT,
-      mid bigint(64) NOT NULL,
-      chapter bigint(64) NOT NULL,
+      id int(32) unsigned zerofill NOT NULL AUTO_INCREMENT,
+      mid int(32) NOT NULL,
+      chapter int(32) NOT NULL,
       user varchar(255) NOT NULL,
       date varchar(255) NOT NULL,
       text text NOT NULL,
@@ -60,7 +60,7 @@ if ($result){
  */
 $result=$conn->query("
     CREATE TABLE IF NOT EXISTS units(
-        id bigint(64) NOT NULL AUTO_INCREMENT,
+        id int(32) NOT NULL AUTO_INCREMENT,
         domain VARCHAR (255) NOT NULL,
         ip VARCHAR (255) NOT NULL,
         flag INT NOT NULL,
@@ -76,10 +76,10 @@ if($result){
 //建video表
 $result=$conn->query("
     CREATE TABLE IF NOT EXISTS video(
-        id bigint(64) NOT NULL AUTO_INCREMENT,
+        id int(32) NOT NULL AUTO_INCREMENT,
         filename VARCHAR (255) NOT NULL,
         duration VARCHAR (255) NOT NULL,
-        unit  bigint(64) NOT NULL,
+        unit  int(32) NOT NULL,
         PRIMARY KEY (id)
     )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;;
 ");
@@ -92,13 +92,14 @@ if($result){
 //建video_comment表
 $result=$conn->query("
     CREATE TABLE IF NOT EXISTS video_comment(
-        id bigint(64) NOT NULL AUTO_INCREMENT,
-        vid bigint(64) NOT NULL,
+        id int(32) NOT NULL AUTO_INCREMENT,
+        vid int(32) NOT NULL,
         nick VARCHAR (255) NOT NULL,
         text TEXT NOT NULL,
+        count int(32) NOT NULL,
         suport INT DEFAULT 0,
         object INT DEFAULT 0,
-        reply bigint(64) DEFAULT 0,
+        reply int(32) DEFAULT 0,
         time VARCHAR (255) NOT NULL,
         PRIMARY KEY (id)
     )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;;
@@ -112,9 +113,9 @@ if($result){
 //建video_reply表
 $result=$conn->query("
     CREATE TABLE IF NOT EXISTS video_reply(
-        id bigint(64) NOT NULL AUTO_INCREMENT,
-        vid bigint(64) NOT NULL,
-        cid bigint(64) NOT NULL,
+        id int(32) NOT NULL AUTO_INCREMENT,
+        vid int(32) NOT NULL,
+        cid int(32) NOT NULL,
         nick VARCHAR (255) NOT NULL,
         text TEXT NOT NULL,
         time VARCHAR (255) NOT NULL,
@@ -137,8 +138,8 @@ if($result){
  */
 $result=$conn->query("
     CREATE TABLE IF NOT EXISTS video_barrage(
-        id bigint(64) NOT NULL AUTO_INCREMENT,
-        vid bigint(64) NOT NULL,
+        id int(32) NOT NULL AUTO_INCREMENT,
+        vid int(32) NOT NULL,
         nick VARCHAR (255) NOT NULL,
         msg VARCHAR (255) NOT NULL,
         pos INT NOT NULL,

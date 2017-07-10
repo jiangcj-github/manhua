@@ -27,8 +27,16 @@ if(preg_match("/^\s*$/",$text)>0){
 //數據庫操作
 $conn = new mysqli($mysql["host"], $mysql["user"], $mysql["password"], $mysql["database"]);
 $conn->set_charset("utf8");
+//
+$stmt=$conn->prepare("select count(id) as count from video_comment where vid=?");
+$stmt->bind_param("i",$vid);
+$stmt->execute();
+$stmt->bind_result($count);
+$stmt->fetch();
+$stmt->close();
+$count++;
 //插入評論
-$stmt=$conn->prepare("insert into video_comment(vid,nick,text,time) values(?,?,?,?)");
-$stmt->bind_param("isss",$vid,$nick,$text,$time);
+$stmt=$conn->prepare("insert into video_comment(vid,nick,text,count,time) values(?,?,?,?,?)");
+$stmt->bind_param("issis",$vid,$nick,$text,$count,$time);
 $stmt->execute();
 die_json(["ok"=>"ok","data"=>""]);
