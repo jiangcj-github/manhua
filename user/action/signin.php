@@ -19,7 +19,7 @@ $pass=$_REQUEST["pass"];
 $conn = new mysqli($mysql["host"], $mysql["user"], $mysql["password"], $mysql["database"]);
 $conn->set_charset("utf8");
 //登錄檢查
-$stmt=$conn->prepare("select nick,ip,country,city,time,lastLogin from user where user=? and pass=?");
+$stmt=$conn->prepare("select nick,ip,country,city,time,lastLogin from user where user=? and (pass)=?");
 $stmt->bind_param("ss",$user,$pass);
 $stmt->execute();
 $stmt->bind_result($nick,$ip,$country,$city,$time,$lastLogin);

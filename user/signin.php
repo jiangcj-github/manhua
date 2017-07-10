@@ -43,7 +43,7 @@
                         <tr><td colspan="2"><span style="font-weight:bold;">如果是您的私人設備，請選擇【自動登錄】以提高效率。如果是公共設備，請取消【自動登錄】以便保護您的隱私。<a href="#">詳細</a></span></td></tr>
                         <tr><td style="width:100px;">用戶名:</td><td><input type="text" name="user"></td></tr>
                         <tr><td style="width:100px;">密碼:</td><td><input type="password" name="pass"></td></tr>
-                        <tr><td style="width:100px;"></td><td><label style="cursor:pointer;"><input type="checkbox">自動登錄</label></td></tr>
+                        <tr><td style="width:100px;"></td><td><label style="cursor:pointer;"><input type="checkbox" name="autosign">自動登錄</label></td></tr>
                         <tr><td style="width:100px;"></td><td><span class="err"></span></td></tr>
                         <tr><td style="width:100px;"></td><td><input type="submit" class="btn btn1" value="確認"></td></tr>
                     </tbody>
@@ -66,6 +66,7 @@
         $("input[type=submit]").click(function(){
             var user=$("[name=user]").val();
             var pass=$("[name=pass]").val();
+            var autosign=$("[name=autosign]").is(":checked");
             if(!/^[0-9a-zA-Z_-]{5,15}$/.test(user)||!/^[0-9a-zA-Z_-]{8,15}$/.test(pass)){
                 log("用戶名或密碼不正確");
                 return;
@@ -77,9 +78,11 @@
                success:function(data){
                    if(data.ok){
                        alert("SIGNIN OK");
-                       setCookie("autosign","auto",365*100);
-                       setCookie("user",user,365*100);
-                       setCookie("pass",pass,365*100);
+                       if(autosign){
+                           setCookie("autosign","auto",365*100);
+                           setCookie("user",user,365*100);
+                           setCookie("pass",pass,365*100);
+                       }
                    }else if(data.msg){
                        log(data.msg);
                    }else{

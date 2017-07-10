@@ -29,6 +29,7 @@ if(mb_strlen($msg)<=0||mb_strlen($msg)>15){
 if(preg_match("/^\s*$/",$msg)>0){
     die_json(["msg"=>"無效文本"]);
 }
+//[0,duration]為有效時間
 if($pos<=0||$pos>=$duration){
     die_json(["msg"=>"無效時間"]);
 }
@@ -43,13 +44,15 @@ $stmt=$conn->prepare("
     where id in (
         select id from (
               select id from video_barrage 
-              where vid = ? and pos < ? and ceil(pos + CHAR_LENGTH(msg) / ?) > ?
-              order by id desc
-              limit 18446744073709551615 offset 5
+              where vid = ? and pos <= ? and ceil(pos + CHAR_LENGTH(msg) / ?) >=?
+              order by CHAR_LENGTH(msg) asc
+              limit 18446744073709551615 offset ?
         ) as tmp
     )
 ");
-$stmt->bind_param("iiii",$vid,$pos,$speed,$numRow);
+$maxpos=ceil($pos + mb_strlen($msg)/$speed);
+$offset=$numRow-1;
+$stmt->bind_param("iiiii",$vid,$maxpos,$speed,$pos,$offset);
 $stmt->execute();
 //插入彈幕
 $stmt=$conn->prepare("insert into video_barrage(vid,nick,msg,pos) values(?,?,?,?)");
