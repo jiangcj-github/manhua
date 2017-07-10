@@ -36,3 +36,17 @@
 <script>var isLogin=<?php echo $isLogin?1:0 ?>;</script>
 <script src="/common/jquery-3.2.1.js"></script>
 <script src="/common/common.js"></script>
+<script>
+    if(!isLogin && getCookie("autosign")){
+        ajaxForm.action(null,{
+            type:"post",
+            url:"/user/action/signin.php",
+            data:{user:getCookie("user"),pass:getCookie("pass")},
+            success:function(data){
+                if(data.ok){
+                    location.reload();
+                }
+            }
+        });
+    }
+</script>

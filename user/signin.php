@@ -73,6 +73,9 @@
                success:function(data){
                    if(data.ok){
                        alert("ok");
+                       setCookie("autosign",1,365*100);
+                       setCookie("user",user,365*100);
+                       setCookie("pass",pass,365*100);
                    }else if(data.msg){
                        log(data.msg);
                    }else{
