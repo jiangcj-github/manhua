@@ -134,7 +134,7 @@ if($result){
  * pos以秒為單位
  * --------------------------------------------
  * 假設每秒s個字符,有m個彈道
- * 則插入條件為: count(insertPos)<=m且pos<insertPos<pos+len/s
+ * 則插入條件為: count(insertPos)<=m且insertPos+insertLen/s>=pos,insertPos<=pos+len/s
  */
 $result=$conn->query("
     CREATE TABLE IF NOT EXISTS video_barrage(
@@ -150,4 +150,47 @@ if($result){
     echo "video_barrage created"."<br>";
 }else{
     echo "video_barrage created failed"."<br>";
+}
+
+/**
+ * 建user_strict_v表
+ * 發送barrage間隔時間1分鐘
+ * 發送comment間隔時間10分鐘
+ * 發送reply間隔時間10分鐘
+ */
+$result=$conn->query("
+    CREATE TABLE IF NOT EXISTS user_strict_v(
+        user VARCHAR (255) NOT NULL,
+        barrage VARCHAR (255),
+        comment VARCHAR (255),
+        reply VARCHAR (255),
+        PRIMARY KEY (user)
+    )ENGINE=InnoDB DEFAULT CHARSET=utf8;;
+");
+if($result){
+    echo "user_strict_v created"."<br>";
+}else{
+    echo "user_strict_v created failed"."<br>";
+}
+
+/**
+ * 建user_strict_cm表
+ * 對同一個cid
+ * 發送suport,object間隔時間24小時
+ * 對不同cid
+ * 無間隔時間,但24小時之內各限20次。
+ */
+$result=$conn->query("
+    CREATE TABLE IF NOT EXISTS user_strict_v_cm(
+        user VARCHAR (255) NOT NULL,
+        cid int(32) NOT NULL,
+        suport VARCHAR (255),
+        object VARCHAR (255),
+        PRIMARY KEY (user,cid)
+    )ENGINE=InnoDB DEFAULT CHARSET=utf8;;
+");
+if($result){
+    echo "user_strict_v_cm created"."<br>";
+}else{
+    echo "user_strict_v_cm created failed"."<br>";
 }

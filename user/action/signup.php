@@ -8,6 +8,10 @@ require_once("../../php/util.php");
  *  異常:其他
  */
 
+//登錄狀態
+if(isset($_SESSION["login"])){
+    die_json(["msg"=>"頁面已過期"]);
+}
 //參數檢查
 if(!isset($_REQUEST["user"])||!isset($_REQUEST["nick"])||!isset($_REQUEST["pass"])||!isset($_REQUEST["pass1"])) {
     die_json(["msg"=>"參數不為空"]);
@@ -68,7 +72,7 @@ $stmt->close();
 //寫數據庫
 $stmt=$conn->prepare("insert into user(user,nick,pass,ip,country,city,time) values(?,?,?,?,?,?,?)");
 $time=(new DateTime())->format("Y-m-d H:i:s");
-$stmt->bind_param("sssssss",$user,$nick,$pass,$ip,$country,$city,$time);
+$stmt->bind_param("sssssss",$user,$nick,md5($pass),$ip,$country,$city,$time);
 $stmt->execute();
 $stmt->close();
 //註冊成功

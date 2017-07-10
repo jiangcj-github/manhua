@@ -16,6 +16,11 @@
 </head>
 <body>
     <?php include("../nav.php") ?>
+    <?php
+    if($isLogin){
+        die("已登錄用戶：".$_SESSION["login"]["nick"]);
+    }
+    ?>
     <div class="page">
         <div class="sec ip-sec">
             <h3>網路信息</h3>

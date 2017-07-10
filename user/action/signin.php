@@ -9,20 +9,36 @@ require_once("../../php/util.php");
  */
 
 session_start();
+//登錄狀態
+if(isset($_SESSION["login"])){
+    die_json(["msg"=>"頁面已過期"]);
+}
 //參數檢查
 if(!isset($_REQUEST["user"])||!isset($_REQUEST["pass"])){
     die_json(["msg"=>"用戶名或密碼為空"]);
 }
 $user=$_REQUEST["user"];
 $pass=$_REQUEST["pass"];
+$ip="未知";
+$country="未知";
+$city="未知";
+if(isset($_REQUEST["ip"])){
+    $ip=$_REQUEST["ip"];
+}
+if(isset($_REQUEST["country"])){
+    $country=$_REQUEST["country"];
+}
+if(isset($_REQUEST["city"])){
+    $city=$_REQUEST["city"];
+}
 //數據庫
 $conn = new mysqli($mysql["host"], $mysql["user"], $mysql["password"], $mysql["database"]);
 $conn->set_charset("utf8");
 //登錄檢查
-$stmt=$conn->prepare("select nick,ip,country,city,time,lastLogin from user where user=? and (pass)=?");
+$stmt=$conn->prepare("select nick,time,lastLogin from user where user=? and pass=?");
 $stmt->bind_param("ss",$user,$pass);
 $stmt->execute();
-$stmt->bind_result($nick,$ip,$country,$city,$time,$lastLogin);
+$stmt->bind_result($nick,$time,$lastLogin);
 if(!$stmt->fetch()){
     die_json(["msg"=>"用戶名或密碼不正確"]);
 }
