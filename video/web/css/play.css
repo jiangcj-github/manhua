@@ -31,6 +31,7 @@ input[type=text]{padding:0 10px;}
 .cm-div .r_b span{margin-left:3px;color:gray;}
 
 .cm-div .r_re{border: 1px solid #e3e3e3;background:#FFFAFA;}
+.cm-div .r_re.hide{display:none;}
 .cm-div .re_li{border-bottom:1px solid #e3e3e3;min-height:60px;display:flex;}
 .cm-div .re_li_l{flex-shrink:0;text-align:center;padding:10px;}
 .cm-div .re_li_l img{width:48px;height:48px;border:1px solid #e3e3e3;}
@@ -38,6 +39,7 @@ input[type=text]{padding:0 10px;}
 .cm-div .re_li_r_c{}
 .cm-div .re_li_r_c .nick:after{content:"：";}
 .cm-div .re_li_r_b{line-height: 20px;text-align:right;color:gray;}
+.cm-div .re_ctrl{padding:10px;}
 .cm-div .re_sd{display:flex;height:30px;}
 .cm-div .re_sd input{flex-grow:1;}
 .cm-div .re_sd button{flex-shrink:0;width:70px;}

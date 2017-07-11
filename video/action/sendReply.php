@@ -52,4 +52,4 @@ $stri_time=(new DateTime())->format("Y-m-d H:i:s");
 $stmt->bind_param("sss",$nick,$stri_time,$stri_time);
 $stmt->execute();
 $stmt->close();
-die_json(["ok"=>"ok","data"=>""]);
+die_json(["ok"=>"ok","data"=>["nick"=>$nick,"text"=>$text,"time"=>$time]]);

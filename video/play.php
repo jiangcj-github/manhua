@@ -82,7 +82,7 @@ $stmt->close();
                             <span><a href="#">踩[2]</a></span>
                             <span><a href="#">回復[4]</a></span>
                         </div>
-                        <div class="r_re">
+                        <div class="r_re" data-cid="">
                             <div class="re_li">
                                 <div class="re_li_l">
                                     <img src="web/1.png">
@@ -113,108 +113,8 @@ $stmt->close();
                                 </div>
 
                             </div>
-                            <div class="re_sd" data-cid="">
+                            <div class="re_sd">
                                 <input type="text" placeholder="說點什麼吧"><button class="btn btn2">回復</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="li">
-                    <div class="li_l">
-                        <img class="head" src="web/1.png">
-                        <div class="nick">林打開的</div>
-                    </div>
-                    <div class="li_r">
-                        <div class="r_c">
-                            还有一点，我觉得他也是在保护乔，接下去接的这部剧不是爱情剧，而是硬汉电影，这样大家也不会在乔妹和下个女主间有争议，关键同是演军人！
-                        </div>
-                        <div class="r_b">
-                            <span class="label1">21樓</span>
-                            <span>2012-12-01 23:23:33</span>
-                            <span><a href="#">頂[0]</a></span>
-                            <span><a href="#">踩[2]</a></span>
-                            <span><a href="#">回復[4]</a></span>
-                        </div>
-                        <div class="r_re">
-                            <div class="re_li">
-                                <div class="re_li_l">
-                                    <img src="web/1.png">
-                                </div>
-                                <div class="re_li_r">
-                                    <div class="re_li_r_c"><span class="nick">林打開</span>这个要解释一下这个要解释一下这个要解释一下这个要解释一下这个要解释一下这个要解释一下这个要解释一下，小宋先接的电影再接的剧</div>
-                                    <div class="re_li_r_b">1222-22-32 33:43:12</div>
-                                </div>
-
-                            </div>
-                            <div class="re_li">
-                                <div class="re_li_l">
-                                    <img src="web/1.png">
-                                </div>
-                                <div class="re_li_r">
-                                    <div class="re_li_r_c"><span class="nick">林打開</span>这个要解释一下这个要解释一下这个要解释一下这个要解释一下这个要解释一下这个要解释一下这个要解释一下，小宋先接的电影再接的剧</div>
-                                    <div class="re_li_r_b">1222-22-32 33:43:12</div>
-                                </div>
-
-                            </div>
-                            <div class="re_li">
-                                <div class="re_li_l">
-                                    <img src="web/1.png">
-                                </div>
-                                <div class="re_li_r">
-                                    <div class="re_li_r_c"><span class="nick">林打開</span>这个要解释一下这个要解释一下这个要解释一下这个要解释一下这个要解释一下这个要解释一下这个要解释一下，小宋先接的电影再接的剧</div>
-                                    <div class="re_li_r_b">1222-22-32 33:43:12</div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="li">
-                    <div class="li_l">
-                        <img class="head" src="web/1.png">
-                        <div class="nick">林打開的</div>
-                    </div>
-                    <div class="li_r">
-                        <div class="r_c">
-                            还有一点，我觉得他也是在保护乔，接下去接的这部剧不是爱情剧，而是硬汉电影，这样大家也不会在乔妹和下个女主间有争议，关键同是演军人！
-                        </div>
-                        <div class="r_b">
-                            <span class="label1">21樓</span>
-                            <span>2012-12-01 23:23:33</span>
-                            <span><a href="#">頂[0]</a></span>
-                            <span><a href="#">踩[2]</a></span>
-                            <span><a href="#">回復[4]</a></span>
-                        </div>
-                        <div class="r_re">
-                            <div class="re_li">
-                                <div class="re_li_l">
-                                    <img src="web/1.png">
-                                </div>
-                                <div class="re_li_r">
-                                    <div class="re_li_r_c"><span class="nick">林打開</span>这个要解释一下这个要解释一下这个要解释一下这个要解释一下这个要解释一下这个要解释一下这个要解释一下，小宋先接的电影再接的剧</div>
-                                    <div class="re_li_r_b">1222-22-32 33:43:12</div>
-                                </div>
-
-                            </div>
-                            <div class="re_li">
-                                <div class="re_li_l">
-                                    <img src="web/1.png">
-                                </div>
-                                <div class="re_li_r">
-                                    <div class="re_li_r_c"><span class="nick">林打開</span>这个要解释一下这个要解释一下这个要解释一下这个要解释一下这个要解释一下这个要解释一下这个要解释一下，小宋先接的电影再接的剧</div>
-                                    <div class="re_li_r_b">1222-22-32 33:43:12</div>
-                                </div>
-
-                            </div>
-                            <div class="re_li">
-                                <div class="re_li_l">
-                                    <img src="web/1.png">
-                                </div>
-                                <div class="re_li_r">
-                                    <div class="re_li_r_c"><span class="nick">林打開</span>这个要解释一下这个要解释一下这个要解释一下这个要解释一下这个要解释一下这个要解释一下这个要解释一下，小宋先接的电影再接的剧</div>
-                                    <div class="re_li_r_b">1222-22-32 33:43:12</div>
-                                </div>
-
                             </div>
                         </div>
                     </div>
@@ -282,24 +182,42 @@ $stmt->close();
                     <span>{{cm.time}}</span>
                     <span><a href="#">頂[{{cm.suport}}]</a></span>
                     <span><a href="#">踩[{{cm.object}}]</a></span>
-                    <span><a href="#">回復[{{cm.reply.length}}]</a></span>
+                    <span><a href="javascript:void(0)" onclick="toggleRe(this)">回復[{{cm.reply.length}}]</a></span>
                 </div>
-                <div class="r_re">
+                <div class="r_re" data-cid="{{cm.id}}">
                     <% for(var i=0;i<cm.reply.length;i++){ %>
-                    <div class="re_li">
-                        <div class="re_li_l">
-                            <img src="web/1.png">
+                        <% if(i>=3){ %><div class="re_li" style="display:none">
+                        <% }else{ %><div class="re_li"><% } %>
+                            <div class="re_li_l">
+                                <img src="web/1.png">
+                            </div>
+                            <div class="re_li_r">
+                                <div class="re_li_r_c"><span class="nick">{{cm.reply[i].nick}}</span>{{cm.reply[i].text}}</div>
+                                <div class="re_li_r_b">{{cm.reply[i].time}}</div>
+                            </div>
                         </div>
-                        <div class="re_li_r">
-                            <div class="re_li_r_c"><span class="nick">{{cm.reply[i].nick}}</span>{{cm.reply[i].text}}</div>
-                            <div class="re_li_r_b">{{cm.reply[i].time}}</div>
-                        </div>
-                    </div>
                     <% } %>
-                    <div class="re_sd" data-cid="{{cm.id}}">
-                        <input type="text" placeholder="說點什麼吧"><button class="btn btn2" onclick="sendReply(this)">回復</button>
+                    <div class="re-insert" style="height:0"></div>
+                    <% if(cm.reply.length>3){ %>
+                        <div class="re_ctrl"><span more>隱藏({{cm.reply.length-3}})項</span>&nbsp;
+                            <a href="javascript:void(0);" onclick="moreRe(this)" more>展開</a>
+                            <a href="javascript:void(0);" onclick="lessRe(this)" less style="display:none;">收起</a></div>
+                    <% } %>
+                    <div class="re_sd">
+                        <input type="text" placeholder="說點什麼吧"><button class="btn btn2" onclick="sendRe(this)">回復</button>
                     </div>
                 </div>
+            </div>
+        </div>
+    </script>
+    <script id="re-li" type="text/html">
+        <div class="re_li">
+            <div class="re_li_l">
+                <img src="web/1.png">
+            </div>
+            <div class="re_li_r">
+                <div class="re_li_r_c"><span class="nick">{{reply.nick}}</span>{{reply.text}}</div>
+                <div class="re_li_r_b">{{reply.time}}</div>
             </div>
         </div>
     </script>
