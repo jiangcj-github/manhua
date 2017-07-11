@@ -36,6 +36,19 @@ if($pos<=0||$pos>=$duration){
 //數據庫操作
 $conn = new mysqli($mysql["host"], $mysql["user"], $mysql["password"], $mysql["database"]);
 $conn->set_charset("utf8");
+//時間間隔檢查
+$stmt=$conn->prepare("select barrage from user_strict_v where nick=?");
+$stmt->bind_param("s",$nick);
+$stmt->execute();
+$stmt->bind_result($stri_barrage);
+if( $stmt->fetch()&& $stri_barrage){
+    $cur_sec=(new DateTime())->getTimestamp();
+    $stri_sec=DateTime::createFromFormat("Y-m-d H:i:s",$stri_barrage)->getTimestamp();
+    if($cur_sec-$stri_sec<60){
+        die_json(["msg"=>"操作太頻繁了，請等待60秒"]);
+    }
+}
+$stmt->close();
 //彈幕密度控制
 $speed=3;   //速度為: 1字符/s
 $numRow=5;  //彈道數目
@@ -54,8 +67,15 @@ $maxpos=ceil($pos + mb_strlen($msg)/$speed);
 $offset=$numRow-1;
 $stmt->bind_param("iiiii",$vid,$maxpos,$speed,$pos,$offset);
 $stmt->execute();
+$stmt->close();
 //插入彈幕
 $stmt=$conn->prepare("insert into video_barrage(vid,nick,msg,pos) values(?,?,?,?)");
 $stmt->bind_param("issi",$vid,$nick,$msg,$pos);
+$stmt->execute();
+$stmt->close();
+//記錄操作時間
+$stmt=$conn->prepare("insert into user_strict_v(nick,barrage) values(?,?) ON DUPLICATE KEY update barrage=?");
+$stri_time=(new DateTime())->format("Y-m-d H:i:s");
+$stmt->bind_param("sss",$nick,$stri_time,$stri_time);
 $stmt->execute();
 die_json(["ok"=>"ok","data"=>""]);

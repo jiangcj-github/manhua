@@ -154,17 +154,17 @@ if($result){
 
 /**
  * 建user_strict_v表
- * 發送barrage間隔時間1分鐘
- * 發送comment間隔時間10分鐘
- * 發送reply間隔時間10分鐘
+ * 發送barrage間隔時間60秒
+ * 發送comment間隔時間600秒
+ * 發送reply間隔時間600秒
  */
 $result=$conn->query("
     CREATE TABLE IF NOT EXISTS user_strict_v(
-        user VARCHAR (255) NOT NULL,
+        nick VARCHAR (255) NOT NULL,
         barrage VARCHAR (255),
         comment VARCHAR (255),
         reply VARCHAR (255),
-        PRIMARY KEY (user)
+        PRIMARY KEY (nick)
     )ENGINE=InnoDB DEFAULT CHARSET=utf8;;
 ");
 if($result){
@@ -176,17 +176,17 @@ if($result){
 /**
  * 建user_strict_cm表
  * 對同一個cid
- * 發送suport,object間隔時間24小時
+ * 發送suport,object間隔時間24*60*60秒
  * 對不同cid
- * 無間隔時間,但24小時之內各限20次。
+ * 無間隔時間,但24*60*60秒之內各限20次。
  */
 $result=$conn->query("
     CREATE TABLE IF NOT EXISTS user_strict_v_cm(
-        user VARCHAR (255) NOT NULL,
+        nick VARCHAR (255) NOT NULL,
         cid int(32) NOT NULL,
         suport VARCHAR (255),
         object VARCHAR (255),
-        PRIMARY KEY (user,cid)
+        PRIMARY KEY (nick,cid)
     )ENGINE=InnoDB DEFAULT CHARSET=utf8;;
 ");
 if($result){
