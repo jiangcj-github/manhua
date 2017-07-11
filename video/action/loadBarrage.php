@@ -30,4 +30,5 @@ $stmt->bind_param("iii",$vid,$limit,$offset);
 $stmt->execute();
 $result=$stmt->get_result();
 $data=$result->fetch_all(MYSQLI_ASSOC);
+$stmt->close();
 die_json(["ok"=>"ok","data"=>$data]);

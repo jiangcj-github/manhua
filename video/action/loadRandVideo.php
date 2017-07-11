@@ -22,4 +22,5 @@ $stmt->bind_param("i",$limit);
 $stmt->execute();
 $result=$stmt->get_result();
 $data=$result->fetch_all(MYSQLI_ASSOC);
+$stmt->close();
 die_json(["ok"=>"ok","data"=>$data]);

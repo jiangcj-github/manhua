@@ -40,12 +40,12 @@ $conn->set_charset("utf8");
 $stmt=$conn->prepare("select barrage from user_strict_v where nick=?");
 $stmt->bind_param("s",$nick);
 $stmt->execute();
-$stmt->bind_result($stri_barrage);
-if( $stmt->fetch()&& $stri_barrage){
+$stmt->bind_result($stri_sec);
+if( $stmt->fetch()&& $stri_sec){
     $cur_sec=(new DateTime())->getTimestamp();
-    $stri_sec=DateTime::createFromFormat("Y-m-d H:i:s",$stri_barrage)->getTimestamp();
+    $stri_sec=DateTime::createFromFormat("Y-m-d H:i:s",$stri_sec)->getTimestamp();
     if($cur_sec-$stri_sec<60){
-        die_json(["msg"=>"操作太頻繁了，請等待60秒"]);
+        die_json(["msg"=>"操作太頻繁了，需等待".(60-$cur_sec+$stri_sec)."秒"]);
     }
 }
 $stmt->close();
@@ -78,4 +78,5 @@ $stmt=$conn->prepare("insert into user_strict_v(nick,barrage) values(?,?) ON DUP
 $stri_time=(new DateTime())->format("Y-m-d H:i:s");
 $stmt->bind_param("sss",$nick,$stri_time,$stri_time);
 $stmt->execute();
+$stmt->close();
 die_json(["ok"=>"ok","data"=>""]);

@@ -155,8 +155,8 @@ if($result){
 /**
  * 建user_strict_v表
  * 發送barrage間隔時間60秒
- * 發送comment間隔時間600秒
- * 發送reply間隔時間600秒
+ * 發送comment間隔時間300秒
+ * 發送reply間隔時間120秒
  */
 $result=$conn->query("
     CREATE TABLE IF NOT EXISTS user_strict_v(
