@@ -1,3 +1,7 @@
+/**
+ * play.js
+ * --------------------------------------------------------------------------------------------------------------------
+ */
 var vid=$("#v_id").val();
 var bgSpeed=3;
 var player = videojs("v1",{}, function(){
@@ -28,7 +32,11 @@ var player = videojs("v1",{}, function(){
         $(".barg-div") && $(".barg-div>.path").css("left",-this.currentTime()*bgSpeed*16+"px");
     });
 });
-//barrage
+
+/**
+ * barrage Manager
+ * --------------------------------------------------------------------------------------------------------------------
+ */
 var barrage={};
 barrage.sendBtn=$("#bg-submit")[0];
 barrage.sendInput=$("#bg-text")[0];
@@ -98,13 +106,19 @@ var bgTimeout=function(sec){
         setTimeout(bgTimeout,1000,sec-1);
     }
 };
+
 //init
 $(function(){
     barrage.init();
     comment.init();
 });
-//comment
+
+/*
+ * comment Manager
+ * ------------------------------------------------------------------------------------------------------------------
+ */
 var comment={};
+var climit=10;
 comment.sendBtn=$("#cm-submit")[0];
 comment.sendInput=$("#cm-text")[0];
 comment.log=function(msg){
@@ -113,7 +127,7 @@ comment.log=function(msg){
 comment.init=function(){
     var _this=this;
     $(_this.sendBtn).click(function(){_this.send();});
-    _this.load(10,0);
+    _this.load(climit,0);
 };
 comment.send=function(){
     var _this=this;
@@ -163,7 +177,9 @@ comment.load=function(limit,offset){
         }
     });
 };
-comment.getReplyBtn=function(){return $(".re_sd").find("button");};
+comment.getReplyBtn=function(){
+    return $(".re_sd").find("button");
+};
 var cmTimeout=function(sec){
     if(sec==0){
         $(comment.sendBtn).attr("disabled",false).text("提交");
@@ -175,6 +191,7 @@ var cmTimeout=function(sec){
 
 /**
  * Reply Manager
+ * --------------------------------------------------------------------------------------------------------------------
  */
 function Reply(div){
     this.html=div;
@@ -241,25 +258,98 @@ var reTimeout=function(sec){
         setTimeout(reTimeout,1000,sec-1);
     }
 };
-
 //element event
-function sendRe(btn){
+function onSendRe(btn){
     var div=$(btn).parents(".r_re");
     var reply=new Reply(div);
     reply.send();
 }
-function toggleRe(a){
+function onToggleRe(a){
     var div=$(a).parents(".li").find(".r_re");
     var reply=new Reply(div);
     reply.toggle();
 }
-function moreRe(a){
+function onMoreRe(a){
     var div=$(a).parents(".li").find(".r_re");
     var reply=new Reply(div);
     reply.moreRe();
 }
-function lessRe(a){
+function onLessRe(a){
     var div=$(a).parents(".li").find(".r_re");
     var reply=new Reply(div);
     reply.lessRe();
 }
+
+/**
+ * Suport Manager
+ */
+ function Suport(div){
+    this.html=div;
+}
+Suport.prototype.getCid=function(){
+    return $(this.html).data("cid");
+};
+Suport.prototype.sendSup=function(){
+    var _this=this;
+    var cid=_this.getCid();
+    if(!isLogin){
+        comment.log("用戶未登錄");
+    }
+    if(!getCookie("vsup10_"+vid+"#"+cid)){
+        comment.log("已經頂過了，24小時之後再試");
+    }
+    if(matchCookie("vsup10_")>=20){
+        comment.log("操作已到達上限，24小時之後再試");
+    }
+    ajaxForm.action(_this.sendBtn(),{
+        type:"post",
+        url:"action/sendSuport.php",
+        data:{vid:vid,cid:cid},
+        success:function(data){
+            if(data.ok){
+                _this.sendSupOk(vid,cid);
+            }else if(data.msg){
+                comment.log(data.msg);
+            }else{
+                comment.log("查詢失敗");
+            }
+        }
+    });
+};
+Suport.prototype.sendSupOk=function(vid,cid){
+    var span=$(this.html).find("[field=suport]");
+    span.text(parseInt(span.text())+1);
+    setCookie("vsup10_"+vid+"#"+cid,1,1);
+};
+Suport.prototype.sendObj=function(){
+    var _this=this;
+    var cid=_this.getCid();
+    if(!isLogin){
+        comment.log("用戶未登錄");
+    }
+    if(!getCookie("vobj10_"+vid+"#"+cid)){
+        comment.log("已經頂過了，24小時之後再試");
+    }
+    if(matchCookie("vobj10_")>=20){
+        comment.log("操作已到達上限，24小時之後再試");
+    }
+    ajaxForm.action(_this.sendBtn(),{
+        type:"post",
+        url:"action/sendSuport.php",
+        data:{vid:vid,cid:cid},
+        success:function(data){
+            if(data.ok){
+                _this.sendObjOk(vid,cid);
+            }else if(data.msg){
+                comment.log(data.msg);
+            }else{
+                comment.log("查詢失敗");
+            }
+        }
+    });
+};
+Suport.prototype.sendObjOk=function(vid,cid){
+    var span=$(this.html).find("[field=object]");
+    span.text(parseInt(span.text())+1);
+    setCookie("vobj10_"+vid+"#"+cid,1,1);
+};

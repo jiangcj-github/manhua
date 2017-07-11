@@ -97,9 +97,8 @@ $result=$conn->query("
         nick VARCHAR (255) NOT NULL,
         text TEXT NOT NULL,
         count int(32) NOT NULL,
-        suport INT DEFAULT 0,
-        object INT DEFAULT 0,
-        reply int(32) DEFAULT 0,
+        suport INT NOT NULL DEFAULT 0,
+        object INT NOT NULL DEFAULT 0,
         time VARCHAR (255) NOT NULL,
         PRIMARY KEY (id)
     )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;;

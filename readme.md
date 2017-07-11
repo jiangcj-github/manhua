@@ -22,4 +22,9 @@
 
 ### 需要配置mod_auto_token
 
+//
+sendComment 發送回顯
+loadComment 翻頁
+sendSuport,sendObject未測試
+
 

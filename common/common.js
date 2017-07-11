@@ -35,7 +35,7 @@ function setCookie(name,value,days) {
     var Days = days || 1;
     var exp = new Date();
     exp.setTime(exp.getTime() + Days*24*60*60*1000);
-    document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString() + ";path=/"
+    document.cookie = name + "="+ escape (value) + ";expires=" + exp.toUTCString() + ";path=/"
 }
 
 function getCookie(name) {
@@ -51,6 +51,12 @@ function delCookie(name){
     exp.setTime(exp.getTime() - 1);
     var cval=getCookie(name);
     if(cval){
-        document.cookie= name + "="+cval+";expires="+exp.toGMTString() + ";path=/";
+        document.cookie= name + "="+cval+";expires="+exp.toUTCString() + ";path=/";
     }
+}
+
+function matchCookie(preg){
+    var re = new RegExp(preg,"g");
+    var arr = document.cookie.match(re);
+    return arr?arr.length:0;
 }
