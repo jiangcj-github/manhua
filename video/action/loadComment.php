@@ -32,7 +32,7 @@ $result=$stmt->get_result();
 $data=$result->fetch_all(MYSQLI_ASSOC);
 $stmt->close();
 for($i=0;$i<count($data);$i++){
-    $stmt=$conn->prepare("select * from video_reply where vid=? and cid=? order by time desc");
+    $stmt=$conn->prepare("select * from video_reply where vid=? and cid=? order by time asc");
     $stmt->bind_param("ii",$vid,$data[$i]["id"]);
     $stmt->execute();
     $result=$stmt->get_result();
