@@ -44,25 +44,18 @@ $stmt->close();
         <div class="left">
             <div class="sec v-div">
                 <video class="video-js" id="v1" controls preload="auto">
-
                     <!--<source src="<?php echo generateResourceUrl($filename,$domain) ?>" type="video/mp4">-->
                     <source src="web/test.mp4" type="video/mp4">
                 </video>
-                <!--
-                <div class="barg-div">
-                    <div class="path"><span style="left:10px;">的的的方法的的的方法的的的方法</span><span style="left:10px;">的的的方法</span></div>
-                    <div class="path">的的的方法</div>
-                    <div class="path">的的的方法</div>
-                    <div class="path">的的的方法</div>
-                </div>
-                -->
             </div>
             <div class=" bg-div">
                 <div class="bg-toggle">
                    <span class="switch-on" id="bg-toggle"></span>
                 </div>
-                <div class="input-group"><input type="text" id="bg-text" placeholder="說點什麼吧，不超過15個字">
-                    <button id="bg-submit" class="btn btn2">推送彈幕</button></div></td>
+                <div class="input-group">
+                    <input type="text" id="bg-text" placeholder="說點什麼吧，不超過15個字">
+                    <button id="bg-submit" class="btn btn2">推送彈幕</button>
+                </div>
             </div>
             <input type="hidden" id="v_id" value="<?php echo $id ?>">
             <input type="hidden" id="v_duration" value="<?php echo $duration ?>">
