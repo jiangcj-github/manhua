@@ -111,6 +111,7 @@ var bgTimeout=function(sec){
 $(function(){
     barrage.init();
     comment.init();
+    cmpage.init();
 });
 
 /*
@@ -118,7 +119,6 @@ $(function(){
  * ------------------------------------------------------------------------------------------------------------------
  */
 var comment={};
-var climit=10;
 comment.sendBtn=$("#cm-submit")[0];
 comment.sendInput=$("#cm-text")[0];
 comment.log=function(msg){
@@ -127,7 +127,6 @@ comment.log=function(msg){
 comment.init=function(){
     var _this=this;
     $(_this.sendBtn).click(function(){_this.send();});
-    _this.load(climit,0);
 };
 comment.send=function(){
     var _this=this;
@@ -146,7 +145,7 @@ comment.send=function(){
         data: {vid: vid, text: text},
         success: function (data) {
             if (data.ok) {
-                _this.sendOk();
+                _this.sendOk(data.data,text);
             } else if (data.msg) {
                 _this.log(data.msg);
             } else {
@@ -155,27 +154,25 @@ comment.send=function(){
         }
     });
 };
-comment.sendOk=function(){
+comment.sendOk=function(data,text){
     var _this=this;
     $(_this.sendBtn).attr("disabled",true).text(300);
     $(_this.sendInput).val(null);
     setTimeout(cmTimeout,1000,300);
-};
-comment.load=function(limit,offset){
-    ajaxForm.action(null,{
-        type:"get",
-        url:"action/loadComment.php",
-        data:{vid:vid,limit:limit,offset:offset},
-        success:function(data){
-            if(data.ok){
-                var data=data.data;
-                for(var i=0;i<data.length;i++){
-                    var html=template("cm-li",{cm:data[i]});
-                    $(".li-page").before(html);
-                }
-            }
+    //
+    var html=template("cm-li",{cm:
+        {
+            id:data.id,
+            nick:data.nick,
+            text:text,
+            count:data.count,
+            time:data.time,
+            suport:0,
+            object:0,
+            reply:[]
         }
     });
+    $(".cm-div").prepend(html);
 };
 comment.getReplyBtn=function(){
     return $(".re_sd").find("button");
@@ -190,6 +187,71 @@ var cmTimeout=function(sec){
 };
 
 /**
+ * comment page manager
+ * ------------------------------------------------------------------------------------------------------------------
+ */
+cmpage={};
+cmpage.div=function(){
+    return $(".li-page")[0];
+};
+cmpage.pDiv=$(".cm-div")[0];
+cmpage.limit=10;
+cmpage.totalPage=1;
+cmpage.curPage=1;
+cmpage.buffer=[];
+cmpage.init=function(){
+    var _this=this;
+    ajaxForm.action(null,{
+        type:"post",
+        url:"action/loadCommentInfo.php",
+        data:{vid:vid},
+        success:function(data) {
+            if(data.ok){
+                _this.totalPage=Math.ceil(data.data.count/_this.limit);
+                _this.load(1);
+            }
+        }
+    })
+};
+cmpage.disabled=function(bool){
+    $(this.div()).find("a").prop("onclick",null);
+};
+cmpage.lastPage=function(){
+    this.load(this.totalPage);
+};
+cmpage.load=function(page){
+    var _this=this;
+    _this.curPage=page;
+    _this.disabled();
+    if(_this.buffer[page]){
+        _this.loadOk(_this.buffer[page]);
+        return;
+    }
+    ajaxForm.action(null,{
+        type:"get",
+        url:"action/loadComment.php",
+        data:{vid:vid,limit:_this.limit,offset:(page-1)*_this.limit},
+        success:function(data){
+            if(data.ok){
+                if(!_this.buffer[page]){
+                    _this.buffer[page]=data.data;
+                }
+                _this.loadOk(data.data);
+            }
+        }
+    });
+};
+cmpage.loadOk=function(d){
+    var _this=this;
+    $(_this.pDiv).empty();
+    for(var i=0;i<d.length;i++){
+        var html=template("cm-li",{cm:d[i]});
+        $(_this.pDiv).append(html);
+    }
+    html=template("cm-pg",{curPage:_this.curPage,totalPage:_this.totalPage});
+    $(_this.pDiv).append(html);
+};
+/**
  * Reply Manager
  * --------------------------------------------------------------------------------------------------------------------
  */
@@ -202,6 +264,9 @@ Reply.prototype.getCid=function(){
 Reply.prototype.sendBtn=function(){
     return $(this.html).find(".re_sd button");
 };
+Reply.prototype.getReplyCountSpan=function(){
+    return $(this.html).parents(".li").find("[field=reply]");
+};
 Reply.prototype.sendInput=function(){
     return $(this.html).find(".re_sd input");
 };
@@ -210,9 +275,11 @@ Reply.prototype.send=function(){
     var text=_this.sendInput().val();
     if(!isLogin){
         comment.log("用戶未登錄");
+        return;
     }
     if(/^\s*$/.test(text)){
         comment.log("無效文本");
+        return;
     }
     ajaxForm.action(_this.sendBtn(),{
         type:"post",
@@ -236,6 +303,8 @@ Reply.prototype.sendOk=function(data){
     //append
     var html=template("re-li",{reply:data});
     $(this.html).find(".re-insert").before(html);
+    var span=this.getReplyCountSpan();
+    span.text(parseInt(span.text())+1);
 };
 Reply.prototype.toggle=function(){
     $(this.html).toggleClass("hide");
@@ -294,12 +363,15 @@ Suport.prototype.sendSup=function(){
     var cid=_this.getCid();
     if(!isLogin){
         comment.log("用戶未登錄");
+        return;
     }
     if(getCookie("vsup10_"+vid+"#"+cid)){
         comment.log("已經頂過了，24小時之後再試");
+        return;
     }
-    if(matchCookie("vsup10_")>=20){
+    if(matchCookie("vsup10_")>=10){
         comment.log("操作已到達上限，24小時之後再試");
+        return;
     }
     ajaxForm.action(null,{
         type:"post",
@@ -326,12 +398,15 @@ Suport.prototype.sendObj=function(){
     var cid=_this.getCid();
     if(!isLogin){
         comment.log("用戶未登錄");
+        return;
     }
     if(getCookie("vobj10_"+vid+"#"+cid)){
-        comment.log("已經頂過了，24小時之後再試");
+        comment.log("已經踩過了，24小時之後再試");
+        return;
     }
-    if(matchCookie("vobj10_")>=20){
+    if(matchCookie("vobj10_")>=10){
         comment.log("操作已到達上限，24小時之後再試");
+        return;
     }
     ajaxForm.action(null,{
         type:"post",

@@ -52,6 +52,7 @@ $count++;
 $stmt=$conn->prepare("insert into video_comment(vid,nick,text,count,time) values(?,?,?,?,?)");
 $stmt->bind_param("issis",$vid,$nick,$text,$count,$time);
 $stmt->execute();
+$cid=$stmt->insert_id;
 $stmt->close();
 //記錄操作時間
 $stmt=$conn->prepare("insert into user_strict_v(nick,comment) values(?,?) ON DUPLICATE KEY update comment=?");
@@ -59,4 +60,4 @@ $stri_time=(new DateTime())->format("Y-m-d H:i:s");
 $stmt->bind_param("sss",$nick,$stri_time,$stri_time);
 $stmt->execute();
 $stmt->close();
-die_json(["ok"=>"ok","data"=>""]);
+die_json(["ok"=>"ok","data"=>["id"=>$cid,"nick"=>$nick,"count"=>$count,"time"=>$time]]);

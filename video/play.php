@@ -61,19 +61,19 @@ $stmt->close();
             <input type="hidden" id="v_duration" value="<?php echo $duration ?>">
 
             <div class="sec sm-div">
-                <textarea id="cm-text"></textarea>
+                <textarea id="cm-text" placeholder="說點什麼吧"></textarea>
                 <button id="cm-submit" class="btn btn2 btn-lg">提交</button>
             </div>
 
             <div class="sec cm-div">
                 <div class="li">
                     <div class="li_l">
-                        <img class="head" src="web/1.png">
-                        <div class="nick">林打開的</div>
+                        <img class="head" src="">
+                        <div class="nick">{{nick}}</div>
                     </div>
                     <div class="li_r">
                         <div class="r_c">
-                            还有一点，我觉得他也是在保护乔，接下去接的这部剧不是爱情剧，而是硬汉电影，这样大家也不会在乔妹和下个女主间有争议，关键同是演军人！
+                            {{text}}
                         </div>
                         <div class="r_b">
                             <span class="label1">21樓</span>
@@ -85,33 +85,12 @@ $stmt->close();
                         <div class="r_re" data-cid="">
                             <div class="re_li">
                                 <div class="re_li_l">
-                                    <img src="web/1.png">
+                                    <img src="">
                                 </div>
                                 <div class="re_li_r">
-                                    <div class="re_li_r_c"><span class="nick">林打開</span>这个要解释一下这个要解释一下这个要解释一下这个要解释一下这个要解释一下这个要解释一下这个要解释一下，小宋先接的电影再接的剧</div>
-                                    <div class="re_li_r_b">1222-22-32 33:43:12</div>
+                                    <div class="re_li_r_c"><span class="nick">{{nick}}</span>{{reply}}</div>
+                                    <div class="re_li_r_b">1999-22-32 33:43:12</div>
                                 </div>
-
-                            </div>
-                            <div class="re_li">
-                                <div class="re_li_l">
-                                    <img src="web/1.png">
-                                </div>
-                                <div class="re_li_r">
-                                    <div class="re_li_r_c"><span class="nick">林打開</span>这个要解释一下这个要解释一下这个要解释一下这个要解释一下这个要解释一下这个要解释一下这个要解释一下，小宋先接的电影再接的剧</div>
-                                    <div class="re_li_r_b">1222-22-32 33:43:12</div>
-                                </div>
-
-                            </div>
-                            <div class="re_li">
-                                <div class="re_li_l">
-                                    <img src="web/1.png">
-                                </div>
-                                <div class="re_li_r">
-                                    <div class="re_li_r_c"><span class="nick">林打開</span>这个要解释一下这个要解释一下这个要解释一下这个要解释一下这个要解释一下这个要解释一下这个要解释一下，小宋先接的电影再接的剧</div>
-                                    <div class="re_li_r_b">1222-22-32 33:43:12</div>
-                                </div>
-
                             </div>
                             <div class="re_sd">
                                 <input type="text" placeholder="說點什麼吧"><button class="btn btn2">回復</button>
@@ -125,6 +104,7 @@ $stmt->close();
                     <a href="#">2</a>
                     <a href="#">3</a>
                     <a href="#">4</a>
+                    <a href="#">5</a>
                     <a href="#">下一頁</a>
                 </div>
             </div>
@@ -172,7 +152,7 @@ $stmt->close();
     <script id="cm-li" type="text/html">
         <div class="li">
             <div class="li_l">
-                <img class="head" src="web/1.png">
+                <img class="head" src="/common/headimg/rand_{{cm.nick.charCodeAt(0)%20}}.png">
                 <div class="nick">{{cm.nick}}</div>
             </div>
             <div class="li_r">
@@ -181,15 +161,18 @@ $stmt->close();
                     <span class="label1">{{cm.count}}樓</span>
                     <span>{{cm.time}}</span>
                     <span><a href="javascript:void(0);" onclick="onSendSup(this)">頂[<span field="suport">{{cm.suport}}</span>]</a></span>
-                    <span><a href="javascript:void(0)" onclick="onSendObj(this)">踩[<span field="object">{{cm.object}}</span>]</a></span>
-                    <span><a href="javascript:void(0)" onclick="onToggleRe(this)">回復[{{cm.reply.length}}]</a></span>
+                    <span><a href="javascript:void(0);" onclick="onSendObj(this)">踩[<span field="object">{{cm.object}}</span>]</a></span>
+                    <span><a href="javascript:void(0);" onclick="onToggleRe(this)">回復[<span field="reply">{{cm.reply.length}}</span>]</a></span>
                 </div>
                 <div class="r_re" data-cid="{{cm.id}}">
                     <% for(var i=0;i<cm.reply.length;i++){ %>
-                        <% if(i>=3){ %><div class="re_li" style="display:none">
-                        <% }else{ %><div class="re_li"><% } %>
+                        <% if(i>=3){ %>
+                            <div class="re_li" style="display:none">
+                        <% }else{ %>
+                            <div class="re_li">
+                        <% } %>
                             <div class="re_li_l">
-                                <img src="web/1.png">
+                                <img src="/common/headimg/rand_{{cm.reply[i].nick.charCodeAt(0)%20}}.png">
                             </div>
                             <div class="re_li_r">
                                 <div class="re_li_r_c"><span class="nick">{{cm.reply[i].nick}}</span>{{cm.reply[i].text}}</div>
@@ -213,12 +196,49 @@ $stmt->close();
     <script id="re-li" type="text/html">
         <div class="re_li">
             <div class="re_li_l">
-                <img src="web/1.png">
+                <img src="/common/headimg/rand_{{reply.nick.charCodeAt(0)%20}}.png">
             </div>
             <div class="re_li_r">
                 <div class="re_li_r_c"><span class="nick">{{reply.nick}}</span>{{reply.text}}</div>
                 <div class="re_li_r_b">{{reply.time}}</div>
             </div>
+        </div>
+    </script>
+    <script id="cm-pg" type="text/html">
+        <div class="li-page">
+            <% if(curPage<=1){ %>
+                <a href="javascript:void(0);" class="disabled">上一頁</a>
+            <% }else{ %>
+                <a href="javascript:void(0);" onclick="cmpage.load({{curPage-1}})">上一頁</a>
+            <% } %>
+            <% for(var i=0;i<5;i++){ %>
+                <% if(curPage<=3){ %>
+                    <% if(i+1>totalPage) continue; %>
+                    <% if(i+1==curPage){ %>
+                        <a href="javascript:void(0);" class="active">{{i+1}}</a>
+                    <% }else{ %>
+                        <a href="javascript:void(0);" onclick="cmpage.load({{i+1}})">{{i+1}}</a>
+                    <% } %>
+                <% }else if(curPage>=totalPage-2){ %>
+                    <% if(totalPage-4+i<1) continue; %>
+                    <% if(totalPage-4+i==curPage){ %>
+                        <a href="javascript:void(0);" class="active">{{totalPage-4+i}}</a>
+                    <% }else{ %>
+                        <a href="javascript:void(0);" onclick="cmpage.load({{totalPage-4+i}})">{{totalPage-4+i}}</a>
+                    <% } %>
+                <% }else{ %>
+                    <% if(curPage-2+i==curPage){ %>
+                        <a href="javascript:void(0);" class="active">{{curPage-2+i}}</a>
+                    <% }else{ %>
+                        <a href="javascript:void(0);" onclick="cmpage.load({{curPage-2+i}})">{{curPage-2+i}}</a>
+                    <% } %>
+                <% } %>
+            <% } %>
+            <% if(curPage>=totalPage){ %>
+                <a href="javascript:void(0);" class="disabled">下一頁</a>
+            <% }else{ %>
+                <a href="javascript:void(0);" onclick="cmpage.load({{curPage+1}})">下一頁</a>
+            <% } %>
         </div>
     </script>
     <script src="web/js/play.js"></script>

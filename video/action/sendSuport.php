@@ -32,7 +32,7 @@ if( $stmt->fetch()&& $stri_sec){
     $cur_sec=(new DateTime())->getTimestamp();
     $stri_sec=DateTime::createFromFormat("Y-m-d H:i:s",$stri_sec)->getTimestamp();
     if($cur_sec-$stri_sec<60*60*24){
-        die_json(["msg"=>"操作太頻繁了，需等待約".round((60*60*24-$cur_sec+$stri_sec)/3600)."小時"]);
+        die_json(["msg"=>"已經頂過了，需等待約".round((60*60*24-$cur_sec+$stri_sec)/3600)."小時"]);
     }
 }
 $stmt->close();
@@ -41,7 +41,8 @@ $stric_p1d=(new DateTime())->sub(new DateInterval("P1D"))->format("Y-m-d H:i:s")
 $stmt->bind_param("ss",$nick,$stric_p1d);
 $stmt->execute();
 $stmt->bind_result($stri_count);
-if($stri_count>=20){
+$stmt->fetch();
+if($stri_count>=10){
     die_json(["msg"=>"操作已達上限"]);
 }
 $stmt->close();
@@ -51,9 +52,9 @@ $stmt->bind_param("ii",$cid,$vid);
 $stmt->execute();
 $stmt->close();
 //記錄操作時間
-$stmt=$conn->prepare("insert into user_strict_v_vm(nick,cid,suport) values(?,?,?) ON DUPLICATE KEY update suport=?");
+$stmt=$conn->prepare("insert into user_strict_v_cm(nick,cid,suport) values(?,?,?) ON DUPLICATE KEY update suport=?");
 $stri_time=(new DateTime())->format("Y-m-d H:i:s");
-$stmt->bind_param("ssss",$nick,$cid,$stri_time,$stri_time);
+$stmt->bind_param("siss",$nick,$cid,$stri_time,$stri_time);
 $stmt->execute();
 $stmt->close();
 die_json(["ok"=>"ok","data"=>""]);

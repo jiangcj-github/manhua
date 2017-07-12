@@ -177,7 +177,7 @@ if($result){
  * 對同一個cid
  * 發送suport,object間隔時間24*60*60秒
  * 對不同cid
- * 無間隔時間,但24*60*60秒之內各限20次。
+ * 無間隔時間,但24*60*60秒之內各限10次。
  */
 $result=$conn->query("
     CREATE TABLE IF NOT EXISTS user_strict_v_cm(
