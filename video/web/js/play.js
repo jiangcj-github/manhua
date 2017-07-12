@@ -295,13 +295,13 @@ Suport.prototype.sendSup=function(){
     if(!isLogin){
         comment.log("用戶未登錄");
     }
-    if(!getCookie("vsup10_"+vid+"#"+cid)){
+    if(getCookie("vsup10_"+vid+"#"+cid)){
         comment.log("已經頂過了，24小時之後再試");
     }
     if(matchCookie("vsup10_")>=20){
         comment.log("操作已到達上限，24小時之後再試");
     }
-    ajaxForm.action(_this.sendBtn(),{
+    ajaxForm.action(null,{
         type:"post",
         url:"action/sendSuport.php",
         data:{vid:vid,cid:cid},
@@ -327,15 +327,15 @@ Suport.prototype.sendObj=function(){
     if(!isLogin){
         comment.log("用戶未登錄");
     }
-    if(!getCookie("vobj10_"+vid+"#"+cid)){
+    if(getCookie("vobj10_"+vid+"#"+cid)){
         comment.log("已經頂過了，24小時之後再試");
     }
     if(matchCookie("vobj10_")>=20){
         comment.log("操作已到達上限，24小時之後再試");
     }
-    ajaxForm.action(_this.sendBtn(),{
+    ajaxForm.action(null,{
         type:"post",
-        url:"action/sendSuport.php",
+        url:"action/sendObject.php",
         data:{vid:vid,cid:cid},
         success:function(data){
             if(data.ok){
@@ -353,3 +353,14 @@ Suport.prototype.sendObjOk=function(vid,cid){
     span.text(parseInt(span.text())+1);
     setCookie("vobj10_"+vid+"#"+cid,1,1);
 };
+//
+function onSendObj(a){
+    var div=$(a).parents(".r_b");
+    var suport=new Suport(div);
+    suport.sendObj();
+}
+function onSendSup(a){
+    var div=$(a).parents(".r_b");
+    var suport=new Suport(div);
+    suport.sendSup();
+}

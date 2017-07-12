@@ -37,7 +37,7 @@ if( $stmt->fetch()&& $stri_sec){
 }
 $stmt->close();
 $stmt=$conn->prepare("select count(suport) from user_strict_v_cm where nick=? and suport>?");
-$stric_p1d=(new DateTime())->sub(new DateInterval("P1D"));
+$stric_p1d=(new DateTime())->sub(new DateInterval("P1D"))->format("Y-m-d H:i:s");
 $stmt->bind_param("ss",$nick,$stric_p1d);
 $stmt->execute();
 $stmt->bind_result($stri_count);

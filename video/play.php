@@ -180,8 +180,8 @@ $stmt->close();
                 <div class="r_b" data-cid="{{cm.id}}">
                     <span class="label1">{{cm.count}}樓</span>
                     <span>{{cm.time}}</span>
-                    <span><a href="#">頂[<span field="suport">{{cm.suport}}</span>]</a></span>
-                    <span><a href="#">踩[<span field="object">{{cm.object}}</span>]</a></span>
+                    <span><a href="javascript:void(0);" onclick="onSendSup(this)">頂[<span field="suport">{{cm.suport}}</span>]</a></span>
+                    <span><a href="javascript:void(0)" onclick="onSendObj(this)">踩[<span field="object">{{cm.object}}</span>]</a></span>
                     <span><a href="javascript:void(0)" onclick="onToggleRe(this)">回復[{{cm.reply.length}}]</a></span>
                 </div>
                 <div class="r_re" data-cid="{{cm.id}}">

@@ -65,7 +65,7 @@ $stmt=$conn->prepare("select user from user where ip=?");
 $stmt->bind_param("s", $ip);
 $stmt->execute();
 $stmt->store_result();
-if ($stmt->num_rows > 3) {
+if ($stmt->num_rows >= 3) {
     die_json(["msg"=>"您註冊次數過多,已被限制註冊"]);
 }
 $stmt->close();
