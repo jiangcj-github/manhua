@@ -18,9 +18,9 @@ if(!isset($_REQUEST["user"])||!isset($_REQUEST["pass"])){
 }
 $user=$_REQUEST["user"];
 $pass=$_REQUEST["pass"];
-$ip="未知";
-$country="未知";
-$city="未知";
+$ip="Unknown Ip";
+$country="Unknown Country";
+$city="Unknown City";
 if(isset($_REQUEST["ip"])){
     $ip=$_REQUEST["ip"];
 }

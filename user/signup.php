@@ -3,16 +3,7 @@
 <head>
     <meta charset=utf-8 />
     <title>signup</title>
-    <style>
-        body{font-size:14px;}
-        .page{width:96%;margin:10px auto;min-width:1000px;}
-        .sec{border:1px solid #A6CBE7;}
-        .sec>h3{margin:0;font-size:14px;background: #B1D3E0;padding:0 3px;line-height: 22px;}
-        .ip-sec>.info{padding:10px;}
-        .login-sec{margin-top:10px;}
-        .login-sec>.info{padding:10px;}
-        input[type=text],input[type=password]{width:170px;}
-    </style>
+    <link href="page.css" rel="stylesheet">
 </head>
 <body>
     <?php include("../nav.php") ?>

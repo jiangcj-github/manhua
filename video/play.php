@@ -22,6 +22,7 @@ $stmt->close();
 <head>
     <meta charset=utf-8 />
     <title>play</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="web/videojs/video-js.css" rel="stylesheet">
     <link href="web/videojs/video-js-custom.css" rel="stylesheet">
     <link href="web/css/page.css" rel="stylesheet">

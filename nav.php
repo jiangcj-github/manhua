@@ -38,15 +38,23 @@
 <script src="/common/common.js"></script>
 <script>
     if(!isLogin && getCookie("autosign")){
-        ajaxForm.action(null,{
-            type:"post",
-            url:"/user/action/signin.php",
-            data:{user:getCookie("user"),pass:getCookie("pass")},
-            success:function(data){
-                if(data.ok){
-                    location.reload();
+        $.get("http://ipinfo.io", function(response){
+            ajaxForm.action(null,{
+                type:"post",
+                url:"/user/action/signin.php",
+                data:{user:getCookie("user"),pass:getCookie("pass"),ip:response.ip,country:response.country,city:response.city},
+                success:function(data){
+                    if(data.ok){
+                        location.reload();
+                    }
                 }
-            }
-        });
+            });
+        }, "jsonp");
     }
 </script>
+<?php
+    //阻止頁面繼續加載
+    if(!$isLogin && isset($_COOKIE["autosign"])){
+        die();
+    }
+?>

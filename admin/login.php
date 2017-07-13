@@ -1,6 +1,4 @@
 <?php
-require("../php/global.php");
-
 $admin="";
 $pass="";
 
@@ -14,7 +12,6 @@ if(isset($_REQUEST["admin"])&&isset($_REQUEST["pass"])){
         die();
     }
 }
-
 ?>
 
 <form method="post">

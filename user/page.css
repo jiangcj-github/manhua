@@ -1,0 +1,8 @@
+body{font-size:14px;}
+.page{width:96% !important;min-width:1000px;}
+
+.sec>h3{margin:0;font-size:14px;background:#0f7884;color:#fff;padding:0 8px;line-height:22px;}
+.sec>.info{padding:10px;}
+
+input[type=checkbox]{vertical-align:middle;}
+input[type=text],input[type=password]{width:170px;height:24px;}

@@ -9,7 +9,7 @@ $(function(){
 //加载更多评论信息
 function moreComment(offset){
     $.ajax({
-        url:"../php/loadComment.php",
+        url:"action/loadComment.php",
         data:{mid:mid,chapter:chapter,offset:offset},
         dataType:"json",
         success:function(data){
@@ -40,7 +40,7 @@ $("#cm-load").click(function(){
 //发送评论信息
 function sendComment(user,date,text){
     $.ajax({
-        url:"../php/sendComment.php",
+        url:"action/sendComment.php",
         data:{mid:mid,chapter:chapter,user:user,date:date,text:text},
         dataType:"json",
         success:function(data){
@@ -68,7 +68,7 @@ Date.prototype.Format = function (fmt) {
     for (var k in o)
         if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
     return fmt;
-}
+};
 
 $("#cm-send").click(function(){
     var text=$("#text").val();

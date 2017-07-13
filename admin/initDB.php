@@ -35,26 +35,6 @@ if ($result){
 }
 
 /**
- *  創建comment表
- */
-$result=$conn->query("
-    CREATE TABLE IF NOT EXISTS comment (
-      id int(32) unsigned zerofill NOT NULL AUTO_INCREMENT,
-      mid int(32) NOT NULL,
-      chapter int(32) NOT NULL,
-      user varchar(255) NOT NULL,
-      date varchar(255) NOT NULL,
-      text text NOT NULL,
-      PRIMARY KEY (id)
-    ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
-    ");
-if ($result){
-    echo "comment created"."<br>";
-}else{
-    echo "comment created failed"."<br>";
-}
-
-/**
  * 建unit表
  * flag: 0表示網站服務器，1表示資源服務器,2表示代理服務器
  */
@@ -173,7 +153,7 @@ if($result){
 }
 
 /**
- * 建user_strict_cm表
+ * 建user_strict_v_cm表
  * 對同一個cid
  * 發送suport,object間隔時間24*60*60秒
  * 對不同cid
@@ -192,4 +172,41 @@ if($result){
     echo "user_strict_v_cm created"."<br>";
 }else{
     echo "user_strict_v_cm created failed"."<br>";
+}
+
+/**
+ *  創建mh_comment表
+ */
+$result=$conn->query("
+    CREATE TABLE IF NOT EXISTS mh_comment (
+      id int(32) NOT NULL AUTO_INCREMENT,
+      mid int(32) NOT NULL,
+      chapter int(32) NOT NULL,
+      nick varchar(255) NOT NULL,
+      time varchar(255) NOT NULL,
+      text text NOT NULL,
+      PRIMARY KEY (id)
+    ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+    ");
+if ($result){
+    echo "mh_comment created"."<br>";
+}else{
+    echo "mh_comment created failed"."<br>";
+}
+
+/**
+ *  創建user_strict_mh表
+ *  發送comment間隔時間60秒
+ */
+$result=$conn->query("
+    CREATE TABLE IF NOT EXISTS user_strict_mh(
+      nick varchar(255) NOT NULL,
+      comment varchar(255),
+      PRIMARY KEY(nick)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+    ");
+if ($result){
+    echo "user_strict_mh created"."<br>";
+}else{
+    echo "user_strict_mh created failed"."<br>";
 }
