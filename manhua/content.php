@@ -14,34 +14,28 @@
             <div class="sec m-div">
                 <!--<img class="lazy" data-original="<?php echo generateResourceUrl("/1.png") ?>">-->
                 <div>
-                    <img class="lazy" data-original="http://n.1whour.com/newkuku/2014/201412/1205b/%E4%B8%80%E6%8B%B3%E8%B6%85%E4%BA%BA/33-40/33004.jpg">
-                    <img class="lazy" data-original="http://n.1whour.com/newkuku/2014/201412/1205b/%E4%B8%80%E6%8B%B3%E8%B6%85%E4%BA%BA/33-40/33005.jpg">
+
                 </div>
 
                 <div class="ct-page">
-                    <button class="btn" href="chapter.html">目录</button>
-                    <button class="btn" href="javascript:void(0);" >上一话</button>
-                    <button class="btn" href="2.html">下一话</button>
+                    <button class="btn" href="javascript:void(0);" >上一頁</button>
+                    <button class="btn" href="javascript:void(0);" >上一頁</button>
+                    <button class="btn" href="chapter.html">目錄</button>
+                    <button class="btn" href="javascript:void(0);" >上一章</button>
+                    <button class="btn" href="2.html">下一章</button>
                 </div>
             </div>
 
             <div class="sec sm-div">
-                <h3>我要评论</h3>
-                <textarea id="text" placeholder="不登录也可以发表评论，快来试试吧！"></textarea>
-                <button class="btn btn-block" id="cm-send">提交</button>
+                <h3>我要評論</h3>
+                <textarea id="text" placeholder="說點什麼吧"></textarea>
+                <button class="btn btn-lg" id="cm-send">提交</button>
             </div>
 
             <div class="sec cm-div">
-                <h3>全部评论</h3>
-                <ul class="cm" id="cm">
-                    <script id="tpl-li" type="text/html">
-                        <li class="cm-ci">
-                            <div class="ci-user">{{ user }}<span style="float:right">{{ date }}</span></div>
-                            <div class="ci-body">{{ content }}</div>
-                        </li>
-                    </script>
-                </ul>
-                <button class="btn btn-block" id="cm-load">加载更多</button>
+                <h3>全部評論</h3>
+                <ul class="cm" id="cm"></ul>
+                <button class="btn btn-lg" id="cm-load" style="margin-top:10px;">加載更多</button>
             </div>
 
         </div>
@@ -52,8 +46,15 @@
             <div class="pane">fsf</div>
         </div>
     </div>
-
-    <script src="/common/jquery-3.2.1.js"></script>
+    <script id="tpl-li" type="text/html">
+        <li class="cm-ci">
+            <div class="ci_l"><img src="/common/headimg/rand_{{comm.nick.charCodeAt(0)%20}}.png"></div>
+            <div class="ci_r">
+                <div class="ci-user">{{ comm.nick }}<span style="float:right">{{ comm.time }}</span></div>
+                <div class="ci-body">{{ comm.text }}</div>
+            </div>
+        </li>
+    </script>
     <script src="/common/jquery.lazyload.min.js"></script>
     <script src="/common/template-web.js"></script>
     <script src="web/js/page.js"></script>

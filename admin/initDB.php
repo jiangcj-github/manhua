@@ -196,7 +196,7 @@ if ($result){
 
 /**
  *  創建user_strict_mh表
- *  發送comment間隔時間60秒
+ *  發送comment間隔時間120秒
  */
 $result=$conn->query("
     CREATE TABLE IF NOT EXISTS user_strict_mh(

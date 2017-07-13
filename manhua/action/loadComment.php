@@ -1,8 +1,7 @@
 <?php
 require_once("../../php/global.php");
 
-//
-
+//參數檢查
 if(!isset($_REQUEST["mid"])||!isset($_REQUEST["chapter"])){
     die_json(["msg"=>"缺少必要的參數"]);
 }

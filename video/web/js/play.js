@@ -91,9 +91,8 @@ barrage.send=function(){
 };
 barrage.sendOk=function(msg,pos){
     var _this=this;
-    $(_this.sendBtn).attr("disabled",true).text(60);
     $(_this.sendInput).val(null);
-    setTimeout(bgTimeout,1000,60);
+    setTimeout(bgTimeout,0,60);
     var span=$("<span style='color:blue'></span>").css("left",pos*bgSpeed*16+"px").html(msg);
     var i = Math.floor(Math.random()*5);
     $(".barg-div").find(".path").eq(i%5).append(span);
@@ -156,9 +155,8 @@ comment.send=function(){
 };
 comment.sendOk=function(data,text){
     var _this=this;
-    $(_this.sendBtn).attr("disabled",true).text(300);
     $(_this.sendInput).val(null);
-    setTimeout(cmTimeout,1000,300);
+    setTimeout(cmTimeout,0,300);
     //
     var html=template("cm-li",{cm:
         {
@@ -297,9 +295,8 @@ Reply.prototype.send=function(){
     });
 };
 Reply.prototype.sendOk=function(data){
-    $(comment.getReplyBtn()).attr("disabled",true).text(300);
     $(this.sendInput()).val(null);
-    setTimeout(reTimeout,1000,120);
+    setTimeout(reTimeout,0,120);
     //append
     var html=template("re-li",{reply:data});
     $(this.html).find(".re-insert").before(html);

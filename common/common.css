@@ -13,7 +13,7 @@ body{
     user-select: none;
 }
 a{text-decoration:none;}
-input[type=text]{border-color:#0F7884;border-style:solid;border-width:1px;outline:none;padding:0 10px;}
+input[type=text],input[type=password]{border-color:#0F7884;border-style:solid;border-width:1px;outline:none;padding:0 10px;}
 input[type=checkbox]{vertical-align:middle;cursor:pointer;}
 ul{margin:0;padding:0;}
 
@@ -33,6 +33,7 @@ ul{margin:0;padding:0;}
 .page.col2>.right{flex-shrink: 0;border-left:1px solid #ccc;width:220px;}
 
 .sec{padding:20px;border-bottom:1px solid #ccc;}
+.sec h3{padding:0 0 10px 0;margin:0;}
 
 .pane{padding:10px;border-bottom: 1px solid #ccc;}
 .pane>h3{line-height:20px;padding:3px 5px;margin:0 0 3px 0;font-size:14px;color:#6f6f6f;}

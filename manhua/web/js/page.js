@@ -1,80 +1,87 @@
-//
-$(function(){
-    //lazyload
-    $("img.lazy").lazyload({effect: "fadeIn"});
-    //加载评论信息
-    moreComment(0);
-});
 
-//加载更多评论信息
-function moreComment(offset){
-    $.ajax({
+var cmt={};
+cmt.sendBtn=$("#cm-send");
+cmt.sendInput=$("#text");
+cmt.pDiv=$("#cm");
+cmt.loadBtn=$("#cm-load");
+cmt.cLimit=10;
+cmt.getItemLength=function(){
+  return this.pDiv.find("li.cm-ci").length;
+};
+cmt.init=function(){
+    var _this=this;
+    _this.sendBtn.click(function(){_this.send();});
+    _this.loadBtn.click(function(){_this.load(_this.getItemLength());});
+    _this.load(0);
+};
+cmt.log=function(msg){
+    alert(msg);
+};
+cmt.sendOk=function(data){
+    var li=template("tpl-li",{comm:data});
+    this.pDiv.prepend(li);
+    this.sendInput.val(null);
+    setTimeout(smTimeout,0,120);
+};
+cmt.send=function(){
+    var _this=this;
+    var text=_this.sendInput.val();
+    if(text==null||/^\s*$/.test(text)){
+        _this.log("無效文本");
+        return;
+    }
+    ajaxForm.action(_this.sendBtn,{
+        type:"post",
+        url:"action/sendComment.php",
+        data:{mid:mid,chapter:chapter,text:text},
+        success:function(data){
+            if(data.ok){
+                _this.sendOk(data.data);
+            }else if(data.msg){
+                _this.log(data.msg);
+            }else{
+                _this.log("查詢失敗");
+            }
+        }
+    });
+};
+cmt.load=function(offset){
+    var _this=this;
+    ajaxForm.action(_this.loadBtn,{
         url:"action/loadComment.php",
         data:{mid:mid,chapter:chapter,offset:offset},
-        dataType:"json",
         success:function(data){
-            for(var i=0;i<data.length;i++){
-                var li=template("tpl-li",{
-                    user:data[i].user,
-                    date:data[i].date,
-                    content:data[i].text
-                });
-                $("#cm").append(li);
-            }
-            //limit 默认10
-            if(data.length<10){
-                $("#cm-load").unbind();
-                $("#cm-load").html(function(){
-                    return $(this).html().replace("加载更多","已加载全部");
-                });
+            if(data.ok){
+                _this.loadOk(data.data);
+            }else if(data.msg){
+                _this.log(data.msg);
+            }else{
+                _this.log("查詢失敗");
             }
         }
     });
-}
-
-$("#cm-load").click(function(){
-    moreComment($("#cm").find(".ci").length);
-});
-
-
-//发送评论信息
-function sendComment(user,date,text){
-    $.ajax({
-        url:"action/sendComment.php",
-        data:{mid:mid,chapter:chapter,user:user,date:date,text:text},
-        dataType:"json",
-        success:function(data){
-            var li=template("tpl-li",{
-                user:data.user,
-                date:data.date,
-                content:data.text
-            });
-            $("#cm").prepend(li);
-        }
-    });
-}
-
-Date.prototype.Format = function (fmt) {
-    var o = {
-        "M+": this.getMonth() + 1,
-        "d+": this.getDate(),
-        "h+": this.getHours(),
-        "m+": this.getMinutes(),
-        "s+": this.getSeconds(),
-        "q+": Math.floor((this.getMonth() + 3) / 3),
-        "S": this.getMilliseconds()
-    };
-    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-    for (var k in o)
-        if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-    return fmt;
+};
+cmt.loadOk=function(data){
+    var _this=this;
+    for(var i=0;i<data.length;i++){
+        var li=template("tpl-li",{comm:data[i]});
+        _this.pDiv.append(li);
+    }
+    if(data.length<_this.cLimit){
+        _this.loadBtn.unbind();
+        _this.loadBtn.text("已加载全部");
+    }
+};
+var smTimeout=function(sec){
+    if(sec==0){
+        cmt.sendBtn.attr("disabled",false).text("提交");
+    }else{
+        cmt.sendBtn.attr("disabled",true).text(sec);
+        setTimeout(smTimeout,1000,sec-1);
+    }
 };
 
-$("#cm-send").click(function(){
-    var text=$("#text").val();
-    if(text==null||/^\s*$/.test(text)) return;
-    var date=new Date().Format("yyyy-MM-dd hh:mm:ss");
-    var user=returnCitySN.cname;
-    sendComment(user,date,text);
-    $("#text").val("");
+$(function(){
+    $("img.lazy").lazyload({effect: "fadeIn"});
+    cmt.init();
 });
