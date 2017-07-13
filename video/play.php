@@ -10,20 +10,13 @@ $id=$_REQUEST["id"];
 $conn = new mysqli($mysql["host"], $mysql["user"], $mysql["password"], $mysql["database"]);
 $conn->set_charset("utf8");
 //查詢video
-$stmt=$conn->prepare("select * from video where id = ?");
+$stmt=$conn->prepare("select a.id,a.filename,b.domain from video as a join units as b on a.unit=b.id where a.id = ?");
 $stmt->bind_param("i",$id);
 $stmt->execute();
-$stmt->bind_result($id,$filename,$duration,$unit);
+$stmt->bind_result($id,$filename,$domain);
 if(!$stmt->fetch()){
     die("404");
 }
-$stmt->close();
-//查詢units
-$stmt=$conn->prepare("select domain from units where id = ?");
-$stmt->bind_param("i",$unit);
-$stmt->execute();
-$stmt->bind_result($domain);
-$stmt->fetch();
 $stmt->close();
 ?>
 <!DOCTYPE html>
@@ -58,13 +51,10 @@ $stmt->close();
                 </div>
             </div>
             <input type="hidden" id="v_id" value="<?php echo $id ?>">
-            <input type="hidden" id="v_duration" value="<?php echo $duration ?>">
-
             <div class="sec sm-div">
                 <textarea id="cm-text" placeholder="說點什麼吧"></textarea>
                 <button id="cm-submit" class="btn btn2 btn-lg">提交</button>
             </div>
-
             <div class="sec cm-div">
                 <div class="li">
                     <div class="li_l">
