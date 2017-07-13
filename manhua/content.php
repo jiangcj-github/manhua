@@ -1,4 +1,4 @@
-<?php require_once("../../php/resource.php") ?>
+<?php require_once("../php/global.php") ?>
 <!DOCTYPE html>
 <html>
 <head>

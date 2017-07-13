@@ -1,6 +1,5 @@
 <?php
-require_once("../../php/config.php");
-require_once("../../php/util.php");
+require_once("../../php/global.php");
 
 /**
  *  成功返回:{ok:"ok",data:data}

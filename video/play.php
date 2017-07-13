@@ -1,7 +1,5 @@
 <?php
-
-require_once("../php/config.php");
-require_once("../php/util.php");
+require_once("../php/global.php");
 
 if(!isset($_REQUEST["id"])){
     die("404");

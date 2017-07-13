@@ -1,4 +1,4 @@
-<?php require_once("../php/resource.php") ?>
+<?php require_once("../php/global.php") ?>
 <html>
     <head>
         <title>視頻</title>

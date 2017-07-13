@@ -1,5 +1,5 @@
 <?php
-require("../php/config.php");
+require("../php/global.php");
 
 $admin="";
 $pass="";

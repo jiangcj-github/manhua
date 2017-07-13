@@ -22,4 +22,9 @@
 
 ### 需要配置mod_auto_token
 
+//
+隐藏video的id，MD5加密
+
+
+
 

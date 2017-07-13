@@ -1,5 +1,5 @@
 <?php
-require_once("../php/config.php");
+require_once("../php/global.php");
 
 include("checkAdmin.php");
 
