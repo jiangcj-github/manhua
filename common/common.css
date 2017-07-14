@@ -27,8 +27,8 @@ ul{margin:0;padding:0;}
 .err{color:red;}
 
 /*page global style*/
-.page{width:80%;margin:20px auto;background:#fff;border:1px solid #ccc;}
-.page.col2{display:flex;min-width:1020px;max-width:1050px;}
+.page{width:90%;margin:20px auto;background:#fff;border:1px solid #ccc;}
+.page.col2{display:flex;min-width:1050px;max-width:1150px;}
 .page.col2>.left{flex-grow:1;flex-shrink:1;min-width: 0;}
 .page.col2>.right{flex-shrink: 0;border-left:1px solid #ccc;width:220px;}
 

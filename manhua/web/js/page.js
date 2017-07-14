@@ -1,4 +1,4 @@
-
+//comment
 var cmt={};
 cmt.sendBtn=$("#cm-send");
 cmt.sendInput=$("#text");
@@ -82,6 +82,89 @@ var smTimeout=function(sec){
 };
 
 $(function(){
-    $("img.lazy").lazyload({effect: "fadeIn"});
     cmt.init();
+    mhPage.init();
 });
+
+//mh_page
+var mhPage={};
+mhPage.select=$(".ct-page").find("select");
+mhPage.beforeBtn=$("#bfBtn");
+mhPage.afterBtn=$("#afBtn");
+mhPage.mh=$("#mh");
+mhPage.mh_buffer=$("#mh_buffer");
+mhPage.curPage=1;
+mhPage.totalPage=parseInt($("#mh_buffer").data("total"));
+mhPage.init=function(){
+    var _this=this;
+    _this.go(1);
+    _this.beforeBtn.click(function(){_this.before();});
+    _this.afterBtn.click(function(){_this.after();});
+    _this.select.change(function(){_this.go(parseInt($(this).val()));})
+};
+mhPage.go=function(page){
+    var _this=this;
+    if(page<1 || page>_this.totalPage) return;
+    _this.curPage=page;
+    _this.mh_buffer.append(_this.mh.find("img"));
+    var img=_this.mh_buffer.find("img[p="+_this.curPage+"]");
+    if(!img.prop("src")){
+        img.prop("src",function(){
+            return $(this).data("src");
+        });
+    }
+    _this.mh.append(img);
+    _this.updateHtml();
+};
+mhPage.updateHtml=function(){
+    var _this=this;
+    if(_this.curPage<=1){
+        _this.beforeBtn.prop("disabled",true);
+        _this.beforeBtn.text("首頁");
+    }else{
+        _this.beforeBtn.prop("disabled",false);
+        _this.beforeBtn.text("上一頁");
+    }
+    if(_this.curPage>=_this.totalPage){
+        _this.afterBtn.prop("disabled",true);
+        _this.afterBtn.text("尾頁");
+    }else{
+        _this.afterBtn.prop("disabled",false);
+        _this.afterBtn.text("下一頁");
+    }
+    _this.select.val(_this.curPage);
+};
+mhPage.before=function(){
+    var _this=this;
+    if(_this.curPage<=1) return;
+    _this.curPage--;
+    _this.mh_buffer.append(_this.mh.find("img"));
+    var img=_this.mh_buffer.find("img[p="+_this.curPage+"]");
+    if(!img.prop("src")){
+        img.prop("src",function(){
+           return $(this).data("src");
+        });
+    }
+    _this.mh.append(img);
+    _this.updateHtml();
+};
+mhPage.after=function(){
+    var _this=this;
+    if(_this.curPage>=_this.totalPage) return;
+    _this.curPage++;
+    _this.mh_buffer.append(_this.mh.find("img"));
+    var img=_this.mh_buffer.find("img[p="+_this.curPage+"]");
+    if(!img.prop("src")){
+        img.prop("src",function(){
+            return $(this).data("src");
+        });
+    }
+    _this.mh.append(img);
+    _this.updateHtml();
+};
+function onBeforePage(){
+    mhPage.before();
+}
+function onAfterPage() {
+    mhPage.after();
+}

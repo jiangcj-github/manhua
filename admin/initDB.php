@@ -210,3 +210,37 @@ if ($result){
 }else{
     echo "user_strict_mh created failed"."<br>";
 }
+
+/**
+ *  創建mh表
+ */
+$result=$conn->query("
+    CREATE TABLE IF NOT EXISTS mh(
+      id int(32) NOT NULL AUTO_INCREMENT,
+      name VARCHAR (255) NOT NULL,
+      unit int(32) NOT NULL,
+      PRIMARY KEY (id)
+    ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+    ");
+if ($result){
+    echo "mh created"."<br>";
+}else{
+    echo "mh created failed"."<br>";
+}
+
+/**
+ *  創建mh_chapter表
+ */
+$result=$conn->query("
+    CREATE TABLE IF NOT EXISTS mh_chapter(
+      mid int(32) NOT NULL,
+      chapter int(32) NOT NULL,
+      numPage int(32),
+      PRIMARY KEY (mid,chapter)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+    ");
+if ($result){
+    echo "mh_chapter created"."<br>";
+}else{
+    echo "mh_chapter created failed"."<br>";
+}

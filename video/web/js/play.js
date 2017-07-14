@@ -2,7 +2,6 @@
  * play.js
  * --------------------------------------------------------------------------------------------------------------------
  */
-var vid=$("#v_id").val();
 var bgSpeed=3;
 var player = videojs("v1",{}, function(){
     this.on("durationchange",function(){

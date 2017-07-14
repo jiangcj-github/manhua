@@ -49,7 +49,6 @@ $stmt->close();
                     <button id="bg-submit" class="btn btn2">推送彈幕</button>
                 </div>
             </div>
-            <input type="hidden" id="v_id" value="<?php echo $id ?>">
             <div class="sec sm-div">
                 <textarea id="cm-text" placeholder="說點什麼吧"></textarea>
                 <button id="cm-submit" class="btn btn2 btn-lg">提交</button>
@@ -231,5 +230,6 @@ $stmt->close();
         </div>
     </script>
     <script src="web/js/play.js"></script>
+    <script>var vid=<?php echo $id ?>;</script>
 </body>
 </html>

@@ -1,4 +1,5 @@
 [class|=switch] {
+	box-sizing:content-box;
 	position: relative;
 	display: inline-block;
 	width: 60px;
