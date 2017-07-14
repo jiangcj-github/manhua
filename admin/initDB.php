@@ -230,12 +230,14 @@ if ($result){
 
 /**
  *  創建mh_chapter表
+ *  chapter不要求連續
+ *  page連續，範圍[1,pageNum]
  */
 $result=$conn->query("
     CREATE TABLE IF NOT EXISTS mh_chapter(
       mid int(32) NOT NULL,
-      chapter int(32) NOT NULL,
-      numPage int(32),
+      chapter float(32) NOT NULL,
+      pageNum int(32) NOT NULL,
       PRIMARY KEY (mid,chapter)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
     ");

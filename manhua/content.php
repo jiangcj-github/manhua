@@ -1,10 +1,37 @@
 <?php
 require_once("../php/global.php");
 
-$mid=1;
-$chapter=1;
-$domain="ddd";
-$pageNum=4;
+if(!isset($_REQUEST["mid"])||!isset($_REQUEST["chapter"])){
+    die("404");
+}
+$mid=$_REQUEST["mid"];
+$chapter=$_REQUEST["chapter"];
+//數據庫操作
+$conn = new mysqli($mysql["host"], $mysql["user"], $mysql["password"], $mysql["database"]);
+$conn->set_charset("utf8");
+//查詢mh
+$stmt=$conn->prepare("select b.domain,c.pageNum from mh as a join units as b on a.unit=b.id join mh_chapter as c on a.id=c.mid where a.id = ? and c.chapter=?");
+$stmt->bind_param("id",$mid,$chapter);
+$stmt->execute();
+$stmt->bind_result($domain,$pageNum);
+if(!$stmt->fetch()){
+    die("404");
+}
+$stmt->close();
+//bfChapter
+$stmt=$conn->prepare("select chapter from mh_chapter where mid=? and chapter<? order by chapter desc limit 1");
+$stmt->bind_param("id",$mid,$chapter);
+$stmt->execute();
+$stmt->bind_result($bfChapter);
+$stmt->fetch();
+$stmt->close();
+//afChapter
+$stmt=$conn->prepare("select chapter from mh_chapter where mid=? and chapter>? order by chapter asc limit 1");
+$stmt->bind_param("id",$mid,$chapter);
+$stmt->execute();
+$stmt->bind_result($afChapter);
+$stmt->fetch();
+$stmt->close();
 ?>
 <!DOCTYPE html>
 <html>
@@ -30,9 +57,19 @@ $pageNum=4;
                     ?>
                 </div>
                 <div class="ct-page">
-                    <a class="btn" href="chapter.html">目錄</a>
-                    <a class="btn" href="javascript:void(0);" >上一章</a>
-                    <a class="btn" href="javascript:void(0);">下一章</a>
+                    <a class="btn" href="cplist.php?mid=<?php echo $mid ?>">目錄</a>
+                    <?php
+                    if(isset($bfChapter)){
+                        echo "<a class=\"btn\" href=\"content.php?mid=".$mid."&chapter=".$bfChapter."\">上一章</a>";
+                    }else{
+                        echo "<a class=\"btn\" href=\"javascript:void(0);\" disabled=\"disabled\">首章</a>";
+                    }
+                    if(isset($afChapter)){
+                        echo "<a class=\"btn\" href=\"content.php?mid=".$mid."&chapter=".$afChapter."\">下一章</a>";
+                    }else{
+                        echo "<a class=\"btn\" href=\"javascript:void(0);\" disabled=\"disabled\">尾章</a>";
+                    }
+                    ?>
                     <select>
                         <?php
                         for($i=1;$i<=$pageNum;$i++){

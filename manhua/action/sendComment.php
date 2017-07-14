@@ -36,7 +36,7 @@ if( $stmt->fetch()&& $us_comment){
 $stmt->close();
 //插入數據
 $stmt = $conn->prepare("insert into mh_comment(mid,chapter,nick,time,text) values(?,?,?,?,?)");
-$stmt->bind_param("iisss",$mid,$chapter,$nick,$time,$text);
+$stmt->bind_param("idsss",$mid,$chapter,$nick,$time,$text);
 $stmt->execute();
 $stmt->close();
 //記錄操作時間

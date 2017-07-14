@@ -15,7 +15,7 @@ if(isset($_REQUEST["offset"])){
 $conn = new mysqli($mysql["host"], $mysql["user"], $mysql["password"], $mysql["database"]);
 $conn->set_charset("utf8");
 $stmt = $conn->prepare("select * from mh_comment where mid=? and chapter=? order by time desc limit 10 offset ?");
-$stmt->bind_param("iii",$mid,$chapter,$offset);
+$stmt->bind_param("idi",$mid,$chapter,$offset);
 $stmt->execute();
 $result=$stmt->get_result();
 $data=$result->fetch_all(MYSQLI_ASSOC);
