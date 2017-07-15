@@ -19,10 +19,7 @@ $user = $_REQUEST["user"];
 $nick = $_REQUEST["nick"];
 $pass = $_REQUEST["pass"];
 $pass1 = $_REQUEST["pass1"];
-if(!isset($_REQUEST["ip"])||!isset($_REQUEST["country"])||!isset($_REQUEST["city"])) {
-    die_json(["msg"=>"缺少必要的參數"]);
-}
-$ip=$_REQUEST["ip"];
+$ip=$_SERVER["REMOTE_ADDR"];
 $country=$_REQUEST["country"];
 $city=$_REQUEST["city"];
 //正則表達式檢查
@@ -69,9 +66,9 @@ if ($stmt->num_rows >= 3) {
 }
 $stmt->close();
 //寫數據庫
-$stmt=$conn->prepare("insert into user(user,nick,pass,ip,country,city,time) values(?,?,?,?,?,?,?)");
+$stmt=$conn->prepare("insert into user(user,nick,pass,ip,time) values(?,?,?,?,?)");
 $time=(new DateTime())->format("Y-m-d H:i:s");
-$stmt->bind_param("sssssss",$user,$nick,md5($pass),$ip,$country,$city,$time);
+$stmt->bind_param("sssssss",$user,$nick,md5($pass),$ip,$time);
 $stmt->execute();
 $stmt->close();
 //註冊成功

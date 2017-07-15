@@ -18,18 +18,6 @@ if(!isset($_REQUEST["user"])||!isset($_REQUEST["pass"])){
 }
 $user=$_REQUEST["user"];
 $pass=$_REQUEST["pass"];
-$ip="Unknown Ip";
-$country="Unknown Country";
-$city="Unknown City";
-if(isset($_REQUEST["ip"])){
-    $ip=$_REQUEST["ip"];
-}
-if(isset($_REQUEST["country"])){
-    $country=$_REQUEST["country"];
-}
-if(isset($_REQUEST["city"])){
-    $city=$_REQUEST["city"];
-}
 //數據庫
 $conn = new mysqli($mysql["host"], $mysql["user"], $mysql["password"], $mysql["database"]);
 $conn->set_charset("utf8");
@@ -49,5 +37,5 @@ $stmt->bind_param("sss",$lastLogin1,$user,$pass);
 $stmt->execute();
 $stmt->close();
 //登錄成功
-$_SESSION["login"]=["user"=>$user,"nick"=>$nick,"ip"=>$ip,"country"=>$country,"city"=>$city,"time"=>$time,"lastLogin"=>$lastLogin];
+$_SESSION["login"]=["user"=>$user,"nick"=>$nick,"time"=>$time,"lastLogin"=>$lastLogin];
 die_json(["ok"=>"ok","data"=>""]);

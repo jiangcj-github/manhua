@@ -1,5 +1,6 @@
-.v-div{position:relative !important;height:600px;border-bottom:none !important;}
-.video-js{width:100%;height:100%;}
+.v-div{position:relative !important;height:460px;border-bottom:none !important;}
+.video-js{width:100% !important;height:100% !important;}
+video{object-fit:fill;}
 
 .bg-div{line-height: 30px;border-bottom: 1px solid #ccc;padding: 0 20px 20px 20px;margin-top: -10px;display:flex;}
 .bg-div .bg-toggle{margin-right:10px;height:30px;}

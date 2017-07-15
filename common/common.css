@@ -27,13 +27,12 @@ ul{margin:0;padding:0;}
 .err{color:red;}
 
 /*page global style*/
-.page{width:90%;margin:20px auto;background:#fff;border:1px solid #ccc;}
-.page.col2{display:flex;min-width:1050px;max-width:1150px;}
+.page{width:80%;margin:20px auto;background:#fff;border:1px solid #ccc;}
+.page.col2{display:flex;min-width:1020px;max-width:1050px;}
 .page.col2>.left{flex-grow:1;flex-shrink:1;min-width: 0;}
 .page.col2>.right{flex-shrink: 0;border-left:1px solid #ccc;width:220px;}
 
 .sec{padding:20px;border-bottom:1px solid #ccc;}
-.sec h3{padding:0 0 10px 0;margin:0;}
 
 .pane{padding:10px;border-bottom: 1px solid #ccc;}
 .pane>h3{line-height:20px;padding:3px 5px;margin:0 0 3px 0;font-size:14px;color:#6f6f6f;}

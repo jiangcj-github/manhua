@@ -13,23 +13,6 @@
         }
     ?>
     <div class="page">
-        <div class="sec ip-sec">
-            <h3>網路信息</h3>
-            <div class="info">
-                <table>
-                    <tbody>
-                        <tr><td colspan="2"><span style="font-weight:bold">您的IP僅自己可見，我們不會以任何形式向第三方透露您的IP地址。<a href="#">詳細</a></span></td></tr>
-                        <tr><td style="width:100px;">ip:</td><td><span id="ip"></span</td></tr>
-                        <tr><td style="width:100px;">country:</td><td><span id="country"></span</td></tr>
-                        <tr><td style="width:100px;">city:</td><td><span id="city"></span</td></tr>
-                        <tr><td style="width:100px;">loc:</td><td><span id="loc"></span</td></tr>
-                        <tr><td style="width:100px;">org:</td><td><span id="org"></span</td></tr>
-                        <tr><td style="width:100px;">region:</td><td><span id="region"></span</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
         <div class="sec login-sec">
             <h3>登錄入口</h3>
             <div class="info">
@@ -49,14 +32,6 @@
     </div>
     <script src="/common/md5.min.js"></script>
     <script>
-        $.get("http://ipinfo.io", function(response) {
-            $("#ip").html(response.ip);
-            $("#country").html(response.country);
-            $("#city").html(response.city);
-            $("#loc").html(response.loc);
-            $("#org").html(response.org);
-            $("#region").html(response.region);
-        }, "jsonp");
         function log(msg){
             $(".err").html(msg);
         }
@@ -64,9 +39,6 @@
             var user=$("[name=user]").val();
             var pass=$("[name=pass]").val();
             var autosign=$("[name=autosign]").is(":checked");
-            var country=$("#country").text();
-            var city=$("#city").text();
-            var ip=$("#ip").text();
             if(!/^[0-9a-zA-Z_-]{5,15}$/.test(user)||!/^[0-9a-zA-Z_-]{8,15}$/.test(pass)){
                 log("用戶名或密碼不正確");
                 return;
@@ -75,7 +47,7 @@
             ajaxForm.action(this,{
                type:"post",
                url:"action/signin.php",
-               data:{user:user,pass:pass,country:country,city:city,ip:ip},
+               data:{user:user,pass:pass},
                success:function(data){
                    if(data.ok){
                        if(autosign){

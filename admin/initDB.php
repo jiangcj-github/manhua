@@ -21,8 +21,6 @@ $result=$conn->query("
         nick VARCHAR (255) UNIQUE NOT NULL,
         pass VARCHAR (255) NOT NULL,
         ip VARCHAR (255) NOT NULL,
-        country VARCHAR (255) NOT NULL,
-        city VARCHAR (255) NOT NULL,
         time VARCHAR (255) NOT NULL,
         lastLogin VARCHAR (255),
         PRIMARY KEY(user)

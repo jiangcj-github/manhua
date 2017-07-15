@@ -26,7 +26,6 @@
     ==<span>&nbsp;|&nbsp;</span>
     <?php
         if($isLogin){
-            echo "<span>".$_SESSION["login"]["country"]."&nbsp;,&nbsp;".$_SESSION["login"]["city"]."</span>&nbsp;|&nbsp;";
             echo "<span>上次登錄：".$_SESSION["login"]["lastLogin"]."</span>&nbsp;|&nbsp;<a href='/user/signout.php' target='_blank'>登出</a>";
         }else{
             echo "<a href='/user/signin.php' target='_blank'>登錄</a> &nbsp;<a href=\"/user/signup.php\" target=\"_blank\">免費註冊</a>";
@@ -38,18 +37,16 @@
 <script src="/common/common.js"></script>
 <script>
     if(!isLogin && getCookie("autosign")){
-        $.get("http://ipinfo.io", function(response){
-            ajaxForm.action(null,{
-                type:"post",
-                url:"/user/action/signin.php",
-                data:{user:getCookie("user"),pass:getCookie("pass"),ip:response.ip,country:response.country,city:response.city},
-                success:function(data){
-                    if(data.ok){
-                        location.reload();
-                    }
+        ajaxForm.action(null,{
+            type:"post",
+            url:"/user/action/signin.php",
+            data:{user:getCookie("user"),pass:getCookie("pass")},
+            success:function(data){
+                if(data.ok){
+                    location.reload();
                 }
-            });
-        }, "jsonp");
+            }
+        });
     }
 </script>
 <?php
