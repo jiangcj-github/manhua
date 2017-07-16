@@ -20,7 +20,7 @@
 	display: inline-block;
 	width: 30px;
 	height: 28px;
-	background: white;
+	background: linear-gradient(to bottom, #fff, #ccc);
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 	border-radius: 50%;
 	left: 0;
@@ -37,7 +37,7 @@
 	line-height: 28px;
 	font-size: 12px;
 	font-weight: bold;
-	color: lightcoral;
+	color:#4e4e4e;
 }
 .switch-off {
 	border: 1px solid #dfdfdf;
@@ -58,7 +58,7 @@
 	line-height: 28px;
 	font-size: 12px;
 	font-weight: bold;
-	color: darkgray;
+	color:#4e4e4e;
 }
 .switch-on.switch-disabled{
 	opacity:.5;

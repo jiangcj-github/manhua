@@ -40,7 +40,7 @@ $stmt->close();
                     <source src="web/test.mp4" type="video/mp4">
                 </video>
             </div>
-            <div class=" bg-div">
+            <div class="bg-div">
                 <div class="bg-toggle">
                    <span class="switch-on" id="bg-toggle"></span>
                 </div>
@@ -48,6 +48,34 @@ $stmt->close();
                     <input type="text" id="bg-text" placeholder="說點什麼吧，不超過15個字">
                     <button id="bg-submit" class="btn btn2">推送彈幕</button>
                 </div>
+            </div>
+            <div class="sec info-div">
+                <div class="row">
+                    <div class="vote-wrap">
+                        <a href="javascript:void(0);" class="vote-btn up"></a>
+                        <div class="vote-show">
+                            <div class="stext">好評(97%)</div>
+                            <div class="slider-wrap">
+                                <div class="up" style="width:80%"></div>
+                            </div>
+                        </div>
+                        <a href="javascript:void(0);" class="vote-btn down"></a>
+                    </div>
+                    <span>播放<span style="color:#ddd;">10443</span>次</span>
+                    <span>評論<span style="color:#ddd;">21</span>條</span>
+                    <div class="right">
+                        <a href="javascript:void(0);" class="btn btn2">分享</a>
+                        <a href="javascript:void(0);" class="btn btn2">評論</a>
+                        <a href="javascript:void(0);" class="btn btn2">反饋</a>
+                        <a href="javascript:void(0);" class="btn btn2">下載</a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="sec ad-div">
+                <a href="#"><img src="" alt="300*200" style="width:300px;height:200px"></a>
+                <a href="#"><img src="" alt="300*200" style="width:300px;height:200px"></a>
+                <a href="#"><img src="" alt="200*200" style="width:200px;height:200px"></a>
             </div>
             <div class="sec sm-div">
                 <textarea id="cm-text" placeholder="說點什麼吧"></textarea>
@@ -100,35 +128,50 @@ $stmt->close();
 
         <div class="right">
             <div class="pane">
-                <h3>面板1</h3>
-                <div class="item-v vpre">
-                    <div class="label">12:00</div>
-                    <img src="web/1.png">
-                </div>
-                <div class="item-v vpre">
-                    <div class="label">12:00</div>
-                    <img src="web/1.png">
-                </div>
-                <div class="item-v vpre">
-                    <div class="label">12:00</div>
-                    <img src="web/1.png">
+                <div class="ad-pane">
+                    <a href="#"><img src="" alt="200*300" style="width:200px;height:300px;"></a>
                 </div>
             </div>
             <div class="pane">
-                <h3>面板2</h3>
-                <div class="item-a">
-                   <a href="#">李昌钰:章莹颖可能活着</a>
+                <h3>相關內容</h3>
+                <div class="item-v vpre">
+                    <div class="label">12:00</div>
+                    <img src="web/1.png">
                 </div>
-                <div class="item-a">
-                    <a href="#">斯诺克世界杯中国超神</a>
+                <div class="item-v vpre">
+                    <div class="label">12:00</div>
+                    <img src="web/1.png">
                 </div>
-                <div class="item-a">
-                    <a href="#">斯诺克世界杯中国超神</a>
+                <div class="item-v vpre">
+                    <div class="label">12:00</div>
+                    <img src="web/1.png">
                 </div>
-            </div>
-            <div class="pane">
-                <h3>面板3</h3>
-                <div class="item-img">
+                <div class="item-v vpre">
+                    <div class="label">12:00</div>
+                    <img src="web/1.png">
+                </div>
+                <div class="item-v vpre">
+                    <div class="label">12:00</div>
+                    <img src="web/1.png">
+                </div>
+                <div class="item-v vpre">
+                    <div class="label">12:00</div>
+                    <img src="web/1.png">
+                </div>
+                <div class="item-v vpre">
+                    <div class="label">12:00</div>
+                    <img src="web/1.png">
+                </div>
+                <div class="item-v vpre">
+                    <div class="label">12:00</div>
+                    <img src="web/1.png">
+                </div>
+                <div class="item-v vpre">
+                    <div class="label">12:00</div>
+                    <img src="web/1.png">
+                </div>
+                <div class="item-v vpre">
+                    <div class="label">12:00</div>
                     <img src="web/1.png">
                 </div>
             </div>
@@ -140,7 +183,7 @@ $stmt->close();
     <script id="cm-li" type="text/html">
         <div class="li">
             <div class="li_l">
-                <img class="head" src="/common/headimg/rand_{{cm.nick.charCodeAt(0)%20}}.png">
+                <img class="head" src="/common/headimg/head.gif">
                 <div class="nick">{{cm.nick}}</div>
             </div>
             <div class="li_r">
@@ -160,7 +203,7 @@ $stmt->close();
                             <div class="re_li">
                         <% } %>
                             <div class="re_li_l">
-                                <img src="/common/headimg/rand_{{cm.reply[i].nick.charCodeAt(0)%20}}.png">
+                                <img src="/common/headimg/head.gif">
                             </div>
                             <div class="re_li_r">
                                 <div class="re_li_r_c"><span class="nick">{{cm.reply[i].nick}}</span>{{cm.reply[i].text}}</div>
@@ -184,7 +227,7 @@ $stmt->close();
     <script id="re-li" type="text/html">
         <div class="re_li">
             <div class="re_li_l">
-                <img src="/common/headimg/rand_{{reply.nick.charCodeAt(0)%20}}.png">
+                <img src="/common/headimg/head.gif">
             </div>
             <div class="re_li_r">
                 <div class="re_li_r_c"><span class="nick">{{reply.nick}}</span>{{reply.text}}</div>

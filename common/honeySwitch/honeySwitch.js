@@ -1,5 +1,5 @@
 var honeySwitch = {};
-honeySwitch.themeColor = "rgb(100, 189, 99)";
+honeySwitch.themeColor = "#444";
 honeySwitch.init = function() {
 	var s = "<span class='slider'></span>";
 	$("[class^=switch]").append(s);
@@ -10,9 +10,9 @@ honeySwitch.init = function() {
 		if ($(this).hasClass("switch-on")) {
 			$(this).removeClass("switch-on").addClass("switch-off");
 			$(".switch-off").css({
-				'border-color' : '#dfdfdf',
-				'box-shadow' : 'rgb(223, 223, 223) 0px 0px 0px 0px inset',
-				'background-color' : 'rgb(255, 255, 255)'
+				'border-color' : '#222',
+				'box-shadow' : '#222 0px 0px 0px 0px inset',
+				'background-color' : '#222'
 			});
 		} else {
 			$(this).removeClass("switch-off").addClass("switch-on");
