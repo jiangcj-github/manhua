@@ -57,6 +57,8 @@ $result=$conn->query("
         id int(32) NOT NULL AUTO_INCREMENT,
         filename VARCHAR (255) NOT NULL,
         duration VARCHAR (255) NOT NULL,
+        up int(32) NOT NULL DEFAULT 0,
+        down int(32) NOT NULL DEFAULT 0,
         unit  int(32) NOT NULL,
         PRIMARY KEY (id)
     )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;;
@@ -149,6 +151,27 @@ if($result){
 }else{
     echo "user_strict_v created failed"."<br>";
 }
+
+/**
+ * 建user_strict_v2表
+ * 發送vote間隔時間24*60*60
+ * 對不同vid
+ * 無時間間隔，但24*60*60內限制10次
+ */
+$result=$conn->query("
+    CREATE TABLE IF NOT EXISTS user_strict_v2(
+        nick VARCHAR (255) NOT NULL,
+        vid int(32) NOT NULL,
+        vote VARCHAR (255),
+        PRIMARY KEY (nick,vid)
+    )ENGINE=InnoDB DEFAULT CHARSET=utf8;;
+");
+if($result){
+    echo "user_strict_v2 created"."<br>";
+}else{
+    echo "user_strict_v2 created failed"."<br>";
+}
+
 
 /**
  * 建user_strict_v_cm表

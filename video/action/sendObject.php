@@ -35,6 +35,7 @@ if( $stmt->fetch()&& $stri_sec){
     }
 }
 $stmt->close();
+//上限檢查
 $stmt=$conn->prepare("select count(object) from user_strict_v_cm where nick=? and object>?");
 $stric_p1d=(new DateTime())->sub(new DateInterval("P1D"))->format("Y-m-d H:i:s");
 $stmt->bind_param("ss",$nick,$stric_p1d);
