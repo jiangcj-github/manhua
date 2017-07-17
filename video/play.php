@@ -82,10 +82,10 @@ if($up+$down==0){
                     <span>播放<span style="color:#ddd;"><?php echo $playNum ?></span>次</span>
                     <span>評論<span style="color:#ddd;"><?php echo $cmt_count ?></span>條</span>
                     <div class="right">
-                        <a href="javascript:void(0);" class="btn btn2">分享</a>
-                        <a href="#cm-text" class="btn btn2">評論</a>
-                        <a href="javascript:void(0);" class="btn btn2">反饋</a>
-                        <a href="download.php?vid=<?php echo $id ?>" target="_blank" class="btn btn2">下載</a>
+                        <a href="javascript:void(0);" class="btn btn2"><img src="web/img/share.svg">分享</a>
+                        <a href="#cm-text" class="btn btn2"><img src="web/img/chat.svg">評論</a>
+                        <a href="javascript:void(0);" class="btn btn2"><img src="web/img/feedback.svg">反饋</a>
+                        <a href="download.php?vid=<?php echo $id ?>" target="_blank" class="btn btn2"><img src="web/img/download.svg">下載</a>
                     </div>
                 </div>
 
@@ -112,7 +112,7 @@ if($up+$down==0){
                         <div class="r_b">
                             <span class="label1">21樓</span>
                             <span>2012-12-01 23:23:33</span>
-                            <span><a href="#">頂[0]</a></span>
+                            <span><a href="#"><img src="web/img/like.svg">[0]</a></span>
                             <span><a href="#">踩[2]</a></span>
                             <span><a href="#">回復[4]</a></span>
                         </div>
@@ -209,7 +209,7 @@ if($up+$down==0){
                 <div class="r_b" data-cid="{{cm.id}}">
                     <span class="label1">{{cm.count}}樓</span>
                     <span>{{cm.time}}</span>
-                    <span><a href="javascript:void(0);" onclick="onSendSup(this)">頂[<span field="suport">{{cm.suport}}</span>]</a></span>
+                    <span><a href="javascript:void(0);" onclick="onSendSup(this)"><img src="web/img/like.svg">[<span field="suport">{{cm.suport}}</span>]</a></span>
                     <span><a href="javascript:void(0);" onclick="onSendObj(this)">踩[<span field="object">{{cm.object}}</span>]</a></span>
                     <span><a href="javascript:void(0);" onclick="onToggleRe(this)">回復[<span field="reply">{{cm.reply.length}}</span>]</a></span>
                 </div>

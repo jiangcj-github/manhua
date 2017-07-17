@@ -57,8 +57,8 @@ $result=$conn->query("
         id int(32) NOT NULL AUTO_INCREMENT,
         filename VARCHAR (255) NOT NULL,
         duration VARCHAR (255) NOT NULL,
-        up int(32) NOT NULL DEFAULT 1000,
-        down int(32) NOT NULL DEFAULT 1000,
+        up int(32) NOT NULL DEFAULT 10,
+        down int(32) NOT NULL DEFAULT 10,
         playNum int(32) NOT NULL DEFAULT 10000,
         unit  int(32) NOT NULL,
         PRIMARY KEY (id)

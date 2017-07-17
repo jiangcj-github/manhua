@@ -12,7 +12,8 @@ input[type=text]{border-radius:5px 0 0 5px;background: linear-gradient(to bottom
 .info-div{border-top:2px solid #222;border-bottom:2px solid #222;}
 .info-div .row{height:30px;display:flex;}
 .info-div .row>.right{flex-grow:1;display:flex;justify-content:flex-end;}
-.info-div .row>.right>a{line-height:26px;border-left:1px solid #222;}
+.info-div .row>.right>a{line-height:26px;border-left:1px solid #222;display:inline-flex;align-items:center;}
+.info-div .row>.right>a img{width:16px;height:16px;margin-right:4px;}
 .info-div .row>.right>a:first-child{border-left:none !important;border-radius:3px 0 0 3px;}
 .info-div .row>.right>a:last-child{border-radius:0 3px 3px 0;}
 .info-div .row>span{font-size:14px;line-height:30px;color:#a2a2a2;padding-left:10px;}
@@ -44,6 +45,8 @@ input[type=text]{border-radius:5px 0 0 5px;background: linear-gradient(to bottom
 .cm-div .r_c{min-height:69px;}
 .cm-div .r_b{line-height: 20px;text-align: right;padding:10px 20px;}
 .cm-div .r_b>span{margin-left:3px;color:gray;}
+.cm-div .r_b a{display:inline-flex;margin-left:3px;color:gray;}
+.cm-div .r_b a img{width:14px;height:14px;}
 
 .cm-div .r_re{border:none;background:#333;display:none;margin-bottom:20px;}
 .cm-div .r_re.hide{display:block !important;}
