@@ -5,7 +5,7 @@
 <link href="/common/common.css" rel="stylesheet">
 <style>
     .top{height:26px;line-height:26px;background:#2d2d2d;}
-    .topBar-wrap{background:#111;}
+    .topBar-wrap{background:linear-gradient(to bottom,#222,#111);}
     .topBar{color:#fff;width:1070px;margin:0 auto;display:flex;height:60px;}
     .topBar>.brand{font-weight: bold;font-size:40px;}
     .topBar>a{display:inline-block;line-height:60px;color:#fff;padding:0 10px;}
@@ -14,7 +14,7 @@
     .sech-group .sech-btn{cursor:pointer;background:url(/common/img/btn-search.png);width:40px;height:30px;display:inline-block;border-radius: 0 5px 5px 0;}
     .sech-group .sech-btn:hover{opacity:0.8;}
 
-    .menuBar-wrap{background:#2d2d2d;}
+    .menuBar-wrap{background:linear-gradient(to bottom,#3d3d3d,#2d2d2d);}
     .menuBar{
         width:1070px;
         margin:0 auto;
@@ -32,7 +32,7 @@
         border-right:1px solid #222;
     }
     .menuBar a:hover{
-        background:#222;
+        background:linear-gradient(to bottom,#2d2d2d,#3d3d3d);
     }
     .menuBar a:first-child{border-left:1px solid #222;}
 </style>

@@ -88,7 +88,38 @@ if($up+$down==0){
                         <a href="download.php?vid=<?php echo $id ?>" target="_blank" class="btn btn2"><img src="web/img/download.svg">下載</a>
                     </div>
                 </div>
-
+                <div class="popup share">
+                    <div class="label">Embed代码</div>
+                    <input type="text" value="<iframe width='640' height='360' src='http://localhost/video/play.php?id=1' frameborder='0' allowfullscreen></iframe>">
+                    <div class="sep"></div>
+                    <div class="label">寬度和高度</div>
+                    <div class="pprow">
+                        <input type="text" value="640"><span>&times;</span><input type="text" value="360">
+                    </div>
+                </div>
+                <div class="popup feedback">
+                    <div class="label">反饋信息</div>
+                    <div class="pprow">
+                        <label><input type="radio" name="fb">內容令人反感。</label>
+                        <label><input type="radio" name="fb">含有性暴力，兒童色情等內容。</label>
+                        <label><input type="radio" name="fb">內容侵犯版權</label>
+                        <label><input type="radio" name="fb">其他</label>
+                    </div>
+                    <input type="text" value="">
+                    <div class="sep"></div>
+                    <div class="label">詳細說明</div>
+                    <textarea></textarea>
+                    <div class="sep"></div>
+                    <div class="label">Email</div>
+                    <input type="text">
+                    <div class="sep"></div>
+                    <div class="pprow">
+                        <a href="javascript:void(0)" class="btn btn2 btn-lg">提交</a>
+                    </div>
+                </div>
+                <!--
+                <iframe width='640' height='360' src='http://localhost/video/play.php?id=1' frameborder='0' allowfullscreen></iframe>
+                -->
             </div>
             <div class="sec ad-div">
                 <a href="#"><img src="" alt="300*200" style="width:300px;height:200px"></a>
@@ -99,49 +130,7 @@ if($up+$down==0){
                 <textarea id="cm-text" placeholder="說點什麼吧"></textarea>
                 <button id="cm-submit" class="btn btn2 btn-lg">提交</button>
             </div>
-            <div class="sec cm-div">
-                <div class="li">
-                    <div class="li_l">
-                        <img class="head" src="">
-                        <div class="nick">{{nick}}</div>
-                    </div>
-                    <div class="li_r">
-                        <div class="r_c">
-                            {{text}}
-                        </div>
-                        <div class="r_b">
-                            <span class="label1">21樓</span>
-                            <span>2012-12-01 23:23:33</span>
-                            <span><a href="#"><img src="web/img/like.svg">[0]</a></span>
-                            <span><a href="#">踩[2]</a></span>
-                            <span><a href="#">回復[4]</a></span>
-                        </div>
-                        <div class="r_re" data-cid="">
-                            <div class="re_li">
-                                <div class="re_li_l">
-                                    <img src="">
-                                </div>
-                                <div class="re_li_r">
-                                    <div class="re_li_r_c"><span class="nick">{{nick}}</span>{{reply}}</div>
-                                    <div class="re_li_r_b">1999-22-32 33:43:12</div>
-                                </div>
-                            </div>
-                            <div class="re_sd">
-                                <input type="text" placeholder="說點什麼吧"><button class="btn btn2">回復</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="li-page">
-                    <a href="#">上一頁</a>
-                    <a href="#" class="active">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#">4</a>
-                    <a href="#">5</a>
-                    <a href="#">下一頁</a>
-                </div>
-            </div>
+            <div class="sec cm-div"></div>
         </div>
 
         <div class="right">
@@ -209,9 +198,9 @@ if($up+$down==0){
                 <div class="r_b" data-cid="{{cm.id}}">
                     <span class="label1">{{cm.count}}樓</span>
                     <span>{{cm.time}}</span>
-                    <span><a href="javascript:void(0);" onclick="onSendSup(this)"><img src="web/img/like.svg">[<span field="suport">{{cm.suport}}</span>]</a></span>
-                    <span><a href="javascript:void(0);" onclick="onSendObj(this)">踩[<span field="object">{{cm.object}}</span>]</a></span>
-                    <span><a href="javascript:void(0);" onclick="onToggleRe(this)">回復[<span field="reply">{{cm.reply.length}}</span>]</a></span>
+                    <span><a href="javascript:void(0);" onclick="onSendSup(this)"><img src="web/img/like.svg">(<span field="suport">{{cm.suport}}</span>)</a></span>
+                    <span><a href="javascript:void(0);" onclick="onSendObj(this)"><img src="web/img/unlike.svg">(<span field="object">{{cm.object}}</span>)</a></span>
+                    <span><a href="javascript:void(0);" onclick="onToggleRe(this)"><img src="web/img/reply.svg">(<span field="reply">{{cm.reply.length}}</span>)</a></span>
                 </div>
                 <div class="r_re" data-cid="{{cm.id}}">
                     <% for(var i=0;i<cm.reply.length;i++){ %>
