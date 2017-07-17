@@ -57,8 +57,9 @@ $result=$conn->query("
         id int(32) NOT NULL AUTO_INCREMENT,
         filename VARCHAR (255) NOT NULL,
         duration VARCHAR (255) NOT NULL,
-        up int(32) NOT NULL DEFAULT 0,
-        down int(32) NOT NULL DEFAULT 0,
+        up int(32) NOT NULL DEFAULT 1000,
+        down int(32) NOT NULL DEFAULT 1000,
+        playNum int(32) NOT NULL DEFAULT 10000,
         unit  int(32) NOT NULL,
         PRIMARY KEY (id)
     )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;;
@@ -136,6 +137,7 @@ if($result){
  * 發送barrage間隔時間60秒
  * 發送comment間隔時間300秒
  * 發送reply間隔時間120秒
+ * 發送feedback間隔時間600秒
  */
 $result=$conn->query("
     CREATE TABLE IF NOT EXISTS user_strict_v(
@@ -143,6 +145,7 @@ $result=$conn->query("
         barrage VARCHAR (255),
         comment VARCHAR (255),
         reply VARCHAR (255),
+        feedback VARCHAR (255),
         PRIMARY KEY (nick)
     )ENGINE=InnoDB DEFAULT CHARSET=utf8;;
 ");
@@ -154,9 +157,7 @@ if($result){
 
 /**
  * 建user_strict_v2表
- * 發送vote間隔時間24*60*60
- * 對不同vid
- * 無時間間隔，但24*60*60內限制10次
+ * 發送vote間隔時間24*60*60,對不同vid,無時間間隔，但24*60*60內限制10次
  */
 $result=$conn->query("
     CREATE TABLE IF NOT EXISTS user_strict_v2(
@@ -171,7 +172,6 @@ if($result){
 }else{
     echo "user_strict_v2 created failed"."<br>";
 }
-
 
 /**
  * 建user_strict_v_cm表
@@ -193,6 +193,27 @@ if($result){
     echo "user_strict_v_cm created"."<br>";
 }else{
     echo "user_strict_v_cm created failed"."<br>";
+}
+
+/**
+ * 建video_feedback表
+ */
+$result=$conn->query("
+    CREATE TABLE IF NOT EXISTS video_feedback(
+        id int (32) NOT NULL AUTO_INCREMENT,
+        vid int(32) NOT NULL,
+        nick VARCHAR (255) NOT NULL,
+        msg VARCHAR (255) NOT NULL,
+        describ text,
+        email VARCHAR (255),
+        time VARCHAR (255) NOT NULL,
+        PRIMARY KEY (id)
+    )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;;
+");
+if($result){
+    echo "video_feedback created"."<br>";
+}else{
+    echo "video_feedback created failed"."<br>";
 }
 
 /**

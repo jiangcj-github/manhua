@@ -18,7 +18,7 @@ if(!isset($_REQUEST["vid"])||!isset($_REQUEST["vote"])){
     die_json(["msg"=>"缺少必需的參數"]);
 }
 $vid=$_REQUEST["vid"];
-$vote=$_REQUEST["vote"];
+$vote=(int)$_REQUEST["vote"];
 if($vote!==0 && $vote!==1){
     die_json(["msg"=>"無效參數"]);
 }

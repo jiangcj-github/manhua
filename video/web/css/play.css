@@ -60,10 +60,10 @@ input[type=text]{border-radius:5px 0 0 5px;background: linear-gradient(to bottom
 .cm-div .re_sd button{flex-shrink:0;width:70px;border-radius: 0 3px 3px 0;}
 
 .cm-div .li-page{margin-top:10px;text-align:right;}
-.cm-div .li-page a{display: inline-block;padding: 5px 9px;font-size: 12px;background: #222;border-radius: 3px;}
-.cm-div .li-page a:hover{color: #3e89fa;border: 1px solid #3e89fa;}
-.cm-div .li-page a.active{border:none;}
-.cm-div .li-page a.disabled{border:none;}
+.cm-div .li-page a{display: inline-block;padding: 5px 9px;font-size: 12px;background: #444;border-radius: 3px;}
+.cm-div .li-page a:hover{background:#222;}
+.cm-div .li-page a.active{background:#222;}
+.cm-div .li-page a.disabled{background:#222;}
 
 .label1{background: #FF7F42;color:#fff !important;padding:0 5px;border-radius: 5px;}
 

@@ -110,6 +110,7 @@ $(function(){
     barrage.init();
     comment.init();
     cmpage.init();
+    vote.init();
 });
 
 /*
@@ -354,7 +355,7 @@ function onLessRe(a){
 Suport.prototype.getCid=function(){
     return $(this.html).data("cid");
 };
-Suport.prototype.sendSup=function(){
+Suport.prototype.sendSup=function(a){
     var _this=this;
     var cid=_this.getCid();
     if(!isLogin){
@@ -369,7 +370,7 @@ Suport.prototype.sendSup=function(){
         comment.log("操作已到達上限，24小時之後再試");
         return;
     }
-    ajaxForm.action(null,{
+    ajaxForm.action(a,{
         type:"post",
         url:"action/sendSuport.php",
         data:{vid:vid,cid:cid},
@@ -389,7 +390,7 @@ Suport.prototype.sendSupOk=function(vid,cid){
     span.text(parseInt(span.text())+1);
     setCookie("vsup10_"+vid+"#"+cid,1,1);
 };
-Suport.prototype.sendObj=function(){
+Suport.prototype.sendObj=function(a){
     var _this=this;
     var cid=_this.getCid();
     if(!isLogin){
@@ -404,7 +405,7 @@ Suport.prototype.sendObj=function(){
         comment.log("操作已到達上限，24小時之後再試");
         return;
     }
-    ajaxForm.action(null,{
+    ajaxForm.action(a,{
         type:"post",
         url:"action/sendObject.php",
         data:{vid:vid,cid:cid},
@@ -428,10 +429,78 @@ Suport.prototype.sendObjOk=function(vid,cid){
 function onSendObj(a){
     var div=$(a).parents(".r_b");
     var suport=new Suport(div);
-    suport.sendObj();
+    suport.sendObj(a);
 }
 function onSendSup(a){
     var div=$(a).parents(".r_b");
     var suport=new Suport(div);
-    suport.sendSup();
+    suport.sendSup(a);
 }
+
+/**
+ * vote Manager
+ */
+var vote={};
+vote.upBtn=$(".vote-btn.up");
+vote.downBtn=$(".vote-btn.down");
+vote.wrapDiv=$(".vote-wrap");
+vote.voteText=$("#voteText");
+vote.voteBar=$("#voteBar");
+vote.init=function(){
+  var _this=this;
+  _this.upBtn.click(function(){
+      _this.send(this,1);
+  });
+  _this.downBtn.click(function(){
+     _this.send(this,0);
+  });
+};
+vote.log=function(msg){
+    alert(msg);
+};
+vote.send=function(btn,v){
+    var _this=this;
+    if(v!==0&&v!==1) return;
+    if(!isLogin){
+        _this.log("用戶未登錄");
+        return;
+    }
+    if(getCookie("vvot10_"+vid)){
+        _this.log("已經投票了，24小時之後再試");
+        return;
+    }
+    if(matchCookie("vvot10_")>=10){
+        _this.log("操作已到達上限，24小時之後再試");
+        return;
+    }
+    ajaxForm.action(btn,{
+        type:"post",
+        url:"action/sendVideoVote.php",
+        data:{vid:vid,vote:v},
+        success:function(data){
+            if(data.ok){
+                _this.sendOk(v);
+            }else if(data.msg){
+                _this.log(data.msg);
+            }else{
+                _this.log("查詢失敗");
+            }
+        }
+    });
+};
+vote.sendOk=function(v){
+    var _this=this;
+    var ups=parseInt(_this.wrapDiv.data("up"));
+    var downs=parseInt(_this.wrapDiv.data("down"));
+    var newRate=0;
+    if(v==1){
+        _this.wrapDiv.data("up",ups+1);
+       newRate=Math.round(100*(ups+1)/(ups+downs+1));
+    }else{
+        _this.wrapDiv.data("down",downs+1);
+        newRate=Math.round(100*ups/(ups+downs+1));
+    }
+    _this.voteText.text(newRate+"%");
+    _this.voteBar.css("width",newRate+"%");
+    setCookie("vvot10_"+vid,1,1);
+};

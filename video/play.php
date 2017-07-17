@@ -8,14 +8,32 @@ $id=$_REQUEST["id"];
 $conn = new mysqli($mysql["host"], $mysql["user"], $mysql["password"], $mysql["database"]);
 $conn->set_charset("utf8");
 //查詢video
-$stmt=$conn->prepare("select a.id,a.filename,b.domain from video as a join units as b on a.unit=b.id where a.id = ?");
+$stmt=$conn->prepare("select a.id,a.filename,b.domain,a.up,a.down,a.playNum from video as a join units as b on a.unit=b.id where a.id = ?");
 $stmt->bind_param("i",$id);
 $stmt->execute();
-$stmt->bind_result($id,$filename,$domain);
+$stmt->bind_result($id,$filename,$domain,$up,$down,$playNum);
 if(!$stmt->fetch()){
     die("404");
 }
 $stmt->close();
+//寫入播放次數
+$stmt=$conn->prepare("update video set playNum=playNum+1 where id=?");
+$stmt->bind_param("i",$id);
+$stmt->execute();
+$stmt->close();
+//計算評論條數
+$stmt=$conn->prepare("select count(id) as count from video_comment where vid=?");
+$stmt->bind_param("i",$id);
+$stmt->execute();
+$stmt->bind_result($cmt_count);
+$stmt->fetch();
+$stmt->close();
+//計算vote
+if($up+$down==0){
+    $vote_rate=0;
+}else{
+    $vote_rate=round(100*$up/($up+$down));
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -51,23 +69,23 @@ $stmt->close();
             </div>
             <div class="sec info-div">
                 <div class="row">
-                    <div class="vote-wrap">
+                    <div class="vote-wrap" data-up="<?php echo $up ?>" data-down="<?php echo $down ?>">
                         <a href="javascript:void(0);" class="vote-btn up"></a>
                         <div class="vote-show">
-                            <div class="stext">好評(97%)</div>
+                            <div class="stext">好評(<span id="voteText"><?php echo $vote_rate ?>%</span>)</div>
                             <div class="slider-wrap">
-                                <div class="up" style="width:80%"></div>
+                                <div class="up" id="voteBar" style="width:<?php echo $vote_rate ?>%"></div>
                             </div>
                         </div>
                         <a href="javascript:void(0);" class="vote-btn down"></a>
                     </div>
-                    <span>播放<span style="color:#ddd;">10443</span>次</span>
-                    <span>評論<span style="color:#ddd;">21</span>條</span>
+                    <span>播放<span style="color:#ddd;"><?php echo $playNum ?></span>次</span>
+                    <span>評論<span style="color:#ddd;"><?php echo $cmt_count ?></span>條</span>
                     <div class="right">
                         <a href="javascript:void(0);" class="btn btn2">分享</a>
-                        <a href="javascript:void(0);" class="btn btn2">評論</a>
+                        <a href="#cm-text" class="btn btn2">評論</a>
                         <a href="javascript:void(0);" class="btn btn2">反饋</a>
-                        <a href="javascript:void(0);" class="btn btn2">下載</a>
+                        <a href="download.php?vid=<?php echo $id ?>" target="_blank" class="btn btn2">下載</a>
                     </div>
                 </div>
 
