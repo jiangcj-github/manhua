@@ -10,10 +10,12 @@
     top: 0;
     z-index:1000;
     opacity:0;
+    pointer-events:none;
 }
 .vpre:hover:before{opacity:1;}
 .vpre:hover{cursor:pointer;}
-.vpre>img{width:100%;height:100%;border:1px solid #222;border-radius:5px;}
+.vpre>a{display:block;height:100%;width:100%;}
+.vpre>a>img{width:100%;height:100%;border:1px solid #222;border-radius:5px;}
 .vpre>.label{
     position: absolute;
     bottom: 1px;

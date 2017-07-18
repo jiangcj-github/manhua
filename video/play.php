@@ -34,6 +34,13 @@ if($up+$down==0){
 }else{
     $vote_rate=round(100*$up/($up+$down));
 }
+//獲取randVideo
+$stmt=$conn->prepare("select a.id,a.filename,a.duration,b.domain from video as a join units as b on a.unit=b.id where a.id!=? order by rand() limit 10");
+$stmt->bind_param("i",$id);
+$stmt->execute();
+$result=$stmt->get_result();
+$randVs=$result->fetch_all(MYSQLI_ASSOC);
+$stmt->close();
 ?>
 <!DOCTYPE html>
 <html>
@@ -82,44 +89,43 @@ if($up+$down==0){
                     <span>播放<span style="color:#ddd;"><?php echo $playNum ?></span>次</span>
                     <span>評論<span style="color:#ddd;"><?php echo $cmt_count ?></span>條</span>
                     <div class="right">
-                        <a href="javascript:void(0);" class="btn btn2"><img src="web/img/share.svg">分享</a>
+                        <a href="javascript:void(0);" class="btn btn2" id="info_share"><img src="web/img/share.svg">分享</a>
+                        <a href="javascript:void(0);" class="btn btn2" id="info_feedback"><img src="web/img/feedback.svg">反饋</a>
                         <a href="#cm-text" class="btn btn2"><img src="web/img/chat.svg">評論</a>
-                        <a href="javascript:void(0);" class="btn btn2"><img src="web/img/feedback.svg">反饋</a>
                         <a href="download.php?vid=<?php echo $id ?>" target="_blank" class="btn btn2"><img src="web/img/download.svg">下載</a>
                     </div>
                 </div>
                 <div class="popup share">
                     <div class="label">Embed代码</div>
-                    <input type="text" value="<iframe width='640' height='360' src='http://localhost/video/play.php?id=1' frameborder='0' allowfullscreen></iframe>">
+                    <input type="text" id="sp-em" value="<iframe width='640' height='360' src='http://localhost/video/play.php?id=1' frameborder='0' allowfullscreen></iframe>">
                     <div class="sep"></div>
                     <div class="label">寬度和高度</div>
                     <div class="pprow">
-                        <input type="text" value="640"><span>&times;</span><input type="text" value="360">
+                        <input type="text" id="sp-w" value="640" oninput="sharePP.wChange();" onchange="sharePP.wChange();"><span>&times;</span>
+                        <input id="sp-h" type="text" value="360" oninput="sharePP.hChange();" onchange="sharePP.hChange();">
                     </div>
                 </div>
                 <div class="popup feedback">
-                    <div class="label">反饋信息</div>
+                    <div class="label">反饋信息(必需)</div>
                     <div class="pprow">
-                        <label><input type="radio" name="fb">內容令人反感。</label>
-                        <label><input type="radio" name="fb">含有性暴力，兒童色情等內容。</label>
-                        <label><input type="radio" name="fb">內容侵犯版權</label>
-                        <label><input type="radio" name="fb">其他</label>
+                        <label><input type="radio" name="fp_msg" value="內容令人反感。">內容令我反感。</label>
+                        <label><input type="radio" name="fp_msg" value="非法偷拍或者內容侵犯我的人身權利。">內容侵犯我的人身權利。</label>
+                        <label><input type="radio" name="fp_msg" value="含有性暴力，兒童色情等內容。">含有性暴力，兒童色情等內容。</label>
+                        <label><input type="radio" name="fp_msg" value="內容侵犯版權。">內容侵犯我的版權。</label>
+                        <label><input type="radio" name="fp_msg" value="">其他</label>
                     </div>
-                    <input type="text" value="">
+                    <input type="text" id="fp_msg_input" style="display:none;">
                     <div class="sep"></div>
-                    <div class="label">詳細說明</div>
-                    <textarea></textarea>
+                    <div class="label">詳細說明(可選)</div>
+                    <textarea id="fp_describ"></textarea>
                     <div class="sep"></div>
-                    <div class="label">Email</div>
-                    <input type="text">
+                    <div class="label">Email(可選)</div>
+                    <input type="text" id="fp_email">
                     <div class="sep"></div>
                     <div class="pprow">
-                        <a href="javascript:void(0)" class="btn btn2 btn-lg">提交</a>
+                        <a href="javascript:void(0)" class="btn btn2 btn-lg" id="fp_submit">提交</a>
                     </div>
                 </div>
-                <!--
-                <iframe width='640' height='360' src='http://localhost/video/play.php?id=1' frameborder='0' allowfullscreen></iframe>
-                -->
             </div>
             <div class="sec ad-div">
                 <a href="#"><img src="" alt="300*200" style="width:300px;height:200px"></a>
@@ -141,46 +147,20 @@ if($up+$down==0){
             </div>
             <div class="pane">
                 <h3>相關內容</h3>
-                <div class="item-v vpre">
-                    <div class="label">12:00</div>
-                    <img src="web/1.png">
-                </div>
-                <div class="item-v vpre">
-                    <div class="label">12:00</div>
-                    <img src="web/1.png">
-                </div>
-                <div class="item-v vpre">
-                    <div class="label">12:00</div>
-                    <img src="web/1.png">
-                </div>
-                <div class="item-v vpre">
-                    <div class="label">12:00</div>
-                    <img src="web/1.png">
-                </div>
-                <div class="item-v vpre">
-                    <div class="label">12:00</div>
-                    <img src="web/1.png">
-                </div>
-                <div class="item-v vpre">
-                    <div class="label">12:00</div>
-                    <img src="web/1.png">
-                </div>
-                <div class="item-v vpre">
-                    <div class="label">12:00</div>
-                    <img src="web/1.png">
-                </div>
-                <div class="item-v vpre">
-                    <div class="label">12:00</div>
-                    <img src="web/1.png">
-                </div>
-                <div class="item-v vpre">
-                    <div class="label">12:00</div>
-                    <img src="web/1.png">
-                </div>
-                <div class="item-v vpre">
-                    <div class="label">12:00</div>
-                    <img src="web/1.png">
-                </div>
+                <?php
+                    for($i=0;$i<count($randVs);$i++){
+                        $poster=substr($randVs[$i]["filename"],0,strpos($randVs[$i]["filename"],".")).".png";
+                        $ps=generateResourceUrl($poster,$randVs[$i]["domain"]);
+                ?>
+                    <div class="item-v vpre">
+                        <div class="label"><?php echo $randVs[$i]["duration"] ?></div>
+                        <a href="play.php?id=<?php echo $randVs[$i]["id"] ?>" target="_blank">
+                            <img src="<?php echo $ps ?>" onerror="this.src='web/1.png';">
+                        </a>
+                    </div>
+                <?php
+                    }
+                ?>
             </div>
         </div>
     </div>

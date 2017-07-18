@@ -109,8 +109,7 @@ var bgTimeout=function(sec){
 $(function(){
     barrage.init();
     comment.init();
-    cmpage.init();
-    vote.init();
+    infoDiv.init();
 });
 
 /*
@@ -126,6 +125,7 @@ comment.log=function(msg){
 comment.init=function(){
     var _this=this;
     $(_this.sendBtn).click(function(){_this.send();});
+    cmpage.init();
 };
 comment.send=function(){
     var _this=this;
@@ -438,6 +438,33 @@ function onSendSup(a){
 }
 
 /**
+ * info-div Manager
+ */
+var infoDiv={};
+infoDiv.shareBtn=$("#info_share");
+infoDiv.feedbackBtn=$("#info_feedback");
+infoDiv.sharePP=$(".popup.share");
+infoDiv.feedbackPP=$(".popup.feedback");
+infoDiv.init=function(){
+    var _this=this;
+    _this.shareBtn.click(function(){_this.toggleShare();});
+    _this.feedbackBtn.click(function(){_this.toggleFeedback();});
+    sharePP.init();
+    vote.init();
+    feedBackPP.init();
+};
+infoDiv.toggleShare=function(){
+    var _this=this;
+    _this.feedbackPP.hide();
+    _this.sharePP.toggle();
+};
+infoDiv.toggleFeedback=function(){
+    var _this=this;
+    _this.sharePP.hide();
+    _this.feedbackPP.toggle();
+};
+
+/**
  * vote Manager
  */
 var vote={};
@@ -503,4 +530,100 @@ vote.sendOk=function(v){
     _this.voteText.text(newRate+"%");
     _this.voteBar.css("width",newRate+"%");
     setCookie("vvot10_"+vid,1,1);
+};
+
+/**
+ * sharePP Manager
+ */
+var sharePP={};
+sharePP.inputEm=$("#sp-em");
+sharePP.inputW=$("#sp-w");
+sharePP.inputH=$("#sp-h");
+sharePP.wChange=function(){
+    var _this=this;
+    var w=parseInt(_this.inputW.val());
+    var oval=_this.inputEm.val();
+    oval=oval.replace(/width='[0-9]*'/,"width='"+w+"'");
+    _this.inputEm.val(oval);
+};
+sharePP.hChange=function(){
+    var _this=this;
+    var h=parseInt(_this.inputH.val());
+    var oval=_this.inputEm.val();
+    oval=oval.replace(/height='[0-9]*'/,"height='"+h+"'");
+    _this.inputEm.val(oval);
+};
+sharePP.init=function(){};
+
+/**
+ * feedbackPP Manager
+ */
+var feedBackPP={};
+feedBackPP.msgRadio=$(".popup.feedback").find("input[name=fp_msg]");
+feedBackPP.msgInput=$("#fp_msg_input");
+feedBackPP.init=function(){
+    var _this=this;
+    _this.msgRadio.change(function(){_this.radioChange();})
+    _this.submitBtn.click(function(){_this.send();})
+};
+feedBackPP.log=function(msg){
+    alert(msg);
+};
+feedBackPP.radioChange=function(){
+    var _this=this;
+    var msg=_this.msgRadio.filter(":checked").val();
+    if(!msg){
+        _this.msgInput.show();
+    }else{
+        _this.msgInput.hide();
+    }
+};
+feedBackPP.describInput=$("#fp_describ");
+feedBackPP.emailInput=$("#fp_email");
+feedBackPP.submitBtn=$("#fp_submit");
+feedBackPP.send=function(){
+    var _this=this;
+    var msg=_this.msgRadio.filter(":checked").val();
+    if(!msg){
+        msg=_this.msgInput.val();
+    }
+    var describ=_this.describInput.val();
+    var email=_this.emailInput.val();
+    if(!isLogin){
+        _this.log("用戶未登錄");
+        return;
+    }
+    if(/^\s*$/.test(msg)){
+        _this.log("無效反饋信息");
+        return;
+    }
+    if(email && !/^[0-9A-Za-z-_.]+@[0-9A-Za-z-_.]+$/.test(email)){
+        _this.log("無效Email");
+        return;
+    }
+    ajaxForm.action(_this.submitBtn,{
+       type:"post",
+        url:"action/sendFeedback.php",
+        data:{vid:vid,msg:msg,describ:describ,email:email},
+        success:function(data){
+           if(data.ok){
+               _this.sendOk();
+           }else if(data.msg){
+               _this.log(data.msg);
+           }else{
+               _this.log("查詢失敗");
+           }
+        }
+    });
+};
+feedBackPP.sendOk=function(){
+    setTimeout(feedTimeout,0,600);
+};
+var feedTimeout=function(sec){
+    if(sec==0){
+        $(feedBackPP.submitBtn).attr("disabled",false).text("提交");
+    }else{
+        $(feedBackPP.submitBtn).attr("disabled",true).text(sec);
+        setTimeout(feedTimeout,1000,sec-1);
+    }
 };
