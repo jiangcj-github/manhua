@@ -60,3 +60,4 @@ function matchCookie(preg){
     var arr = document.cookie.match(re);
     return arr?arr.length:0;
 }
+//

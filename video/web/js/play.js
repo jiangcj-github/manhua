@@ -542,6 +542,9 @@ sharePP.inputH=$("#sp-h");
 sharePP.wChange=function(){
     var _this=this;
     var w=parseInt(_this.inputW.val());
+    if(isNaN(w)||w<0){
+        w=0;
+    }
     var oval=_this.inputEm.val();
     oval=oval.replace(/width='[0-9]*'/,"width='"+w+"'");
     _this.inputEm.val(oval);
@@ -549,6 +552,9 @@ sharePP.wChange=function(){
 sharePP.hChange=function(){
     var _this=this;
     var h=parseInt(_this.inputH.val());
+    if(isNaN(h)||h<0){
+        h=0;
+    }
     var oval=_this.inputEm.val();
     oval=oval.replace(/height='[0-9]*'/,"height='"+h+"'");
     _this.inputEm.val(oval);

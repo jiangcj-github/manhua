@@ -5,6 +5,7 @@ body{
     font-family: "Tahoma";
     font-size: 14px;
     background:url(img/pattern.gif);
+    color:#ddd;
 }
 .unsel{
     -webkit-user-select: none;
@@ -13,18 +14,21 @@ body{
     user-select: none;
 }
 a{text-decoration:none;}
-input[type=text],input[type=password]{border-style:solid;border-width:1px;outline:none;padding:0 10px;}
+a[disabled]{pointer-events:none;}
+button[disabled]{pointer-events:none;}
+input[type=text],input[type=password]{border-style:solid;border-width:1px;outline:none;padding:0 10px;
+    background:linear-gradient(to bottom,#fff, #ddd);}
 input[type=checkbox]{vertical-align:middle;cursor:pointer;}
 ul{margin:0;padding:0;}
 
 .btn{outline:none;display:inline-block;cursor:pointer;font-weight:bold;color:#000;}
-.btn.btn1{border: 1px solid #c5abc0;padding: 2px 10px;}
-.btn.btn1:not([disabled]):hover{border:1px solid #398bfc;}
+.btn.btn1{border:none;padding:3px 13px;background:linear-gradient(to bottom,#ddd,#bbb);}
+.btn.btn1:not([disabled]):hover{background:linear-gradient(to bottom,#bbb,#ddd);}
 .btn.btn2{border:none;padding: 2px 10px;background:linear-gradient(to bottom,#f90,#c60);}
 .btn.btn2:not([disabled]):hover{background: linear-gradient(to bottom,#c60,#f90);}
 .btn.btn-lg{padding:5px 20px;}
 
-.err{color:red;}
+.err{color:#cf0;}
 
 /*page global style*/
 .page{width:1070px;margin:20px auto;background:#272727;border-radius:5px;}

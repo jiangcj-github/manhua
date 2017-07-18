@@ -27,7 +27,7 @@ $email="";
 $describ="";
 if(isset($_REQUEST["email"])){
     $email=$_REQUEST["email"];
-    if($email!=""&&preg_grep("/^[0-9A-Za-z-_.]+@[0-9A-Za-z-_.]+$/",$email)<=0){
+    if($email!=""&&preg_match("/^[0-9A-Za-z-_.]+@[0-9A-Za-z-_.]+$/",$email)<=0){
         die_json(["msg"=>"無效Email"]);
     }
 }

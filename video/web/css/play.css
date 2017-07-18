@@ -1,7 +1,7 @@
 .v-div{position:relative !important;height:460px;border-bottom:none !important;}
 .video-js{width:100% !important;height:100% !important;}
 
-input[type=text]{border-radius:5px 0 0 5px;background: linear-gradient(to bottom,#fff, #ddd);}
+input[type=text]{border-radius:5px 0 0 5px;}
 
 .bg-div{line-height: 30px;padding: 0 20px 20px 20px;margin-top: -10px;display:flex;}
 .bg-div .bg-toggle{margin-right:10px;height:30px;}

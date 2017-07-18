@@ -1,8 +1,10 @@
 body{font-size:14px;}
 .page{width:96% !important;min-width:1000px;}
+label{user-select:none;}
 
-.sec>h3{margin:0;font-size:14px;background:#0f7884;color:#fff;padding:0 8px;line-height:22px;}
+.sec>h3{margin:0;font-size:14px;color:#222;background:#999;padding:0 8px;line-height:22px;}
 .sec>.info{padding:10px;}
+.login-sec a{color:#ddd;text-decoration:underline !important;}
 
 input[type=checkbox]{vertical-align:middle;}
 input[type=text],input[type=password]{width:170px;height:24px;}

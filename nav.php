@@ -9,10 +9,16 @@
     .topBar{color:#fff;width:1070px;margin:0 auto;display:flex;height:60px;}
     .topBar>.brand{font-weight: bold;font-size:40px;}
     .topBar>a{display:inline-block;line-height:60px;color:#fff;padding:0 10px;}
-    .sech-group{display:inline-flex;align-items:center;margin-left: 20px;}
-    .sech-group .sech{width:400px;height: 30px;border:none;}
-    .sech-group .sech-btn{cursor:pointer;background:url(/common/img/btn-search.png);width:40px;height:30px;display:inline-block;border-radius: 0 5px 5px 0;}
-    .sech-group .sech-btn:hover{opacity:0.8;}
+    .topBar .sech-group{display:inline-flex;align-items:center;margin-left: 20px;}
+    .topBar .sech-group .sech{width:400px;height: 30px;border:none;border-radius:5px 0 0 5px;}
+    .topBar .sech-group .sech-btn{cursor:pointer;background:url(/common/img/btn-search.png);width:40px;height:30px;display:inline-block;border-radius: 0 5px 5px 0;}
+    .topBar .sech-group .sech-btn:hover{opacity:0.8;}
+    .topBar .btn-wrap{padding:15px 20px;}
+    .topBar .btn-wrap a.btn{height:30px;display:inline-flex;align-items:center;padding:0 17px;border-radius:3px;}
+    .topBar .btn-wrap a.btn>img{width:14px;height:14px;margin-right:4px;}
+    .topBar .btn-wrap a.link{display:inline-block;line-height:30px;color:#ddd;}
+    .topBar .btn-wrap a.link:hover{text-decoration:underline;}
+    .topBar .btn-wrap span.nick{display:inline-block;line-height:30px;color:#f90;font-weight:bold;}
 
     .menuBar-wrap{background:linear-gradient(to bottom,#3d3d3d,#2d2d2d);}
     .menuBar{
@@ -40,14 +46,35 @@
 <div class="topBar-wrap">
     <div class="topBar">
         <a class="brand" href="#"><span style="color:#f90">HD</span><span style="color:#ddd;">Porn</span></a>
-        <div class="sech-group"><input type="text" class="sech" placeholder="Search..."><span class="sech-btn"></span></div>
+        <div class="sech-group">
+            <input type="text" class="sech" placeholder="Search..."><a href="javascript:void(0);" class="sech-btn"></a>
+        </div>
+        <div class="btn-wrap">
+            <a href="javascript:void(0);" target="_blank" class="btn btn2"><img src="/common/img/upload.svg">上傳</a>
+        </div>
+        <?php if(!$isLogin){ ?>
+        <div class="btn-wrap">
+            <a href="/user/signin.php" class="link" target="_blank">Signin</a>
+            <span>|</span>
+            <a href="/user/signup.php" class="link" target="_blank">Signup</a>
+        </div>
+        <?php }else{ ?>
+        <div class="btn-wrap">
+            <span class="nick"><?php echo $_SESSION["login"]["nick"] ?></span>
+            <span>|</span>
+            <a href="/user/signout.php" class="link" target="_blank">Signout</a>
+        </div>
+        <?php } ?>
     </div>
 </div>
 <div class="menuBar-wrap">
     <div class="menuBar">
-        <a href="">視頻區</a>
-        <a href="">漫畫區</a>
-        <a href="">圖片區</a>
+        <a href="">首頁</a>
+        <a href="">最新</a>
+        <a href="">熱門</a>
+        <a href="">亞洲</a>
+        <a href="">歐美</a>
+        <a href="">使用條款</a>
 
         <!--
     ==<span>會員名稱：</span>

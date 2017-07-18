@@ -97,7 +97,7 @@ $stmt->close();
                 </div>
                 <div class="popup share">
                     <div class="label">Embed代码</div>
-                    <input type="text" id="sp-em" value="<iframe width='640' height='360' src='http://localhost/video/play.php?id=1' frameborder='0' allowfullscreen></iframe>">
+                    <input type="text" id="sp-em" value="<iframe width='640' height='360' src='http://localhost/video/play.php?id=<?php echo $id ?>' frameborder='0' allowfullscreen></iframe>">
                     <div class="sep"></div>
                     <div class="label">寬度和高度</div>
                     <div class="pprow">
