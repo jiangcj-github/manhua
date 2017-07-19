@@ -16,7 +16,7 @@
     .topBar .btn-wrap{padding:15px 20px;}
     .topBar .btn-wrap a.btn{height:30px;display:inline-flex;align-items:center;padding:0 17px;border-radius:3px;}
     .topBar .btn-wrap a.btn>img{width:14px;height:14px;margin-right:4px;}
-    .topBar .btn-wrap a.link{display:inline-block;line-height:30px;color:#ddd;}
+    .topBar .btn-wrap a.link{display:inline-block;line-height:30px;color:#ddd;font-family:"Museo Sans",Arial,Helvetica,sans-serif;}
     .topBar .btn-wrap a.link:hover{text-decoration:underline;}
     .topBar .btn-wrap span.nick{display:inline-block;line-height:30px;color:#f90;font-weight:bold;}
 
