@@ -37,7 +37,6 @@ function setCookie(name,value,days) {
     exp.setTime(exp.getTime() + Days*24*60*60*1000);
     document.cookie = name + "="+ escape (value) + ";expires=" + exp.toUTCString() + ";path=/"
 }
-
 function getCookie(name) {
     var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
     if(arr=document.cookie.match(reg))
@@ -45,7 +44,6 @@ function getCookie(name) {
     else
         return null;
 }
-
 function delCookie(name){
     var exp = new Date();
     exp.setTime(exp.getTime() - 1);
@@ -54,10 +52,12 @@ function delCookie(name){
         document.cookie= name + "="+cval+";expires="+exp.toUTCString() + ";path=/";
     }
 }
-
 function matchCookie(preg){
     var re = new RegExp(preg,"g");
     var arr = document.cookie.match(re);
     return arr?arr.length:0;
 }
-//
+//_blank可能存在的問題
+$(function(){
+   $("a.outer").attr("rel","noopener noreferrer");
+});
