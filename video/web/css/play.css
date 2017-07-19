@@ -46,11 +46,8 @@ input[type=text]{border-radius:5px 0 0 5px;}
 
 .cm-div{}
 .cm-div a{color:#ddd !important;}
-.cm-div .li{display:flex;border:2px solid #1a1a1a;border-bottom:none;background:#222;color:#ddd;}
-.cm-div .li:first-child{border-radius:10px 10px 0 0;}
-.cm-div .li:nth-last-child(2){border-radius:0 0 10px 10px;}
-.cm-div .li:nth-last-child(2){border:2px solid #1a1a1a;}
-.cm-div .li_l{width:130px;border-right:2px solid #1a1a1a;text-align:center;padding:10px 0;flex-shrink:0;}
+.cm-div .li{display:flex;margin-bottom:2px;background:#222;color:#ddd;border-radius:5px;}
+.cm-div .li_l{width:130px;border-right:1px solid #272727;text-align:center;padding:10px 0;flex-shrink:0;}
 .cm-div .head{width:80px;height:80px;border:1px solid #41c7db;border-radius: 10px;}
 .cm-div .nick{font-size: 14px;line-height: 26px;text-overflow:ellipsis;color: darkgoldenrod;font-weight:bold;}
 .cm-div .li_r{flex-grow:1;padding:20px 20px 0 20px;}
