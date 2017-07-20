@@ -33,7 +33,7 @@
 
 
 
-        .page-ctrl{padding:0 15px;text-align:right;}
+        .page-ctrl{padding:6px 20px;text-align: right;background: #333;margin: 0 13px;}
         .page-ctrl>a{
             display: inline-block;
             padding: 6px 14px;
