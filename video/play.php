@@ -180,7 +180,7 @@ $stmt->close();
                     <span>{{cm.time}}</span>
                     <span><a href="javascript:void(0);" onclick="onSendSup(this)"><img src="web/img/like.svg">(<span field="suport">{{cm.suport}}</span>)</a></span>
                     <span><a href="javascript:void(0);" onclick="onSendObj(this)"><img src="web/img/unlike.svg">(<span field="object">{{cm.object}}</span>)</a></span>
-                    <span><a href="javascript:void(0);" onclick="onToggleRe(this)"><img src="web/img/reply.svg">(<span field="reply">{{cm.reply.length}}</span>)</a></span>
+                    <span><a href="javascript:void(0);" onclick="onToggleResd(this)"><img src="web/img/reply.svg">(<span field="reply">{{cm.reply.length}}</span>)</a></span>
                 </div>
                 <div class="r_re" data-cid="{{cm.id}}">
                     <% for(var i=0;i<cm.reply.length;i++){ %>
@@ -200,9 +200,11 @@ $stmt->close();
                     <% } %>
                     <div class="re-insert" style="height:0"></div>
                     <% if(cm.reply.length>3){ %>
-                        <div class="re_ctrl"><span more>隱藏({{cm.reply.length-3}})項</span>&nbsp;
+                        <div class="re_ctrl">
+                            <span more>隱藏({{cm.reply.length-3}})項</span>&nbsp;
                             <a href="javascript:void(0);" onclick="onMoreRe(this)" more>展開</a>
-                            <a href="javascript:void(0);" onclick="onLessRe(this)" less style="display:none;">收起</a></div>
+                            <a href="javascript:void(0);" onclick="onLessRe(this)" less style="display:none;">收起</a>
+                        </div>
                     <% } %>
                     <div class="re_sd">
                         <input type="text" placeholder="說點什麼吧"><button class="btn btn2" onclick="onSendRe(this)">回復</button>

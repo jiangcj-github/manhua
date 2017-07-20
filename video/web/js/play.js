@@ -262,6 +262,9 @@ Reply.prototype.getCid=function(){
 Reply.prototype.sendBtn=function(){
     return $(this.html).find(".re_sd button");
 };
+Reply.prototype.getResd=function(){
+    return $(this.html).find(".re_sd");
+};
 Reply.prototype.getReplyCountSpan=function(){
     return $(this.html).parents(".li").find("[field=reply]");
 };
@@ -306,6 +309,10 @@ Reply.prototype.sendOk=function(data){
 Reply.prototype.toggle=function(){
     $(this.html).toggleClass("hide");
 };
+Reply.prototype.toggleResd=function(){
+    var resd=this.getResd();
+    resd.toggleClass("show");
+};
 Reply.prototype.moreRe=function(){
     $(this.html).find(".re_li").show();
     $(this.html).find(".re_ctrl [more]").hide();
@@ -344,6 +351,11 @@ function onLessRe(a){
     var div=$(a).parents(".li").find(".r_re");
     var reply=new Reply(div);
     reply.lessRe();
+}
+function onToggleResd(a){
+    var div=$(a).parents(".li").find(".r_re");
+    var reply=new Reply(div);
+    reply.toggleResd();
 }
 
 /**
