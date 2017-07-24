@@ -51,12 +51,19 @@ if($result){
     echo "units created failed"."<br>";
 }
 
-//建video表
+/**
+ * 建video表
+ * categery取值範圍[歐美，亞洲]
+ */
 $result=$conn->query("
     CREATE TABLE IF NOT EXISTS video(
         id int(32) NOT NULL AUTO_INCREMENT,
         filename VARCHAR (255) NOT NULL,
         duration VARCHAR (255) NOT NULL,
+        title VARCHAR (255) NOT NULL,
+        time VARCHAR (255) NOT NULL,
+        lastPlayTime VARCHAR (255),
+        categery VARCHAR (255) NULL,
         up int(32) NOT NULL DEFAULT 10,
         down int(32) NOT NULL DEFAULT 10,
         playNum int(32) NOT NULL DEFAULT 10000,
