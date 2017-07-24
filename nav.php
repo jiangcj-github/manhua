@@ -47,7 +47,7 @@
     <div class="topBar">
         <a class="brand" href="#"><span style="color:#f90">HD</span><span style="color:#ddd;">Porn</span></a>
         <div class="sech-group">
-            <input type="text" class="sech" placeholder="Search..."><a href="javascript:void(0);" class="sech-btn"></a>
+            <input type="text" class="sech" placeholder="Search..."><a href="javascript:void(0);" target="_blank" class="sech-btn"></a>
         </div>
         <div class="btn-wrap">
             <a href="javascript:void(0);" target="_blank" class="btn btn2"><img src="/common/img/upload.svg">上傳</a>
@@ -75,27 +75,6 @@
         <a href="">亞洲</a>
         <a href="">歐美</a>
         <a href="">使用條款</a>
-
-        <!--
-    ==<span>會員名稱：</span>
-    <span>
-        <?php
-        if($isLogin){
-            echo $_SESSION["login"]["nick"];
-        }else{
-            echo "未登錄";
-        }
-        ?>
-    </span>
-    ==<span>&nbsp;|&nbsp;</span>
-    <?php
-        if($isLogin){
-            echo "<span>上次登錄：".$_SESSION["login"]["lastLogin"]."</span>&nbsp;|&nbsp;<a href='/user/signout.php' target='_blank'>登出</a>";
-        }else{
-            echo "<a href='/user/signin.php' target='_blank'>登錄</a> &nbsp;<a href=\"/user/signup.php\" target=\"_blank\">免費註冊</a>";
-        }
-        ?>
-    -->
     </div>
 </div>
 <script>var isLogin=<?php echo $isLogin?1:0 ?>;</script>
@@ -121,3 +100,13 @@
         die();
     }
 ?>
+<script>
+    $(".sech").bind("input",function(){
+        var key=$(".sech").val().replace(/\s/g,"");
+        if(key.length<=0||key.length>20){
+            $(".sech-btn").prop("href","javascript:void(0);");
+        }else{
+            $(".sech-btn").prop("href","/video/search.php?key="+key);
+        }
+    });
+</script>
