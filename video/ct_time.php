@@ -1,16 +1,6 @@
-<?php
-if(!isset($_REQUEST["key"])){
-    die("404");
-}
-$key=preg_replace("/\s/","",$_REQUEST["key"]);
-$key_len=mb_strlen($key);
-if($key_len<=0||$key_len>20){
-    die("查詢字太長或太短");
-}
-?>
 <html>
 <head>
-    <title>視頻</title>
+    <title>最新視頻</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="web/css/page.css" rel="stylesheet">
@@ -22,7 +12,7 @@ if($key_len<=0||$key_len>20){
 
     <div class="sec">
         <div class="head">
-            Most Related Videos
+            Most Recently Videos
         </div>
         <div id="sech-insert" style="display:none;"></div>
 
@@ -402,7 +392,7 @@ if($key_len<=0||$key_len>20){
 </div>
 <script id="sech-tpl" type="text/html">
     <% for(i=0;i<data.length;i++){ %>
-        <% if(i%5==0){ %><div class="row"><% } %>
+    <% if(i%5==0){ %><div class="row"><% } %>
         <div class="col">
             <div class="vpre">
                 <div class="label">{{data[i].duration}}</div>
@@ -458,8 +448,7 @@ if($key_len<=0||$key_len>20){
         <% } %>
     </div>
 </script>
-<script>var sechkey="<?php echo $key ?>";</script>
 <script src="/common/template-web.js"></script>
-<script src="web/js/search.js"></script>
+<script src="web/js/ct_time.js"></script>
 </body>
 </html>

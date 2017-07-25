@@ -16,9 +16,10 @@ if(!$stmt->fetch()){
     die("404");
 }
 $stmt->close();
-//寫入播放次數
-$stmt=$conn->prepare("update video set playNum=playNum+1 where id=?");
-$stmt->bind_param("i",$id);
+//寫入playNum,lastPlayTime
+$stmt=$conn->prepare("update video set playNum=playNum+1,lastPlayTime=? where id=?");
+$lastPlayTime=(new DateTime())->format("Y-m-d H:i:s");
+$stmt->bind_param("si",$lastPlayTime,$id);
 $stmt->execute();
 $stmt->close();
 //計算評論條數

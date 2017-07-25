@@ -1,5 +1,6 @@
 <?php
 require_once("../../php/global.php");
+require_once("../../php/TimeUtil.php");
 //參數檢查
 if(!isset($_REQUEST["key"])){
     die_json(["msg"=>"缺少必要的參數"]);
@@ -36,4 +37,8 @@ for($l=$key_len;$l>0;$l--){
         $sech_res=$arr;
     }
 }
-die_json(["ok"=>"","data"=>$sech_res]);
+//time格式
+foreach($sech_res as $k=>$v){
+    $sech_res[$k]["time_str"]=time_tran($sech_res[$k]["time"]);
+}
+die_json(["ok"=>"ok","data"=>$sech_res]);
