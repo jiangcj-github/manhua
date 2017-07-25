@@ -12,7 +12,7 @@ $limit=$_REQUEST["limit"];
 $conn = new mysqli($mysql["host"], $mysql["user"], $mysql["password"], $mysql["database"]);
 $conn->set_charset("utf8");
 //獲取randVideo
-$stmt=$conn->prepare("select video.*,units.domain from video join units on video.unit=units.id order by time desc limit ? offset ?");
+$stmt=$conn->prepare("select video.*,units.domain from video join units on video.unit=units.id order by up-down desc limit ? offset ?");
 $stmt->bind_param("ii",$limit,$offset);
 $stmt->execute();
 $result=$stmt->get_result();

@@ -396,13 +396,13 @@
         <div class="col">
             <div class="vpre">
                 <div class="label">{{data[i].duration}}</div>
-                <div class="col-img" style="background: url(web/1.png);"></div>
+                <img src="{{data[i].poster}}" class="col-img" />
             </div>
             <div class="info">
                 <div class="title">{{data[i].title}}</div>
                 <div class="more">
                     <div class="time">{{data[i].time_str}}</div>
-                    <div class="count">{{data[i].playNum}}</div>
+                    <div class="count">{{data[i].playNum}}<span>views</span></div>
                     <div class="like"><img src="web/img/like_solid_f90.svg">{{mt.round(100*data[i].up/(data[i].up+data[i].down))}}%</div>
                 </div>
             </div>

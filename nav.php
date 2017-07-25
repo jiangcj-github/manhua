@@ -69,9 +69,9 @@
 </div>
 <div class="menuBar-wrap">
     <div class="menuBar">
-        <a href="">首頁</a>
-        <a href="">最新</a>
-        <a href="">熱門</a>
+        <a href="/video/index.php">首頁</a>
+        <a href="/video/ct_time.php">最新</a>
+        <a href="/video/ct_vote.php">熱門</a>
         <a href="">亞洲</a>
         <a href="">歐美</a>
         <a href="">使用條款</a>

@@ -100,3 +100,9 @@ function matchCookie(preg){
 $(function(){
    $("a.outer").attr("rel","noopener noreferrer");
 });
+//lazyload
+$(function(){
+    $("img.lazy").lazyload({
+        effect : "fadeIn"
+    });
+});
