@@ -31,15 +31,8 @@
         font-weight:bold;
         display:flex;
     }
-    .menuBar a{
-        width:100px;
-        text-align:center;
-        color:#ddd !important;
-        border-right:1px solid #222;
-    }
-    .menuBar a:hover{
-        background:linear-gradient(to bottom,#2d2d2d,#3d3d3d);
-    }
+    .menuBar a{width:100px;text-align:center;color:#ddd !important;border-right:1px solid #222;}
+    .menuBar a:hover{background:linear-gradient(to bottom,#2d2d2d,#3d3d3d);}
     .menuBar a:first-child{border-left:1px solid #222;}
 </style>
 <div class="top"></div>
@@ -47,7 +40,7 @@
     <div class="topBar">
         <a class="brand" href="#"><span style="color:#f90">HD</span><span style="color:#ddd;">Porn</span></a>
         <div class="sech-group">
-            <input type="text" class="sech" placeholder="Search..."><a href="javascript:void(0);" target="_blank" class="sech-btn"></a>
+            <input type="text" class="sech" placeholder="Search..."><a href="javascript:void(0);" class="sech-btn"></a>
         </div>
         <div class="btn-wrap">
             <a href="javascript:void(0);" target="_blank" class="btn btn2"><img src="/common/img/upload.svg">上傳</a>
@@ -72,8 +65,8 @@
         <a href="/video/index.php">首頁</a>
         <a href="/video/ct_time.php">最新</a>
         <a href="/video/ct_vote.php">熱門</a>
-        <a href="">亞洲</a>
-        <a href="">歐美</a>
+        <a href="/video/ct_cat1.php?categery=1">亞洲</a>
+        <a href="/video/ct_cat1.php?categery=2">歐美</a>
         <a href="">使用條款</a>
     </div>
 </div>

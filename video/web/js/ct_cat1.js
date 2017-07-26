@@ -43,8 +43,8 @@ vl.page=function(p){
     }
     ajaxForm.action(null,{
         type:"get",
-        url:"search/loadCtTime.php",
-        data:{offset:(_this.curPage-1)*_this.limit,limit:_this.limit},
+        url:"search/loadCtCat1.php",
+        data:{offset:(_this.curPage-1)*_this.limit,limit:_this.limit,categery:categery},
         success:function(data) {
             if(data.ok){
                 _this.buffer[_this.curPage]=data.data;

@@ -1,6 +1,15 @@
+<?php
+if(!isset($_REQUEST["categery"])){
+   die("404");
+}
+$categery=$_REQUEST["categery"];
+if($categery!=1&&$categery!=2){
+    die("404");
+}
+?>
 <html>
 <head>
-    <title>熱門視頻</title>
+    <title>分類視頻</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="web/css/page.css" rel="stylesheet">
@@ -12,7 +21,7 @@
 
     <div class="sec">
         <div class="head">
-            Hot Videos
+            Most Recently Videos
         </div>
         <div class="ad1">
             400*560
@@ -87,7 +96,8 @@
         <% } %>
     </div>
 </script>
+<script>var categery=<?php echo $categery ?>;</script>
 <script src="/common/template-web.js"></script>
-<script src="web/js/ct_vote.js"></script>
+<script src="web/js/ct_cat1.js"></script>
 </body>
 </html>
