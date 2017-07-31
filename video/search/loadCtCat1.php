@@ -3,17 +3,18 @@ require_once("../../php/global.php");
 require_once("../../php/TimeUtil.php");
 
 //參數檢查
-if(!isset($_REQUEST["offset"])||!isset($_REQUEST["limit"])){
+if(!isset($_REQUEST["offset"])||!isset($_REQUEST["limit"])||!isset($_REQUEST["categery"])){
     die_json(["msg"=>"缺少必要的參數"]);
 }
 $offset=$_REQUEST["offset"];
 $limit=$_REQUEST["limit"];
+$categery=$_REQUEST["categery"];
 //數據庫連接
 $conn = new mysqli($mysql["host"], $mysql["user"], $mysql["password"], $mysql["database"]);
 $conn->set_charset("utf8");
 //獲取randVideo
-$stmt=$conn->prepare("select video.*,units.domain from video join units on video.unit=units.id order by up-down,time desc limit ? offset ?");
-$stmt->bind_param("ii",$limit,$offset);
+$stmt=$conn->prepare("select video.*,units.domain from video join units on video.unit=units.id where categery=? order by time desc limit ? offset ?");
+$stmt->bind_param("sii",$categery,$limit,$offset);
 $stmt->execute();
 $result=$stmt->get_result();
 $vs=$result->fetch_all(MYSQLI_ASSOC);

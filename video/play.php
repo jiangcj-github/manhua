@@ -129,9 +129,9 @@ $stmt->close();
                 </div>
             </div>
             <div class="sec ad-div">
-                <a href="#"><img src="" alt="300*200" style="width:300px;height:200px"></a>
-                <a href="#"><img src="" alt="300*200" style="width:300px;height:200px"></a>
-                <a href="#"><img src="" alt="200*200" style="width:200px;height:200px"></a>
+                <div style="width:300px;height:200px">300*200</div>
+                <div style="width:300px;height:200px">300*200</div>
+                <div style="width:200px;height:200px">200*200</div>
             </div>
             <div class="sec sm-div">
                 <textarea id="cm-text" placeholder="說點什麼吧"></textarea>

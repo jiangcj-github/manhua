@@ -10,7 +10,10 @@ vl.init=function(){
                 var count=parseInt(data.data[0]["count"]);
                 _this.totalPage=Math.ceil(count/_this.limit);
                 if(isNaN(_this.totalPage)){
-                    _this.totalPage=0;
+                    _this.totalPage=1;
+                }
+                if(_this.totalPage<=0){
+                    _this.totalPage=1;
                 }
                 _this.page(1);
             }
@@ -19,7 +22,7 @@ vl.init=function(){
 };
 vl.curPage=1;
 vl.totalPage=1;
-vl.limit=25;
+vl.limit=19;
 vl.insertPos=$("#sech-insert");
 vl.pageOk=function(){
     var _this=this;

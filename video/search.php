@@ -10,7 +10,7 @@ if($key_len<=0||$key_len>20){
 ?>
 <html>
 <head>
-    <title>視頻</title>
+    <title>搜索結果</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="web/css/page.css" rel="stylesheet">
@@ -24,29 +24,41 @@ if($key_len<=0||$key_len>20){
         <div class="head">
             Most Related Videos
         </div>
+        <div class="ad1">
+            400*560
+        </div>
         <div id="sech-insert" style="display:none;"></div>
+        <div class="ad2">
+            <div style="width:300px">300*250</div>
+            <div style="width:300px">300*250</div>
+            <div style="width:200px">200*250</div>
+            <div style="width:250px">230*250</div>
+        </div>
     </div>
 </div>
 <script id="sech-tpl" type="text/html">
     <% for(i=0;i<data.length;i++){ %>
-        <% if(i%5==0){ %><div class="row"><% } %>
-        <div class="col">
-            <div class="vpre">
-                <div class="label">{{data[i].duration}}</div>
-                <img class="col-img" src="{{data[i].poster}}"/>
-            </div>
-            <div class="info">
-                <div class="title">{{data[i].title}}</div>
-                <div class="more">
-                    <div class="time">{{data[i].time_str}}</div>
-                    <div class="count">{{data[i].playNum}}<span>views</span></div>
-                    <div class="like"><img src="web/img/like_solid_f90.svg">{{mt.round(100*data[i].up/(data[i].up+data[i].down))}}%</div>
+    <% if(i<9&&i%3==0){ %><div class="row"><% } %>
+        <% if(i>=9&&(i-9)%5==0){ %><div class="row"><% } %>
+            <div class="col">
+                <div class="vpre">
+                    <div class="label">{{data[i].duration}}</div>
+                    <img src="{{data[i].poster}}" class="col-img" />
+                </div>
+                <div class="info">
+                    <div class="title">{{data[i].title}}</div>
+                    <div class="more">
+                        <div class="time">{{data[i].time_str}}</div>
+                        <div class="count">{{data[i].playNum}}<span>views</span></div>
+                        <div class="like"><img src="web/img/like_solid_f90.svg">{{mt.round(100*data[i].up/(data[i].up+data[i].down))}}%</div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <% if(i%5==4){ %></div><% } %>
+            <% if(i<9&&i%3==2){ %></div><% } %>
+        <% if(i>=9&&(i-9)%5==4){ %></div><% } %>
     <% } %>
-    <% if(i%5<4){ %></div><% } %>
+    <% if(i<9&&i%3<2){ %></div><% } %>
+    <% if(i>=9&&(i-9)%5<4){ %></div><% } %>
 </script>
 <script id="pg-tpl" type="text/html">
     <div class="page-ctrl">

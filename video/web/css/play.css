@@ -85,8 +85,7 @@ input[type=text]{border-radius:5px 0 0 5px;}
 .pane{background: #222;}
 
 .ad-div{display:flex;padding:10px 17px !important;}
-.ad-div a{border:1px solid #222;}
-.ad-div img{background:#000;display:block;}
+.ad-div>div{border:1px solid #222;background:#000;}
 
 .ad-pane{}
 .ad-pane img{display: block;background: #000;}

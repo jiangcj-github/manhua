@@ -10,6 +10,9 @@ vl.init=function(){
             if(data.ok){
                 _this.buffer=data.data;
                 _this.totalPage=Math.ceil(_this.buffer.length/_this.limit);
+                if(_this.totalPage<=0){
+                    _this.totalPage=1;
+                }
                 _this.page(1);
             }
         }
@@ -17,7 +20,7 @@ vl.init=function(){
 };
 vl.curPage=1;
 vl.totalPage=1;
-vl.limit=25;
+vl.limit=19;
 vl.insertPos=$("#sech-insert");
 vl.page=function(p){
     var _this=this;

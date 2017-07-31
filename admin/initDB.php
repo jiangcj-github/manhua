@@ -53,7 +53,7 @@ if($result){
 
 /**
  * 建video表
- * categery取值範圍[歐美，亞洲]
+ * categery取值範圍[2-歐美，1-亞洲]
  */
 $result=$conn->query("
     CREATE TABLE IF NOT EXISTS video(
