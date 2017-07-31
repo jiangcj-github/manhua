@@ -50,7 +50,7 @@
     if(i>0){
         i--;
         if(i<9&&i%3<2){ %></div><% }
-        if(i>=9&&(i-9)%5<4){ %></div><%
+        if(i>=9&&(i-9)%5<4){ %></div><%}
     }%>
 </script>
 <script id="pg-tpl" type="text/html">
