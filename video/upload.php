@@ -1,73 +1,168 @@
-<?php
-if(!isset($_REQUEST["key"])){
-    die("404");
-}
-$key=preg_replace("/\s/","",$_REQUEST["key"]);
-$key_len=mb_strlen($key);
-if($key_len<=0||$key_len>20){
-    die("查詢字太長或太短");
-}
-?>
 <html>
 <head>
-    <title>視頻</title>
+    <title>上傳視頻</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="web/css/page.css" rel="stylesheet">
-    <link href="web/css/index.css" rel="stylesheet">
+    <style>
+        .progress-wrap{
+            background:#ccc;
+            width: 200px;
+            height:6px;
+            border-radius:2px;
+        }
+        .progress{
+            background:#f90;
+            height: 6px;
+            width:50%;
+            border-radius:2px;
+        }
+    </style>
 </head>
 <body>
-<?php include("../nav.php") ?>
+<!--
+<?php include("../nav.php") ?>-->
 <div class="page page-2col">
 
     <div class="sec">
         <div class="head">
             Upload Video
         </div>
-
+        <div>
+            <img class="vShow" src="web/1.png" style="width: 200px;height: 200px;">
+            <div class="progress-wrap">
+                <div class="progress"></div>
+            </div>
+            <input id="vInput" type="file" accept="video/mp4">
+        </div>
+        <input type="text" placeholder="title">
+        <select>
+            <option>1</option>
+            <option>2</option>
+        </select>
 
 
     </div>
 </div>
+<script src="/common/jquery-3.2.1.js"></script>
+<script src="/common/fileupload/jquery.ui.widget.js"></script>
+<script src="/common/fileupload/jquery.iframe-transport.js"></script>
+<script src="/common/fileupload/jquery.fileupload.js"></script>
 
-<script id="pg-tpl" type="text/html">
-    <div class="page-ctrl">
-        <% if(curPage<=1){ %>
-        <a href="javascript:void(0);" class="disabled">上一頁</a>
-        <% }else{ %>
-        <a href="javascript:void(0);" onclick="vl.page({{curPage-1}})">上一頁</a>
-        <% } %>
-        <% for(var i=0;i<5;i++){ %>
-        <% if(curPage<=3){ %>
-        <% if(i+1>totalPage) continue; %>
-        <% if(i+1==curPage){ %>
-        <a href="javascript:void(0);" class="active">{{i+1}}</a>
-        <% }else{ %>
-        <a href="javascript:void(0);" onclick="vl.page({{i+1}})">{{i+1}}</a>
-        <% } %>
-        <% }else if(curPage>=totalPage-2){ %>
-        <% if(totalPage-4+i<1) continue; %>
-        <% if(totalPage-4+i==curPage){ %>
-        <a href="javascript:void(0);" class="active">{{totalPage-4+i}}</a>
-        <% }else{ %>
-        <a href="javascript:void(0);" onclick="vl.page({{totalPage-4+i}})">{{totalPage-4+i}}</a>
-        <% } %>
-        <% }else{ %>
-        <% if(curPage-2+i==curPage){ %>
-        <a href="javascript:void(0);" class="active">{{curPage-2+i}}</a>
-        <% }else{ %>
-        <a href="javascript:void(0);" onclick="vl.page({{curPage-2+i}})">{{curPage-2+i}}</a>
-        <% } %>
-        <% } %>
-        <% } %>
-        <% if(curPage>=totalPage){ %>
-        <a href="javascript:void(0);" class="disabled">下一頁</a>
-        <% }else{ %>
-        <a href="javascript:void(0);" onclick="vl.page({{curPage+1}})">下一頁</a>
-        <% } %>
-    </div>
+<script>
+    /*
+    var upload={};
+    upload.vShow=$(".vShow");
+    upload.vInput=$("#vInput");
+    upload.vProgress="";
+    upload.init=function(){
+      var _this=this;
+      _this.vInput.change(function(){_this.upload();});
+      _this.vShow.click(function(){_this.showFileChooser();});
+    };
+    upload.showFileChooser=function(){
+        this.vInput.click();
+    };
+    upload.upload=function(){
+        var _this=this;
+        /*
+        var formData = new FormData();
+        formData.append("file", $(this)[0].files[0]);
+        $.ajax({
+            url: "/admin/video/update/uploadPoster",
+            type: "POST",
+            data: formData,
+            contentType:false,
+            processData:false,
+            xhr:function(){
+                myXhr = $.ajaxSettings.xhr();
+                if(myXhr.upload){
+                    myXhr.upload.addEventListener("progress",function(e){
+                        if (e.lengthComputable) {
+                            var per = e.loaded/e.total*100;
+                            $(".poster .progress-bar").css("width",per+"%");
+                        }
+                    },false);
+                }
+                return myXhr;
+            },
+            success: function(data){
+                if(data.msg){
+                    $("#upload_error").show();
+                    $("#upload_error").children("span").text("文件"+$("#poster")[0].files[0].name+"上传失败，"+data.msg);
+                }else{
+                    $(".poster img").prop("src",data.url);
+                }
+            }
+        });
+
+        var formData = new FormData();
+        formData.append("file", $(_this.vInput)[0].files[0]);
+        $(_this.vInput).fileupload({
+            type:"post",
+            url:"upload/upload.php",
+            dataType: "json",
+            data: formData,
+            contentType:false,
+            processData:false,
+            add: function (e, data) {
+                console.log(data);
+                data.submit();
+            },
+            progressall: function(e, data) {
+                var progress = parseInt(data.loaded / data.total * 100, 10);
+                console.log(progress);
+            },
+            done: function (e, data) {
+                console.log(e);
+                console.log(data);
+            }
+        });
+
+    };*/
+
+
+    $(function(){
+       //upload.init();
+    });
+
+
+    var task=$('#vInput').fileupload({
+        maxChunkSize: 2000000, // 5 MB
+        dataType: "json",
+        url:"upload/index.php",
+        add: function (e, data) {
+            /*
+            var that = this;
+            $.getJSON('upload/index.php', {file: data.files[0].name},function (result) {
+                var file = result.file;
+                data.uploadedBytes = file && file.size;
+                $.blueimp.fileupload.prototype
+                    .options.add.call(that, e, data);
+            });
+            */
+            data.submit();
+        },
+        fail: function (e, data) {
+            console.log("failed");
+            /*
+            $.ajax({
+                url: 'upload/index.php',
+                dataType: 'json',
+                data: {file: data.files[0].name},
+                type: "DELETE"
+            });
+            */
+        },
+        done: function (e, data) {
+            console.log("done");
+
+        }
+    });
+
+
+    //task.abort();
+
 </script>
-<script src="/common/template-web.js"></script>
-<script src="web/js/search.js"></script>
 </body>
 </html>

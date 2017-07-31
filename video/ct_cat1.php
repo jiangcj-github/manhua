@@ -21,7 +21,7 @@ if($categery!=1&&$categery!=2){
 
     <div class="sec">
         <div class="head">
-            Most Recently Videos
+            Categery Videos
         </div>
         <div class="ad1">
             400*560

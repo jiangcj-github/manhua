@@ -43,7 +43,7 @@
             <input type="text" class="sech" placeholder="Search..."><a href="javascript:void(0);" class="sech-btn"></a>
         </div>
         <div class="btn-wrap">
-            <a href="javascript:void(0);" target="_blank" class="btn btn2"><img src="/common/img/upload.svg">上傳</a>
+            <a href="/video/upload.php" class="btn btn2"><img src="/common/img/upload.svg">上傳</a>
         </div>
         <?php if(!$isLogin){ ?>
         <div class="btn-wrap">
