@@ -24,7 +24,7 @@ if($key_len<=0||$key_len>20){
         <div class="head">
             Upload Video
         </div>
-        
+
 
 
     </div>
