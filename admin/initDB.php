@@ -43,7 +43,7 @@ $result=$conn->query("
         ip VARCHAR (255) NOT NULL,
         flag INT NOT NULL,
         PRIMARY KEY (id)
-    )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;;
+    )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 ");
 if($result){
     echo "units created"."<br>";
@@ -69,12 +69,29 @@ $result=$conn->query("
         playNum int(32) NOT NULL DEFAULT 10000,
         unit  int(32) NOT NULL,
         PRIMARY KEY (id)
-    )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;;
+    )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 ");
 if($result){
     echo "video created"."<br>";
 }else{
     echo "video created failed"."<br>";
+}
+
+/**
+ * 建user_played表
+ */
+$result=$conn->query("
+    CREATE TABLE IF NOT EXISTS user_played(
+        nick VARCHAR (255) NOT NULL,
+        vid int(32) NOT NULL,
+        time VARCHAR (255),
+        PRIMARY KEY (nick,vid)
+    )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+");
+if($result){
+    echo "user_played created"."<br>";
+}else{
+    echo "user_played created failed"."<br>";
 }
 
 //建video_comment表
@@ -89,7 +106,7 @@ $result=$conn->query("
         object INT NOT NULL DEFAULT 0,
         time VARCHAR (255) NOT NULL,
         PRIMARY KEY (id)
-    )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;;
+    )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 ");
 if($result){
     echo "video_comment created"."<br>";
@@ -107,7 +124,7 @@ $result=$conn->query("
         text TEXT NOT NULL,
         time VARCHAR (255) NOT NULL,
         PRIMARY KEY (id)
-    )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;;
+    )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 ");
 if($result){
     echo "video_reply created"."<br>";
@@ -131,7 +148,7 @@ $result=$conn->query("
         msg VARCHAR (255) NOT NULL,
         pos INT NOT NULL,
         PRIMARY KEY (id)
-    )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;;
+    )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 ");
 if($result){
     echo "video_barrage created"."<br>";
@@ -154,7 +171,7 @@ $result=$conn->query("
         reply VARCHAR (255),
         feedback VARCHAR (255),
         PRIMARY KEY (nick)
-    )ENGINE=InnoDB DEFAULT CHARSET=utf8;;
+    )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ");
 if($result){
     echo "user_strict_v created"."<br>";
@@ -172,7 +189,7 @@ $result=$conn->query("
         vid int(32) NOT NULL,
         vote VARCHAR (255),
         PRIMARY KEY (nick,vid)
-    )ENGINE=InnoDB DEFAULT CHARSET=utf8;;
+    )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ");
 if($result){
     echo "user_strict_v2 created"."<br>";
@@ -194,7 +211,7 @@ $result=$conn->query("
         suport VARCHAR (255),
         object VARCHAR (255),
         PRIMARY KEY (nick,cid)
-    )ENGINE=InnoDB DEFAULT CHARSET=utf8;;
+    )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ");
 if($result){
     echo "user_strict_v_cm created"."<br>";
@@ -215,7 +232,7 @@ $result=$conn->query("
         email VARCHAR (255),
         time VARCHAR (255) NOT NULL,
         PRIMARY KEY (id)
-    )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;;
+    )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 ");
 if($result){
     echo "video_feedback created"."<br>";

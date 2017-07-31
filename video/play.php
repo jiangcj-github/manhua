@@ -16,12 +16,6 @@ if(!$stmt->fetch()){
     die("404");
 }
 $stmt->close();
-//寫入playNum,lastPlayTime
-$stmt=$conn->prepare("update video set playNum=playNum+1,lastPlayTime=? where id=?");
-$lastPlayTime=(new DateTime())->format("Y-m-d H:i:s");
-$stmt->bind_param("si",$lastPlayTime,$id);
-$stmt->execute();
-$stmt->close();
 //計算評論條數
 $stmt=$conn->prepare("select count(id) as count from video_comment where vid=?");
 $stmt->bind_param("i",$id);
@@ -165,7 +159,6 @@ $stmt->close();
             </div>
         </div>
     </div>
-
     <script src="/common/template-web.js"></script>
     <script src="/common/honeySwitch/honeySwitch.js"></script>
     <script id="cm-li" type="text/html">
@@ -266,3 +259,19 @@ $stmt->close();
     <script>var vid=<?php echo $id ?>;</script>
 </body>
 </html>
+<?php
+//寫入playNum,lastPlayTime
+$stmt=$conn->prepare("update video set playNum=playNum+1,lastPlayTime=? where id=?");
+$lastPlayTime=(new DateTime())->format("Y-m-d H:i:s");
+$stmt->bind_param("si",$lastPlayTime,$id);
+$stmt->execute();
+$stmt->close();
+//寫入user_played
+if($isLogin){
+    $stmt=$conn->prepare("insert into user_played(nick,vid,time) values(?,?,?) ON DUPLICATE KEY update time=?");
+    $time=(new DateTime())->format("Y-m-d H:i:s");
+    $stmt->bind_param("siss",$_SESSION["login"]["nick"],$id,$time,$time);
+    $stmt->execute();
+    $stmt->close();
+}
+?>

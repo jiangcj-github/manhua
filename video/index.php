@@ -1,3 +1,27 @@
+<?php
+require_once("../php/global.php");
+require_once("../php/TimeUtil.php");
+//數據庫連接
+$conn = new mysqli($mysql["host"], $mysql["user"], $mysql["password"], $mysql["database"]);
+$conn->set_charset("utf8");
+//獲取Recently Updated
+$result=$conn->query("select video.*,units.domain from video join units on video.unit=units.id order by time desc limit 19");
+$vs1=$result->fetch_all(MYSQLI_ASSOC);
+foreach($vs1 as $k=>$v){
+    $vs1[$k]["time_str"]=time_tran($vs1[$k]["time"]);
+    $vs1[$k]["poster"]=generateResourceUrl($vs1[$k]["id"].".png",$vs1[$k]["domain"]);
+}
+//獲取recommend Videos
+$stmt=$conn->prepare("select video.*,units.domain from video join units on video.unit=units.id where video.time<? order by rand() limit 19");
+$stmt->bind_param("s",end($vs1)["time"]);
+$stmt->execute();
+$vs2=$stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+$stmt->close();
+foreach($vs2 as $k=>$v){
+    $vs2[$k]["time_str"]=time_tran($vs2[$k]["time"]);
+    $vs2[$k]["poster"]=generateResourceUrl($vs2[$k]["id"].".png",$vs2[$k]["domain"]);
+}
+?>
 <html>
 <head>
     <title>首頁</title>
@@ -9,7 +33,44 @@
 <body>
 <?php include("../nav.php") ?>
 <div class="page page-2col">
-
+    <?php
+    if($isLogin){
+        //獲取recently Played
+        $stmt=$conn->prepare("select video.*,units.domain from video join units on video.unit=units.id join user_played on video.id=user_played.vid where user_played.nick=? order by user_played.time limit 10");
+        $stmt->bind_param("s",$_SESSION["login"]["nick"]);
+        $vs3=$stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        foreach($vs1 as $k=>$v){
+            $vs3[$k]["time_str"]=time_tran($vs3[$k]["time"]);
+            $vs3[$k]["poster"]=generateResourceUrl($vs3[$k]["id"].".png",$vs3[$k]["domain"]);
+        }
+        ?>
+        <div class="sec">
+            <div class="head">Recently played</div>
+            <?php for($i=0;$i<count($vs3);$i++){
+                if($i%5==0){ echo "<div class=\"row\">"; } ?>
+                <div class="col">
+                    <div class="vpre">
+                        <div class="label"><?php echo $vs3[$i]["duration"];?></div>
+                        <img src="<?php echo $vs3[$i]["poster"];?>" class="col-img" />
+                    </div>
+                    <div class="info">
+                        <div class="title"><?php echo $vs3[$i]["title"];?></div>
+                        <div class="more">
+                            <div class="time"><?php echo $vs3[$i]["time_str"];?></div>
+                            <div class="count"><?php echo $vs3[$i]["playNum"];?><span>views</span></div>
+                            <div class="like"><img src="web/img/like_solid_f90.svg"><?php round(100*$vs3[$i]["up"]/($vs3[$i]["up"]+$vs3[$i]["down"])); ?>%</div>
+                        </div>
+                    </div>
+                </div>
+            <?php if($i%5==4){echo "</div>";}
+            }
+            if($i>0){
+                $i--;
+                if($i%5<4){echo "</div>";}
+            }?>
+        </div>
+    <?php } ?>
     <div class="sec">
         <div class="head">
             Recently Updated
@@ -17,504 +78,73 @@
         <div class="ad1">
             400*560
         </div>
-        <div class="row">
+        <?php for($i=0;$i<count($vs1);$i++){
+            if($i<9&&$i%3==0){ echo "<div class=\"row\">";}
+            if($i>=9&&($i-9)%5==0){ echo "<div class=\"row\">";}?>
             <div class="col">
                 <div class="vpre">
-                    <div class="label">12:00</div>
-                    <div class="col-img" style="background: url(web/1.png);"></div>
+                    <div class="label"><?php echo $vs1[$i]["duration"];?></div>
+                    <img src="<?php echo $vs1[$i]["poster"];?>" class="col-img" />
                 </div>
                 <div class="info">
-                    <div class="title">隨便一個標題淡淡的</div>
+                    <div class="title"><?php echo $vs1[$i]["title"];?></div>
                     <div class="more">
-                        <div class="time">2個月前</div>
-                        <div class="count">12221</div>
-                        <div class="like"><img src="web/img/like_solid_f90.svg">70%</div>
+                        <div class="time"><?php echo $vs1[$i]["time_str"];?></div>
+                        <div class="count"><?php echo $vs1[$i]["playNum"];?><span>views</span></div>
+                        <div class="like"><img src="web/img/like_solid_f90.svg"><?php round(100*$vs1[$i]["up"]/($vs1[$i]["up"]+$vs1[$i]["down"])); ?>%</div>
                     </div>
                 </div>
             </div>
-            <div class="col">
-                <div class="vpre">
-                    <div class="label">12:00</div>
-                    <div class="col-img" style="background: url(web/1.png);"></div>
-                </div>
-                <div class="info">
-                    <div class="title">隨便一個標題淡淡的</div>
-                    <div class="more">
-                        <div class="time">2個月前</div>
-                        <div class="count">12221</div>
-                        <div class="like"><img src="web/img/like_solid_f90.svg">70%</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="vpre">
-                    <div class="label">12:00</div>
-                    <div class="col-img" style="background: url(web/1.png);"></div>
-                </div>
-                <div class="info">
-                    <div class="title">隨便一個標第三題淡淡的</div>
-                    <div class="more">
-                        <div class="time">2個月前</div>
-                        <div class="count">12221<span>views</span></div>
-                        <div class="like"><img src="web/img/like_solid_f90.svg">70%</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <div class="vpre">
-                    <div class="label">12:00</div>
-                    <div class="col-img" style="background: url(web/1.png);"></div>
-                </div>
-                <div class="info">
-                    <div class="title">隨便一個標題淡淡的</div>
-                    <div class="more">
-                        <div class="time">2個月前</div>
-                        <div class="count">12221</div>
-                        <div class="like"><img src="web/img/like_solid_f90.svg">70%</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="vpre">
-                    <div class="label">12:00</div>
-                    <div class="col-img" style="background: url(web/1.png);"></div>
-                </div>
-                <div class="info">
-                    <div class="title">隨便一個標題淡淡的</div>
-                    <div class="more">
-                        <div class="time">2個月前</div>
-                        <div class="count">12221</div>
-                        <div class="like"><img src="web/img/like_solid_f90.svg">70%</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="vpre">
-                    <div class="label">12:00</div>
-                    <div class="col-img" style="background: url(web/1.png);"></div>
-                </div>
-                <div class="info">
-                    <div class="title">隨便一個標第三方私服反三俗反三俗放鬆分題淡淡的</div>
-                    <div class="more">
-                        <div class="time">2個月前</div>
-                        <div class="count">12221</div>
-                        <div class="like"><img src="web/img/like_solid_f90.svg">70%</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <div class="vpre">
-                    <div class="label">12:00</div>
-                    <div class="col-img" style="background: url(web/1.png);"></div>
-                </div>
-                <div class="info">
-                    <div class="title">隨便一個標題淡淡的</div>
-                    <div class="more">
-                        <div class="time">2個月前</div>
-                        <div class="count">12221</div>
-                        <div class="like"><img src="web/img/like_solid_f90.svg">70%</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="vpre">
-                    <div class="label">12:00</div>
-                    <div class="col-img" style="background: url(web/1.png);"></div>
-                </div>
-                <div class="info">
-                    <div class="title">隨便一個標題淡淡的</div>
-                    <div class="more">
-                        <div class="time">2個月前</div>
-                        <div class="count">12221</div>
-                        <div class="like"><img src="web/img/like_solid_f90.svg">70%</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="vpre">
-                    <div class="label">12:00</div>
-                    <div class="col-img" style="background: url(web/1.png);"></div>
-                </div>
-                <div class="info">
-                    <div class="title">隨便一個標第三方私服反三俗反三俗放鬆分題淡淡的</div>
-                    <div class="more">
-                        <div class="time">2個月前</div>
-                        <div class="count">12221</div>
-                        <div class="like"><img src="web/img/like_solid_f90.svg">70%</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+            <?php if($i<9&&$i%3==2){echo "</div>";}
+            if($i>=9&&($i-9)%5==4){echo "</div>"; }
+        }
+        if($i>0){
+            $i--;
+            if($i<9&&$i%3<2){ echo "</div>"; }
+            if($i>=9&&($i-9)%5<4){ echo "</div>"; }
+        }?>
     </div>
     <div class="sec">
         <div class="head">
             Recommend Videos
         </div>
-        <div class="row">
-            <div class="col">
-                <div class="vpre">
-                    <div class="label">12:00</div>
-                    <div class="col-img" style="background: url(web/1.png);"></div>
-                </div>
-                <div class="info">
-                    <div class="title">隨便一個標題淡淡的</div>
-                    <div class="more">
-                        <div class="time">2個月前</div>
-                        <div class="count">12221</div>
-                        <div class="like"><img src="web/img/like_solid_f90.svg">70%</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="vpre">
-                    <div class="label">12:00</div>
-                    <div class="col-img" style="background: url(web/1.png);"></div>
-                </div>
-                <div class="info">
-                    <div class="title">隨便一個標題淡淡的</div>
-                    <div class="more">
-                        <div class="time">2個月前</div>
-                        <div class="count">12221</div>
-                        <div class="like"><img src="web/img/like_solid_f90.svg">70%</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="vpre">
-                    <div class="label">12:00</div>
-                    <div class="col-img" style="background: url(web/1.png);"></div>
-                </div>
-                <div class="info">
-                    <div class="title">隨便一個標第三題淡淡的</div>
-                    <div class="more">
-                        <div class="time">2個月前</div>
-                        <div class="count">12221<span>views</span></div>
-                        <div class="like"><img src="web/img/like_solid_f90.svg">70%</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="vpre">
-                    <div class="label">12:00</div>
-                    <div class="col-img" style="background: url(web/1.png);"></div>
-                </div>
-                <div class="info">
-                    <div class="title">隨便一個標題淡淡的</div>
-                    <div class="more">
-                        <div class="time">2個月前</div>
-                        <div class="count">12221</div>
-                        <div class="like"><img src="web/img/like_solid_f90.svg">70%</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="vpre">
-                    <div class="label">12:00</div>
-                    <div class="col-img" style="background: url(web/1.png);"></div>
-                </div>
-                <div class="info">
-                    <div class="title">隨便一個標題淡淡的</div>
-                    <div class="more">
-                        <div class="time">2個月前</div>
-                        <div class="count">12221</div>
-                        <div class="like"><img src="web/img/like_solid_f90.svg">70%</div>
-                    </div>
-                </div>
-            </div>
+        <div class="ad1">
+            400*560
         </div>
-        <div class="row">
+        <?php for($i=0;$i<count($vs2);$i++){
+            if($i<9&&$i%3==0){ echo "<div class=\"row\">";}
+            if($i>=9&&($i-9)%5==0){ echo "<div class=\"row\">";}?>
             <div class="col">
                 <div class="vpre">
-                    <div class="label">12:00</div>
-                    <div class="col-img" style="background: url(web/1.png);"></div>
+                    <div class="label"><?php echo $vs2[$i]["duration"];?></div>
+                    <img src="<?php echo $vs2[$i]["poster"];?>" class="col-img" />
                 </div>
                 <div class="info">
-                    <div class="title">隨便一個標題淡淡的</div>
+                    <div class="title"><?php echo $vs2[$i]["title"];?></div>
                     <div class="more">
-                        <div class="time">2個月前</div>
-                        <div class="count">12221</div>
-                        <div class="like"><img src="web/img/like_solid_f90.svg">70%</div>
+                        <div class="time"><?php echo $vs2[$i]["time_str"];?></div>
+                        <div class="count"><?php echo $vs2[$i]["playNum"];?><span>views</span></div>
+                        <div class="like"><img src="web/img/like_solid_f90.svg"><?php round(100*$vs2[$i]["up"]/($vs2[$i]["up"]+$vs2[$i]["down"])); ?>%</div>
                     </div>
                 </div>
             </div>
-            <div class="col">
-                <div class="vpre">
-                    <div class="label">12:00</div>
-                    <div class="col-img" style="background: url(web/1.png);"></div>
-                </div>
-                <div class="info">
-                    <div class="title">隨便一個標題淡淡的</div>
-                    <div class="more">
-                        <div class="time">2個月前</div>
-                        <div class="count">12221</div>
-                        <div class="like"><img src="web/img/like_solid_f90.svg">70%</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="vpre">
-                    <div class="label">12:00</div>
-                    <div class="col-img" style="background: url(web/1.png);"></div>
-                </div>
-                <div class="info">
-                    <div class="title">隨便一個標第三方私服反三俗反三俗放鬆分題淡淡的</div>
-                    <div class="more">
-                        <div class="time">2個月前</div>
-                        <div class="count">12221</div>
-                        <div class="like"><img src="web/img/like_solid_f90.svg">70%</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="vpre">
-                    <div class="label">12:00</div>
-                    <div class="col-img" style="background: url(web/1.png);"></div>
-                </div>
-                <div class="info">
-                    <div class="title">隨便一個標題淡淡的</div>
-                    <div class="more">
-                        <div class="time">2個月前</div>
-                        <div class="count">12221</div>
-                        <div class="like"><img src="web/img/like_solid_f90.svg">70%</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="vpre">
-                    <div class="label">12:00</div>
-                    <div class="col-img" style="background: url(web/1.png);"></div>
-                </div>
-                <div class="info">
-                    <div class="title">隨便一個標題淡淡的</div>
-                    <div class="more">
-                        <div class="time">2個月前</div>
-                        <div class="count">12221</div>
-                        <div class="like"><img src="web/img/like_solid_f90.svg">70%</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+            <?php if($i<9&&$i%3==2){echo "</div>";}
+            if($i>=9&&($i-9)%5==4){echo "</div>"; }
+        }
+        if($i>0){
+            $i--;
+            if($i<9&&$i%3<2){ echo "</div>"; }
+            if($i>=9&&($i-9)%5<4){ echo "</div>"; }
+        } ?>
     </div>
     <div class="sec">
-        <div class="head">
-            Recently played
-        </div>
-        <div class="row">
-            <div class="col">
-                <div class="vpre">
-                    <div class="label">12:00</div>
-                    <div class="col-img" style="background: url(web/1.png);"></div>
-                </div>
-                <div class="info">
-                    <div class="title">隨便一個標題淡淡的</div>
-                    <div class="more">
-                        <div class="time">2個月前</div>
-                        <div class="count">12221</div>
-                        <div class="like"><img src="web/img/like_solid_f90.svg">70%</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="vpre">
-                    <div class="label">12:00</div>
-                    <div class="col-img" style="background: url(web/1.png);"></div>
-                </div>
-                <div class="info">
-                    <div class="title">隨便一個標題淡淡的</div>
-                    <div class="more">
-                        <div class="time">2個月前</div>
-                        <div class="count">12221</div>
-                        <div class="like"><img src="web/img/like_solid_f90.svg">70%</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="vpre">
-                    <div class="label">12:00</div>
-                    <div class="col-img" style="background: url(web/1.png);"></div>
-                </div>
-                <div class="info">
-                    <div class="title">隨便一個標第三題淡淡的</div>
-                    <div class="more">
-                        <div class="time">2個月前</div>
-                        <div class="count">12221<span>views</span></div>
-                        <div class="like"><img src="web/img/like_solid_f90.svg">70%</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="vpre">
-                    <div class="label">12:00</div>
-                    <div class="col-img" style="background: url(web/1.png);"></div>
-                </div>
-                <div class="info">
-                    <div class="title">隨便一個標題淡淡的</div>
-                    <div class="more">
-                        <div class="time">2個月前</div>
-                        <div class="count">12221</div>
-                        <div class="like"><img src="web/img/like_solid_f90.svg">70%</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="vpre">
-                    <div class="label">12:00</div>
-                    <div class="col-img" style="background: url(web/1.png);"></div>
-                </div>
-                <div class="info">
-                    <div class="title">隨便一個標題淡淡的</div>
-                    <div class="more">
-                        <div class="time">2個月前</div>
-                        <div class="count">12221</div>
-                        <div class="like"><img src="web/img/like_solid_f90.svg">70%</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <div class="vpre">
-                    <div class="label">12:00</div>
-                    <div class="col-img" style="background: url(web/1.png);"></div>
-                </div>
-                <div class="info">
-                    <div class="title">隨便一個標題淡淡的</div>
-                    <div class="more">
-                        <div class="time">2個月前</div>
-                        <div class="count">12221</div>
-                        <div class="like"><img src="web/img/like_solid_f90.svg">70%</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="vpre">
-                    <div class="label">12:00</div>
-                    <div class="col-img" style="background: url(web/1.png);"></div>
-                </div>
-                <div class="info">
-                    <div class="title">隨便一個標題淡淡的</div>
-                    <div class="more">
-                        <div class="time">2個月前</div>
-                        <div class="count">12221</div>
-                        <div class="like"><img src="web/img/like_solid_f90.svg">70%</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="vpre">
-                    <div class="label">12:00</div>
-                    <div class="col-img" style="background: url(web/1.png);"></div>
-                </div>
-                <div class="info">
-                    <div class="title">隨便一個標第三方私服反三俗反三俗放鬆分題淡淡的</div>
-                    <div class="more">
-                        <div class="time">2個月前</div>
-                        <div class="count">12221</div>
-                        <div class="like"><img src="web/img/like_solid_f90.svg">70%</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="vpre">
-                    <div class="label">12:00</div>
-                    <div class="col-img" style="background: url(web/1.png);"></div>
-                </div>
-                <div class="info">
-                    <div class="title">隨便一個標題淡淡的</div>
-                    <div class="more">
-                        <div class="time">2個月前</div>
-                        <div class="count">12221</div>
-                        <div class="like"><img src="web/img/like_solid_f90.svg">70%</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="vpre">
-                    <div class="label">12:00</div>
-                    <div class="col-img" style="background: url(web/1.png);"></div>
-                </div>
-                <div class="info">
-                    <div class="title">隨便一個標題淡淡的</div>
-                    <div class="more">
-                        <div class="time">2個月前</div>
-                        <div class="count">12221</div>
-                        <div class="like"><img src="web/img/like_solid_f90.svg">70%</div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="ad2">
             <div style="width:300px">300*250</div>
             <div style="width:300px">300*250</div>
             <div style="width:200px">200*250</div>
             <div style="width:250px">230*250</div>
         </div>
-
     </div>
 </div>
-<script id="sech-tpl" type="text/html">
-    <% for(i=0;i<data.length;i++){ %>
-    <% if(i%5==0){ %><div class="row"><% } %>
-        <div class="col">
-            <div class="vpre">
-                <div class="label">{{data[i].duration}}</div>
-                <div class="col-img" style="background: url(web/1.png);"></div>
-            </div>
-            <div class="info">
-                <div class="title">{{data[i].title}}</div>
-                <div class="more">
-                    <div class="time">{{data[i].time_str}}</div>
-                    <div class="count">{{data[i].playNum}}</div>
-                    <div class="like"><img src="web/img/like_solid_f90.svg">{{mt.round(100*data[i].up/(data[i].up+data[i].down))}}%</div>
-                </div>
-            </div>
-        </div>
-        <% if(i%5==4){ %></div><% } %>
-    <% } %>
-    <% if(i%5<4){ %></div><% } %>
-</script>
-<script id="pg-tpl" type="text/html">
-    <div class="page-ctrl">
-        <% if(curPage<=1){ %>
-        <a href="javascript:void(0);" class="disabled">上一頁</a>
-        <% }else{ %>
-        <a href="javascript:void(0);" onclick="vl.page({{curPage-1}})">上一頁</a>
-        <% } %>
-        <% for(var i=0;i<5;i++){ %>
-        <% if(curPage<=3){ %>
-        <% if(i+1>totalPage) continue; %>
-        <% if(i+1==curPage){ %>
-        <a href="javascript:void(0);" class="active">{{i+1}}</a>
-        <% }else{ %>
-        <a href="javascript:void(0);" onclick="vl.page({{i+1}})">{{i+1}}</a>
-        <% } %>
-        <% }else if(curPage>=totalPage-2){ %>
-        <% if(totalPage-4+i<1) continue; %>
-        <% if(totalPage-4+i==curPage){ %>
-        <a href="javascript:void(0);" class="active">{{totalPage-4+i}}</a>
-        <% }else{ %>
-        <a href="javascript:void(0);" onclick="vl.page({{totalPage-4+i}})">{{totalPage-4+i}}</a>
-        <% } %>
-        <% }else{ %>
-        <% if(curPage-2+i==curPage){ %>
-        <a href="javascript:void(0);" class="active">{{curPage-2+i}}</a>
-        <% }else{ %>
-        <a href="javascript:void(0);" onclick="vl.page({{curPage-2+i}})">{{curPage-2+i}}</a>
-        <% } %>
-        <% } %>
-        <% } %>
-        <% if(curPage>=totalPage){ %>
-        <a href="javascript:void(0);" class="disabled">下一頁</a>
-        <% }else{ %>
-        <a href="javascript:void(0);" onclick="vl.page({{curPage+1}})">下一頁</a>
-        <% } %>
-    </div>
-</script>
-<script src="/common/template-web.js"></script>
-<script src="web/js/ct_vote.js"></script>
 </body>
 </html>
