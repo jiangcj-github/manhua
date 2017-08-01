@@ -126,39 +126,27 @@
        //upload.init();
     });
 
-
-    var task=$('#vInput').fileupload({
+    var task;
+    $('#vInput').fileupload({
         maxChunkSize: 2000000, // 5 MB
         dataType: "json",
-        url:"upload/index.php",
+        url:"http://lindakai.com/upload/index.php",
         add: function (e, data) {
-            /*
-            var that = this;
-            $.getJSON('upload/index.php', {file: data.files[0].name},function (result) {
-                var file = result.file;
-                data.uploadedBytes = file && file.size;
-                $.blueimp.fileupload.prototype
-                    .options.add.call(that, e, data);
+            task=data.submit();
+            task.success(function(file){
+                var name=file.name;
+                console.log(file);
             });
-            */
-            data.submit();
         },
         fail: function (e, data) {
-            console.log("failed");
-            /*
-            $.ajax({
-                url: 'upload/index.php',
-                dataType: 'json',
-                data: {file: data.files[0].name},
-                type: "DELETE"
-            });
-            */
+
         },
         done: function (e, data) {
             console.log("done");
 
         }
     });
+
 
 
     //task.abort();
