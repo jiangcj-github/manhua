@@ -33,7 +33,7 @@
             <div class="progress-wrap">
                 <div class="progress"></div>
             </div>
-            <input id="vInput" type="file" accept="video/mp4">
+            <input id="vInput" type="file" name="vInput" accept="video/mp4">
         </div>
         <input type="text" placeholder="title">
         <select>
@@ -41,13 +41,13 @@
             <option>2</option>
         </select>
 
-
     </div>
 </div>
 <script src="/common/jquery-3.2.1.js"></script>
 <script src="/common/fileupload/jquery.ui.widget.js"></script>
 <script src="/common/fileupload/jquery.iframe-transport.js"></script>
 <script src="/common/fileupload/jquery.fileupload.js"></script>
+<script src="/common/common.js"></script>
 
 <script>
     /*
@@ -130,24 +130,38 @@
     $('#vInput').fileupload({
         maxChunkSize: 2000000, // 5 MB
         dataType: "json",
-        url:"http://lindakai.com/upload/index.php",
+        url:"http://lindakai.com/upload/index.php?_token=222",
         add: function (e, data) {
             task=data.submit();
-            task.success(function(file){
-                var name=file.name;
-                console.log(file);
+            task.success && task.success(function(file){
+                var name=file.vInput[0].name;
+                ajaxForm.action(null,{
+                    type:"post",
+                    url:"http://lindakai.com/upload/deal.php",
+                    data:{_token:"222",name:name},
+                    success:function(data){
+                        if(data.ok){
+                            $(".vShow").prop("src",data.data.png);
+                        }
+                    }
+                });
             });
-        },
-        fail: function (e, data) {
-
-        },
-        done: function (e, data) {
-            console.log("done");
-
         }
     });
 
 
+    function deal(){
+        ajaxForm.action(null,{
+            type:"post",
+            url:"http://lindakai.com/upload/deal.php",
+            data:{_token:"222",name:"test.mp4"},
+            success:function(data){
+                if(data.ok){
+                    console.log(data.data.url);
+                }
+            }
+        });
+    }
 
     //task.abort();
 
