@@ -35,6 +35,8 @@
             </div>
             <input id="vInput" type="file" accept="video/mp4">
         </div>
+        <button id="startBtn">開始</button>
+        <button id="cancelBtn">取消</button>
         <input type="text" placeholder="title">
         <select>
             <option>1</option>
@@ -50,106 +52,79 @@
 <script src="/common/fileupload/jquery.fileupload.js"></script>
 
 <script>
-    /*
+
     var upload={};
     upload.vShow=$(".vShow");
     upload.vInput=$("#vInput");
     upload.vProgress="";
+    upload.startBtn=null;
+    upload.cancelBtn=null;
+    upload.task=null;
+    upload.uploadUrl="http://lindakai.com/upload/index.php";
     upload.init=function(){
-      var _this=this;
-      _this.vInput.change(function(){_this.upload();});
-      _this.vShow.click(function(){_this.showFileChooser();});
+        var _this=this;
+        _this.vInput.fileupload({
+            maxChunkSize: 2000000, // 2MB
+            dataType: "json",
+            url:_this.uploadUrl,
+            add: function (e, data) {
+                var file=data.files[0];
+                if(file.type!="video/mp4"){
+
+                }
+                if(file.)
+
+                _this.task=data.submit();
+                _this.task.success(function(file){
+                    var name=file.name;
+                    console.log(file);
+                });
+            },
+            progressall: function (e,data) {
+                var progress = parseInt(data.loaded/data.total * 100, 10);
+
+                console.log(progress);
+            }
+        });
+        _this.vShow.click(function(){_this.showFileChooser();});
     };
+    upload.cancel=function(data){
+        this.task && this.task.abort();
+    };
+    upload.remove=function(data){
+        var _this=this;
+        this.cancel();
+        $.ajax({
+            url: _this.uploadUrl,
+            dataType:"json",
+            data: {file:data.files[0].name}
+            type:"DELETE"
+        });
+    };
+    upload.resume=function(data){
+        $.getJSON("http://lindakai.com/upload/index.php",{file: data.files[0].name}, function (result) {
+            var file = result.file;
+            data.uploadedBytes = file && file.size;
+            $.blueimp.fileupload.prototype
+                .options.add.call(that, e, data);
+        });
+    };
+
+
     upload.showFileChooser=function(){
         this.vInput.click();
     };
     upload.upload=function(){
         var _this=this;
-        /*
-        var formData = new FormData();
-        formData.append("file", $(this)[0].files[0]);
-        $.ajax({
-            url: "/admin/video/update/uploadPoster",
-            type: "POST",
-            data: formData,
-            contentType:false,
-            processData:false,
-            xhr:function(){
-                myXhr = $.ajaxSettings.xhr();
-                if(myXhr.upload){
-                    myXhr.upload.addEventListener("progress",function(e){
-                        if (e.lengthComputable) {
-                            var per = e.loaded/e.total*100;
-                            $(".poster .progress-bar").css("width",per+"%");
-                        }
-                    },false);
-                }
-                return myXhr;
-            },
-            success: function(data){
-                if(data.msg){
-                    $("#upload_error").show();
-                    $("#upload_error").children("span").text("文件"+$("#poster")[0].files[0].name+"上传失败，"+data.msg);
-                }else{
-                    $(".poster img").prop("src",data.url);
-                }
-            }
-        });
 
-        var formData = new FormData();
-        formData.append("file", $(_this.vInput)[0].files[0]);
-        $(_this.vInput).fileupload({
-            type:"post",
-            url:"upload/upload.php",
-            dataType: "json",
-            data: formData,
-            contentType:false,
-            processData:false,
-            add: function (e, data) {
-                console.log(data);
-                data.submit();
-            },
-            progressall: function(e, data) {
-                var progress = parseInt(data.loaded / data.total * 100, 10);
-                console.log(progress);
-            },
-            done: function (e, data) {
-                console.log(e);
-                console.log(data);
-            }
-        });
 
-    };*/
+
+    };
 
 
     $(function(){
-       //upload.init();
+       upload.init();
     });
-
-    var task;
-    $('#vInput').fileupload({
-        maxChunkSize: 2000000, // 5 MB
-        dataType: "json",
-        url:"http://lindakai.com/upload/index.php",
-        add: function (e, data) {
-            task=data.submit();
-            task.success(function(file){
-                var name=file.name;
-                console.log(file);
-            });
-        },
-        fail: function (e, data) {
-
-        },
-        done: function (e, data) {
-            console.log("done");
-
-        }
-    });
-
-
-
-    //task.abort();
 
 </script>
 </body>
