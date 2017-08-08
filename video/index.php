@@ -38,12 +38,14 @@ foreach($vs2 as $k=>$v){
         //獲取recently Played
         $stmt=$conn->prepare("select video.*,units.domain from video join units on video.unit=units.id join user_played on video.id=user_played.vid where user_played.nick=? order by user_played.time limit 10");
         $stmt->bind_param("s",$_SESSION["login"]["nick"]);
+        $stmt->execute();
         $vs3=$stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $stmt->close();
-        foreach($vs1 as $k=>$v){
+        foreach($vs3 as $k=>$v){
             $vs3[$k]["time_str"]=time_tran($vs3[$k]["time"]);
             $vs3[$k]["poster"]=generateResourceUrl($vs3[$k]["id"].".png",$vs3[$k]["domain"]);
         }
+        if(count($vs3)>0){
         ?>
         <div class="sec">
             <div class="head">Recently played</div>
@@ -70,7 +72,7 @@ foreach($vs2 as $k=>$v){
                 if($i%5<4){echo "</div>";}
             }?>
         </div>
-    <?php } ?>
+    <?php }} ?>
     <div class="sec">
         <div class="head">
             Recently Updated
