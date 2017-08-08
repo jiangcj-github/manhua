@@ -1,3 +1,10 @@
+<?php
+//獲取資源服务器token
+$ip=$_SERVER["REMOTE_ADDR"];
+$secret="lindakai";
+$time=(new DateTime())->getTimestamp();
+$_token=md5($ip.$time.$secret);
+?>
 <html>
 <head>
     <title>上傳視頻</title>
@@ -126,11 +133,13 @@
        //upload.init();
     });
 
+    var _token="<?php echo $_token; ?>";
+    var _time=<?php echo $time; ?>;
     var task;
     $('#vInput').fileupload({
         maxChunkSize: 2000000, // 5 MB
         dataType: "json",
-        url:"http://lindakai.com/upload/index.php?_token=222",
+        url:"http://lindakai.com/upload/index.php?_token="+_token+"&_time="+_time,
         add: function (e, data) {
             task=data.submit();
             task.success && task.success(function(file){
@@ -138,7 +147,7 @@
                 ajaxForm.action(null,{
                     type:"post",
                     url:"http://lindakai.com/upload/deal.php",
-                    data:{_token:"222",name:name},
+                    data:{_token:_token,_time:_time,name:name},
                     success:function(data){
                         if(data.ok){
                             $(".vShow").prop("src",data.data.png);
