@@ -1,27 +1,32 @@
 var upload={};
-upload.vShow=$(".vShow");
-upload.vInput=$("#vInput");
-upload.addBtn=$(".addBtn");
-upload.startBtn=$(".startBtn");
-upload.cancelBtn=$(".cancelBtn");
-upload.vProgress=$(".progress");
-upload.vProgressText=$(".progress-text");
+upload.nodes={
+    vShow:$(".content .preview"),
+    vInput:$(".content #vInput"),
+    addBtn:$(".content .addBtn"),
+    startBtn:$(".content .startBtn"),
+    cancelBtn:$(".content .cancelBtn"),
+    vPg:$(".content .pg-wrap .pg"),
+    vPer:$(".content .pg-info .per"),
+    vSpeed:$(".content .pg-info .speed"),
+    vSpare:$(".content .pg-info .spare")
+};
 upload.task=null;
 upload.upSpeed={st:0,sb:0};
 upload.onChange=function(){
-    this.startBtn.prop("disabled",false);
-    this.cancelBtn.prop("disabled",false);
+    var _this=this;
+    _this.nodes.startBtn.prop("disabled",false);
+    _this.nodes.cancelBtn.prop("disabled",false);
 };
 upload.init=function(){
     var _this=this;
     _this.initUpload();
-    _this.vInput.attr("onchange","upload.onChange()");
-    _this.addBtn.click(function(){_this.vInput.click();});
-    _this.cancelBtn.click(function(){_this.task && _this.task.abort();});
+    _this.nodes.vInput.attr("onchange","upload.onChange()");
+    _this.nodes.addBtn.click(function(){_this.nodes.vInput.click();});
+    _this.nodes.cancelBtn.click(function(){_this.task && _this.task.abort();});
 };
 upload.initUpload=function(){
     var _this=this;
-    _this.vInput.fileupload({
+    _this.nodes.vInput.fileupload({
         maxChunkSize: 2000000, // 2MB
         dataType: "json",
         paramName:"vInput",
@@ -43,13 +48,13 @@ upload.initUpload=function(){
             }
             _this.showFile(file);
             var that = this;
-            _this.startBtn.click(function(){
+            _this.nodes.startBtn.click(function(){
                 $.getJSON("http://lindakai.com/upload/index.php?_token="+_token+"&_time="+_time,{vInput:data.files[0].name},function(rs){
                     data.uploadedBytes = rs.vInput && rs.vInput.size;
                     if(data.uploadedBytes==data.files[0].size){
                         var name=data.files[0].name;
-                        _this.startBtn.prop("disabled",true);
-                        _this.cancelBtn.prop("disabled",true);
+                        _this.nodes.startBtn.prop("disabled",true);
+                        _this.nodes.cancelBtn.prop("disabled",true);
                         _this.deal(name);
                     }else{
                         _this.task=data.submit();
@@ -57,8 +62,8 @@ upload.initUpload=function(){
                         _this.upSpeed.sb=data.uploadedBytes;
                         _this.task.success && _this.task.success(function(file){
                             var name=file.vInput[0].name;
-                            _this.startBtn.prop("disabled",true);
-                            _this.cancelBtn.prop("disabled",true);
+                            _this.nodes.startBtn.prop("disabled",true);
+                            _this.nodes.cancelBtn.prop("disabled",true);
                             _this.deal(name);
                         });
                     }
@@ -81,8 +86,8 @@ upload.initUpload=function(){
             console.log(spare_str);
             //
             var progress = Math.round(data.loaded/data.total*100);
-            _this.vProgress.css("width",progress+"%");
-            _this.vProgressText.text(progress+"%");
+            _this.nodes.vPg.css("width",progress+"%");
+            _this.nodes.vPer.text(progress+"%");
         }
     });
 };
@@ -94,6 +99,18 @@ upload.formatSpeed=function(speed){
         return Math.round(speed/1024) + " K/s";
     }else{
         return Math.round(speed) + " B/s"
+    }
+};
+upload.formatSize=function(size){
+    //byte
+    if(size>1024*1024*1024){
+        return Math.round(size/(1024*1024*1024))+"G";
+    }else if(size>1024*1024){
+        return Math.round(size/(1024*1024))+"M";
+    }else if(size>1024){
+        return Math.round(size/1024)+"K";
+    }else{
+        return size+"B";
     }
 };
 upload.formatSpare=function(spare){
@@ -114,7 +131,7 @@ upload.formatSpare=function(spare){
         if(s<10){
             s="0"+s;
         }
-        return h+":"+m+":"+s;
+        return h+"時"+m+":"+s;
     }else if(spare>60){
         m = Math.floor(spare/60);
         spare-=m*60;
@@ -142,7 +159,7 @@ upload.deal=function(name){
         data:{_token:_token,_time:_time,name:name},
         success:function(data){
             if(data.ok){
-                _this.vShow.prop("src",data.data.png);
+                _this.nodes.vShow.prop("src",data.data.png);
                 console.log(data.data);
             }
         }
