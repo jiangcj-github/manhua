@@ -31,6 +31,7 @@
     color: #222;
     border-radius:3px;
     font-weight:bold;
+    line-height: 16px;
 }
 .page-ctrl>a:hover{background: linear-gradient(to bottom,#999,#ddd);}
 .page-ctrl>a.disabled{background:linear-gradient(to bottom,#999,#bbb) !important;}
