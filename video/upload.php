@@ -17,6 +17,7 @@ $_token=md5($ip.$time.$secret);
         .content .preview{width:200px;height:200px;border:1px solid #222;border-radius:5px;background:#ccc;}
         .content .right{flex-grow:1;margin-left:20px;padding:10px 0;}
         .content .right .btnGroup{}
+        
         .content .right .fileShow{margin:10px 0;}
         .content .right .fileShow .fName{}
         .content .right .fileShow .fSize{font-size:14px;color: #666;}
@@ -26,7 +27,6 @@ $_token=md5($ip.$time.$secret);
         .content .right .pg-info .per{  }
         .content .right .pg-info .speed{  }
         .content .right .pg-info .spare{ }
-
     </style>
 </head>
 <body>
