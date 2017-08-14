@@ -25,7 +25,7 @@ $_token=md5($ip.$time.$secret);
         .content .right .pg-info{margin:10px 0;}
         .content .right .pg-info .per{  }
         .content .right .pg-info .speed{  }
-        .content .right .pg-info .spare{  }
+        .content .right .pg-info .spare{ }
 
     </style>
 </head>
