@@ -1,6 +1,5 @@
 <?php
 require_once("../php/global.php");
-
 include("checkAdmin.php");
 
 $conn = new mysqli($mysql["host"], $mysql["user"], $mysql["password"], $mysql["database"]);

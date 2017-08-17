@@ -63,7 +63,7 @@ $data=$result->fetch_all(MYSQLI_ASSOC);
             <input type="text" id="m_ip" placeholder="ip">
             <input type="text" id="m_flag" placeholder="flag">
             <button id="m_btn">修改</button>
-            <div>不需要更改的字段置空</div>
+            <div>id,domain,ip,flag非空</div>
         </div>
         <h3>刪除</h3>
         <div>
@@ -72,16 +72,25 @@ $data=$result->fetch_all(MYSQLI_ASSOC);
         </div>
     </div>
     <script src="../../web/page.js"></script>
+    <script src="/common/common.js"></script>
     <script>
-        $("#a_btn").click(function(){
-            var domain=$("#a_domain").val();
-            var ip=$("#a_ip").val();
-            var flag=$("#a_flag").val();
-            $.post("",{domain:domain,ip:ip,flag:flag},function(data){
-                if(data.ok){
-                    location.reload();
-                }else if(data.msg){
-                    alert(data.msg);
+        $("#a_btn").click(function() {
+            var domain = $("#a_domain").val();
+            var ip = $("#a_ip").val();
+            var flag = $("#a_flag").val();
+            if (/^\s*$/.test(domain) || /^\s*$/.test(ip) || /^\s*$/.test(flag)) {
+                alert("參數不為空");
+                return;
+            }
+            ajaxForm.action(null,{
+                url: "add.php",
+                data: {domain: domain, ip: ip, flag: flag},
+                success: function (data) {
+                    if (data.ok) {
+                        location.reload();
+                    } else if (data.msg) {
+                        alert(data.msg);
+                    }
                 }
             });
         });
@@ -90,21 +99,37 @@ $data=$result->fetch_all(MYSQLI_ASSOC);
             var domain=$("#m_domain").val();
             var ip=$("#m_ip").val();
             var flag=$("#m_flag").val();
-            $.post("",{id:id,domain:domain,ip:ip,flag:flag},function(data){
-                if(data.ok){
-                    location.reload();
-                }else if(data.msg){
-                    alert(data.msg);
+            if(/^\s*$/.test(id)||/^\s*$/.test(domain)||/^\s*$/.test(ip)||/^\s*$/.test(flag)){
+                alert("參數不為空");
+                return;
+            }
+            ajaxForm.action(null,{
+                url: "modify.php",
+                data: {id:id,domain:domain,ip:ip,flag:flag},
+                success: function (data) {
+                    if (data.ok) {
+                        location.reload();
+                    } else if (data.msg) {
+                        alert(data.msg);
+                    }
                 }
             });
         });
         $("#d_btn").click(function(){
-            var id=$("#m_id").val();
-            $.post("",{id:id},function(data){
-                if(data.ok){
-                    location.reload();
-                }else if(data.msg){
-                    alert(data.msg);
+            var id=$("#d_id").val();
+            if(/^\s*$/.test(id)){
+                alert("參數不為空");
+                return;
+            }
+            ajaxForm.action(null,{
+                url: "delete.php",
+                data: {id:id},
+                success: function (data) {
+                    if (data.ok) {
+                        location.reload();
+                    } else if (data.msg) {
+                        alert(data.msg);
+                    }
                 }
             });
         });
