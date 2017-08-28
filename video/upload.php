@@ -5,6 +5,8 @@ $ip="127.0.0.1";
 $secret="lindakai";
 $time=(new DateTime())->getTimestamp();
 $_token=md5($ip.$time.$secret);
+//獲取上傳節點
+
 ?>
 <html>
 <head>
@@ -86,7 +88,7 @@ $_token=md5($ip.$time.$secret);
             </select>
         </div>
         <div class="part">
-           <button class="btn btn2">提交</button>
+           <button class="btn btn2" id="submit">提交</button>
         </div>
     </div>
 </div>

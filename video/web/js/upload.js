@@ -11,7 +11,8 @@ upload.nodes={
     vPer:$(".content .pg-info .per"),
     vSpeed:$(".content .pg-info .speed"),
     vSpare:$(".content .pg-info .spare"),
-    vFinish:$(".content .pg-info .finish")
+    vFinish:$(".content .pg-info .finish"),
+    submitBtn:$("#submit")
 };
 upload.task=null;
 upload.data=null;
@@ -60,6 +61,7 @@ upload.init=function(){
         _this.nodes.startBtn.prop("disabled",false);
         _this.nodes.cancelBtn.prop("disabled",true);
     });
+    _this.nodes.submitBtn.click(function(){_this.submit();})
 };
 upload.initUpload=function(){
     var _this=this;
@@ -191,6 +193,11 @@ upload.showFile=function(file){
     var _this=this;
     _this.nodes.fName.text(file.name);
     _this.nodes.fSize.text(_this.formatSize(file.size));
+};
+//
+upload.submit=function(){
+
+
 };
 
 $(function(){
