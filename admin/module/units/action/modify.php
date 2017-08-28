@@ -1,6 +1,6 @@
 <?php
-require("../../../php/global.php");
-include("../../checkAdmin.php");
+require("../../../../php/global.php");
+include("../../../checkAdmin.php");
 
 //參數檢查
 if(!isset($_REQUEST["id"])||!isset($_REQUEST["domain"])||!isset($_REQUEST["ip"])||!isset($_REQUEST["flag"])){

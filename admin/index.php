@@ -12,6 +12,7 @@
             <li><a href="module/units/index.php">units</a></li>
             <li><a href="module/user/index.php">user</a></li>
             <li><a href="module/video/index.php">video</a></li>
+            <li><a href="module/feedback/index.php">feedback</a></li>
         </ul>
         <h1>初始化</h1>
         <ul>

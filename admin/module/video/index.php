@@ -73,7 +73,7 @@ $_token=md5($ip.$time.$secret);
                 return;
             }
             ajaxForm.action(null,{
-               url:"delete.php",
+               url:"action/delete.php",
                data:{id:id},
                success:function(data){
                    if(data.ok){

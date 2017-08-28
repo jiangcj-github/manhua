@@ -220,16 +220,18 @@ if($result){
 
 /**
  * 建video_feedback表
+ * flag取值意義[0-未處理,1-已處理]
  */
 $result=$conn->query("
     CREATE TABLE IF NOT EXISTS video_feedback(
-        id int (32) NOT NULL AUTO_INCREMENT,
+        id int(32) NOT NULL AUTO_INCREMENT,
         vid int(32) NOT NULL,
         nick VARCHAR (255) NOT NULL,
         msg VARCHAR (255) NOT NULL,
         describ text,
         email VARCHAR (255),
         time VARCHAR (255) NOT NULL,
+        flag int(32) NOT NULL DEFAULT 0,
         PRIMARY KEY (id)
     )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 ");

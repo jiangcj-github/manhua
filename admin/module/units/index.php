@@ -83,7 +83,7 @@ $data=$result->fetch_all(MYSQLI_ASSOC);
                 return;
             }
             ajaxForm.action(null,{
-                url: "add.php",
+                url: "action/add.php",
                 data: {domain: domain, ip: ip, flag: flag},
                 success: function (data) {
                     if (data.ok) {
@@ -104,7 +104,7 @@ $data=$result->fetch_all(MYSQLI_ASSOC);
                 return;
             }
             ajaxForm.action(null,{
-                url: "modify.php",
+                url: "action/modify.php",
                 data: {id:id,domain:domain,ip:ip,flag:flag},
                 success: function (data) {
                     if (data.ok) {
@@ -122,7 +122,7 @@ $data=$result->fetch_all(MYSQLI_ASSOC);
                 return;
             }
             ajaxForm.action(null,{
-                url: "delete.php",
+                url: "action/delete.php",
                 data: {id:id},
                 success: function (data) {
                     if (data.ok) {
