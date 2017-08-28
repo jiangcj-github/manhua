@@ -88,8 +88,6 @@ $_token=md5($ip.$time.$secret);
         <div class="part">
            <button class="btn btn2">提交</button>
         </div>
-
-
     </div>
 </div>
 <script src="/common/jquery-3.2.1.js"></script>

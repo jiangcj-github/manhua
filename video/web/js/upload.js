@@ -21,7 +21,7 @@ upload.init=function(){
     _this.initUpload();
     _this.nodes.addBtn.click(function(){
         _this.nodes.vInput().click();
-    })
+    });
     _this.nodes.startBtn.click(function(){
         if(!_this.data) return;
         var data=_this.data;
@@ -107,12 +107,12 @@ upload.initUpload=function(){
             var progress = Math.round(data.loaded/data.total*100);
             _this.nodes.vPg.css("width",progress+"%");
             _this.nodes.vPer.text(progress+"%");
-        },
+        }
     });
 };
 upload.log=function(msg){
     alert(msg);
-}
+};
 upload.formatSpeed=function(speed){
     // byte/s
     if(speed>=1024*1024){
