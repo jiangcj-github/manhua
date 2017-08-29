@@ -78,13 +78,13 @@ $_token=md5($ip.$time.$secret);
         </div>
         <div class="part">
             <label>標題</label>
-            <input type="text" placeholder="title">
+            <input type="text" id="title" placeholder="title">
         </div>
         <div class="part">
             <label>分類</label>
-            <select>
-                <option>1</option>
-                <option>2</option>
+            <select id="categery">
+                <option value="1">亞洲</option>
+                <option value="2">歐美</option>
             </select>
         </div>
         <div class="part">
@@ -101,6 +101,7 @@ $_token=md5($ip.$time.$secret);
 <script>
     var _token="<?php echo $_token; ?>";
     var _time=<?php echo $time; ?>;
+    var unit=1;
 </script>
 </body>
 </html>

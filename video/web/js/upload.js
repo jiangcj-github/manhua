@@ -12,7 +12,9 @@ upload.nodes={
     vSpeed:$(".content .pg-info .speed"),
     vSpare:$(".content .pg-info .spare"),
     vFinish:$(".content .pg-info .finish"),
-    submitBtn:$("#submit")
+    submitBtn:$("#submit"),
+    titleInput:$("#title"),
+    categeryInput:$("#categery")
 };
 upload.task=null;
 upload.data=null;
@@ -32,7 +34,6 @@ upload.init=function(){
         $.getJSON("http://lindakai.com/upload/index.php?_token="+_token+"&_time="+_time,{vInput:data.files[0].name},function(rs){
             data.uploadedBytes = rs.vInput && rs.vInput.size;
             if(data.uploadedBytes==data.files[0].size){
-                var name=data.files[0].name;
                 _this.nodes.startBtn.prop("disabled",true);
                 _this.nodes.cancelBtn.prop("disabled",true);
                 _this.nodes.addBtn.prop("disabled",false);
@@ -40,17 +41,16 @@ upload.init=function(){
                 _this.nodes.vFinish.text(_this.formatSize(data.uploadedBytes));
                 _this.nodes.vPg.css("width","100%");
                 _this.nodes.vPer.text("100%");
-                _this.deal(name);
+                _this.deal(data.files[0]);
             }else{
                 _this.task=data.submit();
                 _this.upSpeed.st=new Date().getTime();
                 _this.upSpeed.sb=data.uploadedBytes;
                 _this.task.success && _this.task.success(function(file){
-                    var name=file.vInput[0].name;
                     _this.nodes.startBtn.prop("disabled",true);
                     _this.nodes.cancelBtn.prop("disabled",true);
                     _this.nodes.addBtn.prop("disabled",false);
-                    _this.deal(name);
+                    _this.deal(file.vInput[0]);
                 });
             }
         });
@@ -175,16 +175,18 @@ upload.formatSpare=function(spare){
         return "00"+":"+s;
     }
 };
-upload.deal=function(name){
+upload.deal=function(obj){
     var _this=this;
     ajaxForm.action(null,{
         type:"post",
         url:"http://lindakai.com/upload/deal.php",
-        data:{_token:_token,_time:_time,name:name},
+        data:{_token:_token,_time:_time,name:obj.name},
         success:function(data){
             if(data.ok){
                 _this.nodes.vShow.prop("src",data.data.png);
-                console.log(data.data);
+                var upload=data.data;
+                upload.obj=obj;
+                _this.nodes.vShow.data("upload",upload);
             }
         }
     });
@@ -196,8 +198,55 @@ upload.showFile=function(file){
 };
 //
 upload.submit=function(){
-
-
+    var _this=this;
+    var title=_this.nodes.titleInput.val();
+    var categery=_this.nodes.categeryInput.val();
+    var isUploaded=_this.nodes.vShow.data("upload")!=null;
+    if(!isUploaded){
+        _this.log("還未上傳視頻");
+        return;
+    }
+    var upload=_this.nodes.vShow.data("upload");
+    if(/^\s*$/.test(title)){
+        _this.log("未添加標題");
+        return;
+    }
+    if(/^\s*$/.test(categery)){
+        _this.log("未添加分類");
+        return;
+    }
+    ajaxForm.action(_this.nodes.submitBtn,{
+        type:"post",
+        url:"search/sendUpload.php",
+        data:{title:title,filename:upload.obj.name,duration:upload.duration,categery:categery,unit:unit},
+        success:function(data){
+            if(data.ok){
+                var id=data.data.id;
+                _this.save(id,filename);
+            }else if(data.msg){
+                _this.log(data.msg);
+            }else{
+                _this.log("提交失敗");
+            }
+        }
+    })
+};
+upload.save=function(id,filename){
+    var _this=this;
+    ajaxForm.action(null,{
+        type:"post",
+        url:"http://lindakai.com/upload/save.php",
+        data:{id:id,name:filename,_token:_token,_time:_time},
+        success:function(data){
+            if(data.ok){
+                _this.log("上傳成功");
+            }else if(data.msg){
+                _this.log(data.msg);
+            }else{
+                _this.log("保存出錯");
+            }
+        }
+    })
 };
 
 $(function(){
