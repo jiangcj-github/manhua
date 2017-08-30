@@ -223,7 +223,6 @@ upload.submit=function(){
             if(data.ok){
                 var id=data.data.id;
                 _this.save(id,upload.obj.name);
-                location.reload();
             }else if(data.msg){
                 _this.log(data.msg);
             }else{
@@ -237,17 +236,27 @@ upload.save=function(id,filename){
     ajaxForm.action(null,{
         type:"post",
         url:"http://"+udomain+"/upload/save.php",
-        data:{id:id,name:filename,_token:_token,_time:_time},
+        data:{vid:id,name:filename,_token:_token,_time:_time},
         success:function(data){
             if(data.ok){
                 _this.log("上傳成功");
+                location.reload()
             }else if(data.msg){
                 _this.log(data.msg);
+                _this.saveFail(id);
             }else{
                 _this.log("保存出錯");
+                _this.saveFail(id);
             }
         }
-    })
+    });
+};
+upload.saveFail=function(id){
+    ajaxForm.action(null,{
+        type:"post",
+        url:"search/sendUploadFail.php",
+        data:{id:id}
+    });
 };
 
 $(function(){

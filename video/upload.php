@@ -1,26 +1,3 @@
-<?php
-require_once("../php/global.php");
-
-//獲取資源服务器token
-//$ip=$_SERVER["REMOTE_ADDR"];
-$ip="127.0.0.1";
-$secret="lindakai";
-$time=(new DateTime())->getTimestamp();
-$_token=md5($ip.$time.$secret);
-//獲取上傳節點
-$conn = new mysqli($mysql["host"], $mysql["user"], $mysql["password"], $mysql["database"]);
-$conn->set_charset("utf8");
-//
-$result=$conn->query("select b.id,b.domain,b.ip from video as a join units as b on a.unit=b.id group by unit order by unit asc limit 1");
-$units=$result->fetch_all(MYSQLI_ASSOC);
-if(count($units)<=0){
-    $result=$conn->query("select id,domain,ip from units where flag=1 limit 1");
-    $units=$result->fetch_all(MYSQLI_ASSOC);
-}
-if(count($units)<=0){
-    die("服務器錯誤");
-}
-?>
 <html>
 <head>
     <title>上傳視頻</title>
@@ -56,10 +33,13 @@ if(count($units)<=0){
     </style>
 </head>
 <body>
-
 <?php include("../nav.php") ?>
+<?php
+    if(!$isLogin){
+        die("用戶未登錄");
+    }
+?>
 <div class="page page-2col">
-
     <div class="sec">
         <div class="head">
             上傳視頻
@@ -110,12 +90,34 @@ if(count($units)<=0){
 <script src="/common/fileupload/jquery.iframe-transport.js"></script>
 <script src="/common/fileupload/jquery.fileupload.js"></script>
 <script src="/common/common.js"></script>
+<?php
+    require_once("../php/global.php");
+    //獲取資源服务器token
+    //$ip=$_SERVER["REMOTE_ADDR"];
+    $ip="127.0.0.1";
+    $secret="lindakai";
+    $time=(new DateTime())->getTimestamp();
+    $_token=md5($ip.$time.$secret);
+    //獲取上傳節點
+    $conn = new mysqli($mysql["host"], $mysql["user"], $mysql["password"], $mysql["database"]);
+    $conn->set_charset("utf8");
+    //
+    $result=$conn->query("select b.id,b.domain,b.ip from video as a join units as b on a.unit=b.id group by unit order by unit asc limit 1");
+    $units=$result->fetch_all(MYSQLI_ASSOC);
+    if(count($units)<=0){
+        $result=$conn->query("select id,domain,ip from units where flag=1 limit 1");
+        $units=$result->fetch_all(MYSQLI_ASSOC);
+    }
+    if(count($units)<=0){
+        die("服務器錯誤");
+    }
+?>
 <script src="web/js/upload.js"></script>
 <script>
     var _token="<?php echo $_token; ?>";
     var _time=<?php echo $time; ?>;
-    var uid=<?php echo $units[0]->id; ?>;
-    var udomain="<?php echo $units[0]->domain; ?>";
+    var uid=<?php echo $units[0]["id"]; ?>;
+    var udomain="<?php echo $units[0]["domain"]; ?>";
 </script>
 </body>
 </html>
