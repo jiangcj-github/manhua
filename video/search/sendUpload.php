@@ -33,8 +33,17 @@ if(preg_match("/^\s*$/",$categery)>0){
 //數據庫操作
 $conn = new mysqli($mysql["host"], $mysql["user"], $mysql["password"], $mysql["database"]);
 $conn->set_charset("utf8");
+//檢測重複
+$stmt=$conn->prepare("select id from video where title=? and filename=?");
+$stmt->bind_param("ss",$title,$filename);
+$stmt->execute();
+$data=$stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+$stmt->close();
+if(count($data)>0){
+    die_json(["msg"=>"重複視頻"]);
+}
 //插入記錄
-$stmt=$conn->prepare("insert into video(filename,duration,title,time,categery,unit)");
+$stmt=$conn->prepare("insert into video(filename,duration,title,time,categery,unit) values(?,?,?,?,?,?)");
 $stmt->bind_param("sssssi",$filename,$duration,$title,$time,$categery,$unit);
 $stmt->execute();
 $id=$stmt->insert_id;

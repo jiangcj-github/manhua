@@ -1,4 +1,6 @@
 <?php
+require_once("../php/global.php");
+
 //獲取資源服务器token
 //$ip=$_SERVER["REMOTE_ADDR"];
 $ip="127.0.0.1";
@@ -6,7 +8,18 @@ $secret="lindakai";
 $time=(new DateTime())->getTimestamp();
 $_token=md5($ip.$time.$secret);
 //獲取上傳節點
-
+$conn = new mysqli($mysql["host"], $mysql["user"], $mysql["password"], $mysql["database"]);
+$conn->set_charset("utf8");
+//
+$result=$conn->query("select b.id,b.domain,b.ip from video as a join units as b on a.unit=b.id group by unit order by unit asc limit 1");
+$units=$result->fetch_all(MYSQLI_ASSOC);
+if(count($units)<=0){
+    $result=$conn->query("select id,domain,ip from units where flag=1 limit 1");
+    $units=$result->fetch_all(MYSQLI_ASSOC);
+}
+if(count($units)<=0){
+    die("服務器錯誤");
+}
 ?>
 <html>
 <head>
@@ -101,7 +114,8 @@ $_token=md5($ip.$time.$secret);
 <script>
     var _token="<?php echo $_token; ?>";
     var _time=<?php echo $time; ?>;
-    var unit=1;
+    var uid=<?php echo $units[0]->id; ?>;
+    var udomain="<?php echo $units[0]->domain; ?>";
 </script>
 </body>
 </html>

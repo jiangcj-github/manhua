@@ -31,7 +31,7 @@ upload.init=function(){
         _this.nodes.addBtn.prop("disabled",true);
         _this.nodes.startBtn.prop("disabled",true);
         _this.nodes.cancelBtn.prop("disabled",false);
-        $.getJSON("http://lindakai.com/upload/index.php?_token="+_token+"&_time="+_time,{vInput:data.files[0].name},function(rs){
+        $.getJSON("http://"+udomain+"/upload/index.php?_token="+_token+"&_time="+_time,{vInput:data.files[0].name},function(rs){
             data.uploadedBytes = rs.vInput && rs.vInput.size;
             if(data.uploadedBytes==data.files[0].size){
                 _this.nodes.startBtn.prop("disabled",true);
@@ -70,7 +70,7 @@ upload.initUpload=function(){
         dataType: "json",
         paramName:"vInput",
         singleFileUploads:false,
-        url:"http://lindakai.com/upload/index.php?_token="+_token+"&_time="+_time,
+        url:"http://"+udomain+"/upload/index.php?_token="+_token+"&_time="+_time,
         add: function (e, data) {
             var file=data.files[0];
             if(!/^[0-9a-zA-Z_-]+\.mp4$/.test(file.name)){
@@ -179,7 +179,7 @@ upload.deal=function(obj){
     var _this=this;
     ajaxForm.action(null,{
         type:"post",
-        url:"http://lindakai.com/upload/deal.php",
+        url:"http://"+udomain+"/upload/deal.php",
         data:{_token:_token,_time:_time,name:obj.name},
         success:function(data){
             if(data.ok){
@@ -218,11 +218,12 @@ upload.submit=function(){
     ajaxForm.action(_this.nodes.submitBtn,{
         type:"post",
         url:"search/sendUpload.php",
-        data:{title:title,filename:upload.obj.name,duration:upload.duration,categery:categery,unit:unit},
+        data:{title:title,filename:upload.obj.name,duration:upload.duration,categery:categery,unit:uid},
         success:function(data){
             if(data.ok){
                 var id=data.data.id;
-                _this.save(id,filename);
+                _this.save(id,upload.obj.name);
+                location.reload();
             }else if(data.msg){
                 _this.log(data.msg);
             }else{
@@ -235,7 +236,7 @@ upload.save=function(id,filename){
     var _this=this;
     ajaxForm.action(null,{
         type:"post",
-        url:"http://lindakai.com/upload/save.php",
+        url:"http://"+udomain+"/upload/save.php",
         data:{id:id,name:filename,_token:_token,_time:_time},
         success:function(data){
             if(data.ok){
