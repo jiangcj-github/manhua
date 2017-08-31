@@ -13,7 +13,7 @@ if($key_len<=0||$key_len>20){
     <title>搜索結果</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="web/css/page.css" rel="stylesheet">
+    <link href="web/css/vpre.css" rel="stylesheet">
     <link href="web/css/index.css" rel="stylesheet">
 </head>
 <body>
@@ -40,7 +40,8 @@ if($key_len<=0||$key_len>20){
     <% for(i=0;i<data.length;i++){ %>
     <% if(i<9&&i%3==0){ %><div class="row"><% } %>
         <% if(i>=9&&(i-9)%5==0){ %><div class="row"><% } %>
-            <div class="col">
+            <div class="col" onclick="$(this).children('.col-link').click();">
+                <a href="play.php?id={{data[i].id}}" target="_blank" class="col-link"></a>
                 <div class="vpre">
                     <div class="label">{{data[i].duration}}</div>
                     <img src="{{data[i].poster}}" class="col-img" />

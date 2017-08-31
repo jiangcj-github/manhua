@@ -27,7 +27,7 @@ foreach($vs2 as $k=>$v){
     <title>首頁</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="web/css/page.css" rel="stylesheet">
+    <link href="web/css/vpre.css" rel="stylesheet">
     <link href="web/css/index.css" rel="stylesheet">
 </head>
 <body>
@@ -51,7 +51,8 @@ foreach($vs2 as $k=>$v){
             <div class="head">Recently played</div>
             <?php for($i=0;$i<count($vs3);$i++){
                 if($i%5==0){ echo "<div class=\"row\">"; } ?>
-                <div class="col">
+                <div class="col" onclick="$(this).children('.col-link').click();">
+                    <a href="play.php?id=<?php echo $vs3[$i]["id"];?>" target="_blank" class="col-link"></a>
                     <div class="vpre">
                         <div class="label"><?php echo $vs3[$i]["duration"];?></div>
                         <img src="<?php echo $vs3[$i]["poster"];?>" class="col-img" />
@@ -83,7 +84,8 @@ foreach($vs2 as $k=>$v){
         <?php for($i=0;$i<count($vs1);$i++){
             if($i<9&&$i%3==0){ echo "<div class=\"row\">";}
             if($i>=9&&($i-9)%5==0){ echo "<div class=\"row\">";}?>
-            <div class="col">
+            <div class="col" onclick="$(this).children('.col-link').click();">
+                <a href="play.php?id=<?php echo $vs1[$i]["id"];?>" target="_blank" class="col-link"></a>
                 <div class="vpre">
                     <div class="label"><?php echo $vs1[$i]["duration"];?></div>
                     <img src="<?php echo $vs1[$i]["poster"];?>" class="col-img" />
@@ -116,7 +118,8 @@ foreach($vs2 as $k=>$v){
         <?php for($i=0;$i<count($vs2);$i++){
             if($i<9&&$i%3==0){ echo "<div class=\"row\">";}
             if($i>=9&&($i-9)%5==0){ echo "<div class=\"row\">";}?>
-            <div class="col">
+            <div class="col" onclick="$(this).children('.col-link').click();">
+                <a href="play.php?id=<?php echo $vs2[$i]["id"];?>" target="_blank" class="col-link"></a>
                 <div class="vpre">
                     <div class="label"><?php echo $vs2[$i]["duration"];?></div>
                     <img src="<?php echo $vs2[$i]["poster"];?>" class="col-img" />

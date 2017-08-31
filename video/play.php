@@ -16,6 +16,8 @@ if(!$stmt->fetch()){
     die("404");
 }
 $stmt->close();
+$videoUrl=generateResourceUrl($id.".mp4",$domain);
+$posterUrl=generateResourceUrl($id."_p.png",$domain);
 //計算評論條數
 $stmt=$conn->prepare("select count(id) as count from video_comment where vid=?");
 $stmt->bind_param("i",$id);
@@ -36,6 +38,9 @@ $stmt->execute();
 $result=$stmt->get_result();
 $randVs=$result->fetch_all(MYSQLI_ASSOC);
 $stmt->close();
+foreach($randVs as $k=>$v){
+    $randVs[$k]["poster"]=generateResourceUrl($randVs[$k]["id"].".png",$randVs[$k]["domain"]);
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -45,7 +50,7 @@ $stmt->close();
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="web/videojs/video-js.css" rel="stylesheet">
     <link href="web/videojs/video-js-custom.css" rel="stylesheet">
-    <link href="web/css/page.css" rel="stylesheet">
+    <link href="web/css/vpre.css" rel="stylesheet">
     <link href="/common/honeySwitch/honeySwitch.css" rel="stylesheet">
     <script src="web/videojs/video.js"></script>
     <link href="web/css/play.css" rel="stylesheet">
@@ -55,9 +60,8 @@ $stmt->close();
     <div class="page col2">
         <div class="left">
             <div class="sec v-div">
-                <video class="video-js" id="v1" controls preload="auto">
-                    <!--<source src="<?php echo generateResourceUrl($filename,$domain) ?>" type="video/mp4">-->
-                    <source src="web/test.mp4" type="video/mp4">
+                <video class="video-js" id="v1" controls preload="auto" poster="<?php echo $posterUrl; ?>">
+                    <source src="<?php echo $videoUrl; ?>" type="video/mp4">
                 </video>
             </div>
             <div class="bg-div">
@@ -142,20 +146,14 @@ $stmt->close();
             </div>
             <div class="pane">
                 <h3>相關內容</h3>
-                <?php
-                    for($i=0;$i<count($randVs);$i++){
-                        $poster=substr($randVs[$i]["filename"],0,strpos($randVs[$i]["filename"],".")).".png";
-                        $ps=generateResourceUrl($poster,$randVs[$i]["domain"]);
-                ?>
+                <?php for($i=0;$i<count($randVs);$i++){ ?>
                     <div class="item-v vpre">
                         <div class="label"><?php echo $randVs[$i]["duration"] ?></div>
                         <a href="play.php?id=<?php echo $randVs[$i]["id"] ?>" target="_blank">
-                            <img src="<?php echo $ps ?>" onerror="this.src='web/1.png';">
+                            <img src="<?php echo $randVs[$i]["poster"] ?>">
                         </a>
                     </div>
-                <?php
-                    }
-                ?>
+                <?php } ?>
             </div>
         </div>
     </div>
