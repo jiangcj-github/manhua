@@ -51,8 +51,7 @@ foreach($vs2 as $k=>$v){
             <div class="head">Recently played</div>
             <?php for($i=0;$i<count($vs3);$i++){
                 if($i%5==0){ echo "<div class=\"row\">"; } ?>
-                <div class="col" onclick="$(this).children('.col-link').click();">
-                    <a href="play.php?id=<?php echo $vs3[$i]["id"];?>" target="_blank" class="col-link"></a>
+                <a class="col" href="play.php?id=<?php echo $vs3[$i]["id"];?>" target="_blank">
                     <div class="vpre">
                         <div class="label"><?php echo $vs3[$i]["duration"];?></div>
                         <img src="<?php echo $vs3[$i]["poster"];?>" class="col-img" />
@@ -65,7 +64,7 @@ foreach($vs2 as $k=>$v){
                             <div class="like"><img src="web/img/like_solid_f90.svg"><?php round(100*$vs3[$i]["up"]/($vs3[$i]["up"]+$vs3[$i]["down"])); ?>%</div>
                         </div>
                     </div>
-                </div>
+                </a>
             <?php if($i%5==4){echo "</div>";}
             }
             if($i>0){
@@ -84,8 +83,7 @@ foreach($vs2 as $k=>$v){
         <?php for($i=0;$i<count($vs1);$i++){
             if($i<9&&$i%3==0){ echo "<div class=\"row\">";}
             if($i>=9&&($i-9)%5==0){ echo "<div class=\"row\">";}?>
-            <div class="col" onclick="$(this).children('.col-link').click();">
-                <a href="play.php?id=<?php echo $vs1[$i]["id"];?>" target="_blank" class="col-link"></a>
+            <a class="col" href="play.php?id=<?php echo $vs1[$i]["id"];?>" target="_blank">
                 <div class="vpre">
                     <div class="label"><?php echo $vs1[$i]["duration"];?></div>
                     <img src="<?php echo $vs1[$i]["poster"];?>" class="col-img" />
@@ -98,7 +96,7 @@ foreach($vs2 as $k=>$v){
                         <div class="like"><img src="web/img/like_solid_f90.svg"><?php round(100*$vs1[$i]["up"]/($vs1[$i]["up"]+$vs1[$i]["down"])); ?>%</div>
                     </div>
                 </div>
-            </div>
+            </a>
             <?php if($i<9&&$i%3==2){echo "</div>";}
             if($i>=9&&($i-9)%5==4){echo "</div>"; }
         }
@@ -118,8 +116,7 @@ foreach($vs2 as $k=>$v){
         <?php for($i=0;$i<count($vs2);$i++){
             if($i<9&&$i%3==0){ echo "<div class=\"row\">";}
             if($i>=9&&($i-9)%5==0){ echo "<div class=\"row\">";}?>
-            <div class="col" onclick="$(this).children('.col-link').click();">
-                <a href="play.php?id=<?php echo $vs2[$i]["id"];?>" target="_blank" class="col-link"></a>
+            <a class="col" href="play.php?id=<?php echo $vs2[$i]["id"];?>" target="_blank">
                 <div class="vpre">
                     <div class="label"><?php echo $vs2[$i]["duration"];?></div>
                     <img src="<?php echo $vs2[$i]["poster"];?>" class="col-img" />
@@ -132,7 +129,7 @@ foreach($vs2 as $k=>$v){
                         <div class="like"><img src="web/img/like_solid_f90.svg"><?php round(100*$vs2[$i]["up"]/($vs2[$i]["up"]+$vs2[$i]["down"])); ?>%</div>
                     </div>
                 </div>
-            </div>
+            </a>
             <?php if($i<9&&$i%3==2){echo "</div>";}
             if($i>=9&&($i-9)%5==4){echo "</div>"; }
         }

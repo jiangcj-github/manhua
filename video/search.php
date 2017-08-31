@@ -40,8 +40,7 @@ if($key_len<=0||$key_len>20){
     <% for(i=0;i<data.length;i++){ %>
     <% if(i<9&&i%3==0){ %><div class="row"><% } %>
         <% if(i>=9&&(i-9)%5==0){ %><div class="row"><% } %>
-            <div class="col" onclick="$(this).children('.col-link').click();">
-                <a href="play.php?id={{data[i].id}}" target="_blank" class="col-link"></a>
+            <a class="col" href="play.php?id={{data[i].id}}" target="_blank">
                 <div class="vpre">
                     <div class="label">{{data[i].duration}}</div>
                     <img src="{{data[i].poster}}" class="col-img" />
@@ -54,7 +53,7 @@ if($key_len<=0||$key_len>20){
                         <div class="like"><img src="web/img/like_solid_f90.svg">{{mt.round(100*data[i].up/(data[i].up+data[i].down))}}%</div>
                     </div>
                 </div>
-            </div>
+            </a>
             <% if(i<9&&i%3==2){ %></div><% } %>
         <% if(i>=9&&(i-9)%5==4){ %></div><% } %>
     <%}
