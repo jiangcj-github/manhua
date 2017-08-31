@@ -42,7 +42,7 @@ $result=$conn->query("
         ip VARCHAR (255) NOT NULL,
         flag INT NOT NULL,
         PRIMARY KEY (id)
-    )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+    )ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8;
 ");
 if($result){
     echo "units created"."<br>";
@@ -68,7 +68,7 @@ $result=$conn->query("
         playNum int(32) NOT NULL DEFAULT 10000,
         unit  int(32) NOT NULL,
         PRIMARY KEY (id)
-    )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+    )ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8;
 ");
 if($result){
     echo "video created"."<br>";
@@ -105,7 +105,7 @@ $result=$conn->query("
         object INT NOT NULL DEFAULT 0,
         time VARCHAR (255) NOT NULL,
         PRIMARY KEY (id)
-    )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+    )ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8;
 ");
 if($result){
     echo "video_comment created"."<br>";
@@ -123,7 +123,7 @@ $result=$conn->query("
         text TEXT NOT NULL,
         time VARCHAR (255) NOT NULL,
         PRIMARY KEY (id)
-    )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+    )ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8;
 ");
 if($result){
     echo "video_reply created"."<br>";
@@ -147,7 +147,7 @@ $result=$conn->query("
         msg VARCHAR (255) NOT NULL,
         pos INT NOT NULL,
         PRIMARY KEY (id)
-    )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+    )ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8;
 ");
 if($result){
     echo "video_barrage created"."<br>";
@@ -233,83 +233,10 @@ $result=$conn->query("
         time VARCHAR (255) NOT NULL,
         flag int(32) NOT NULL DEFAULT 0,
         PRIMARY KEY (id)
-    )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+    )ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8;
 ");
 if($result){
     echo "video_feedback created"."<br>";
 }else{
     echo "video_feedback created failed"."<br>";
-}
-
-/**
- *  創建mh_comment表
- */
-$result=$conn->query("
-    CREATE TABLE IF NOT EXISTS mh_comment (
-      id int(32) NOT NULL AUTO_INCREMENT,
-      mid int(32) NOT NULL,
-      chapter int(32) NOT NULL,
-      nick varchar(255) NOT NULL,
-      time varchar(255) NOT NULL,
-      text text NOT NULL,
-      PRIMARY KEY (id)
-    ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
-    ");
-if ($result){
-    echo "mh_comment created"."<br>";
-}else{
-    echo "mh_comment created failed"."<br>";
-}
-
-/**
- *  創建user_strict_mh表
- *  發送comment間隔時間120秒
- */
-$result=$conn->query("
-    CREATE TABLE IF NOT EXISTS user_strict_mh(
-      nick varchar(255) NOT NULL,
-      comment varchar(255),
-      PRIMARY KEY(nick)
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-    ");
-if ($result){
-    echo "user_strict_mh created"."<br>";
-}else{
-    echo "user_strict_mh created failed"."<br>";
-}
-
-/**
- *  創建mh表
- */
-$result=$conn->query("
-    CREATE TABLE IF NOT EXISTS mh(
-      id int(32) NOT NULL AUTO_INCREMENT,
-      name VARCHAR (255) NOT NULL,
-      unit int(32) NOT NULL,
-      PRIMARY KEY (id)
-    ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
-    ");
-if ($result){
-    echo "mh created"."<br>";
-}else{
-    echo "mh created failed"."<br>";
-}
-
-/**
- *  創建mh_chapter表
- *  chapter不要求連續
- *  page連續，範圍[1,pageNum]
- */
-$result=$conn->query("
-    CREATE TABLE IF NOT EXISTS mh_chapter(
-      mid int(32) NOT NULL,
-      chapter float(32) NOT NULL,
-      pageNum int(32) NOT NULL,
-      PRIMARY KEY (mid,chapter)
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-    ");
-if ($result){
-    echo "mh_chapter created"."<br>";
-}else{
-    echo "mh_chapter created failed"."<br>";
 }
