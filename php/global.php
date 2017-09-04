@@ -15,7 +15,6 @@ ini_set("display_errors","on");
 extension_loaded("mysqli");
 
 $mysql=array(
-    //"host"=>"192.241.217.195",
     "host"=>"localhost",
     "user"=>"root",
     "password"=>"root",
