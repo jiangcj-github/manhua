@@ -1,12 +1,13 @@
 <?php
-
-phpinfo();
 /**
  *  相關配置
  */
 
 //error_reporting(0);
 error_reporting(E_ALL);
+ini_set("display_errors","on");
+
+phpinfo();
 
 /**
  * mysql配置
