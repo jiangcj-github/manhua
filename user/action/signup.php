@@ -20,8 +20,6 @@ $nick = $_REQUEST["nick"];
 $pass = $_REQUEST["pass"];
 $pass1 = $_REQUEST["pass1"];
 $ip=$_SERVER["REMOTE_ADDR"];
-$country=$_REQUEST["country"];
-$city=$_REQUEST["city"];
 //正則表達式檢查
 if(preg_match("/^[0-9a-zA-Z_-]{5,15}$/",$user)==0){
     die_json(["msg"=>"用戶名不符合規則"]);
