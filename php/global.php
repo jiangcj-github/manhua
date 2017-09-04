@@ -41,6 +41,11 @@ function generateResourceUrl($fileName,$domain){
 }
 
 /**
+ * 時間設置
+ */
+date_default_timezone_set("UTC");
+
+/**
  * 返回json
  */
 function die_json($data){
