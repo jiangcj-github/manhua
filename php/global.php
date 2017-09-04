@@ -14,6 +14,8 @@ phpinfo();
 /**
  * mysql配置
  */
+extension_loaded("mysqli");
+
 $mysql=array(
     //"host"=>"192.241.217.195",
     "host"=>"localhost",
