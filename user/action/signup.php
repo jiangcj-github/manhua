@@ -66,7 +66,8 @@ $stmt->close();
 //寫數據庫
 $stmt=$conn->prepare("insert into user(user,nick,pass,ip,time) values(?,?,?,?,?)");
 $time=(new DateTime())->format("Y-m-d H:i:s");
-$stmt->bind_param("sssss",$user,$nick,md5($pass),$ip,$time);
+$pass=md5($pass);
+$stmt->bind_param("sssss",$user,$nick,$pass,$ip,$time);
 $stmt->execute();
 $stmt->close();
 //註冊成功
