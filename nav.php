@@ -5,6 +5,8 @@
 <link href="/common/common.css" rel="stylesheet">
 <style>
     .top{height:26px;line-height:26px;background:#2d2d2d;}
+    .top-inner{width:1070px;margin:0 auto;}
+    .top .top-inner a{color:#ddd;display:inline-block;line-height:26px;font-size:14px;padding:0 5px;}
     .topBar-wrap{background:linear-gradient(to bottom,#222,#111);}
     .topBar{color:#fff;width:1070px;margin:0 auto;display:flex;height:60px;}
     .topBar>.brand{font-weight: bold;font-size:40px;}
@@ -35,7 +37,27 @@
     .menuBar a:hover{background:linear-gradient(to bottom,#2d2d2d,#3d3d3d);}
     .menuBar a:first-child{border-left:1px solid #222;}
 </style>
-<div class="top"></div>
+<div class="top">
+    <div class="top-inner">
+        <a href="#">site1</a>
+        <a href="#">site1</a>
+        <a href="#">site1</a>
+        <a href="#">site1</a>
+        <a href="#">site1</a>
+        <a href="#">site1</a>
+        <a href="#">site1</a>
+        <a href="#">site1</a>
+        <a href="#">site1</a>
+        <a href="#">site1</a>
+        <a href="#">site1</a>
+        <a href="#">site1</a>
+        <a href="#">site1</a>
+        <a href="#">site1</a>
+        <a href="#">site1</a>
+        <a href="#">site1</a>
+        <a href="#">site1</a>
+    </div>
+</div>
 <div class="topBar-wrap">
     <div class="topBar">
         <a class="brand" href="#"><span style="color:#f90">HD</span><span style="color:#ddd;">Porn</span></a>

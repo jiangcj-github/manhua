@@ -8,10 +8,10 @@ $id=$_REQUEST["id"];
 $conn = new mysqli($mysql["host"], $mysql["user"], $mysql["password"], $mysql["database"]);
 $conn->set_charset("utf8");
 //查詢video
-$stmt=$conn->prepare("select a.id,a.filename,b.domain,a.up,a.down,a.playNum from video as a join units as b on a.unit=b.id where a.id = ?");
+$stmt=$conn->prepare("select a.title,a.id,a.filename,b.domain,a.up,a.down,a.playNum from video as a join units as b on a.unit=b.id where a.id = ?");
 $stmt->bind_param("i",$id);
 $stmt->execute();
-$stmt->bind_result($id,$filename,$domain,$up,$down,$playNum);
+$stmt->bind_result($title,$id,$filename,$domain,$up,$down,$playNum);
 if(!$stmt->fetch()){
     die("404");
 }
@@ -48,7 +48,7 @@ $serverName=$_SERVER["SERVER_NAME"];
 <html>
 <head>
     <meta charset=utf-8 />
-    <title>play</title>
+    <title><?php echo $title; ?>--Site Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="web/videojs/video-js.css" rel="stylesheet">
     <link href="web/videojs/video-js-custom.css" rel="stylesheet">

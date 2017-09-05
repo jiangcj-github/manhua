@@ -1,10 +1,12 @@
 body{font-size:14px;}
-.page{width:96% !important;min-width:1000px;}
+.page{width:1070px;}
 label{user-select:none;}
 
 .sec>h3{margin:0;font-size:14px;padding:0 8px;line-height:22px;border-bottom: 2px solid #222;color:gray;}
 .sec>.info{padding:10px;}
+.sec>.info table tr{line-height:30px;}
 .login-sec a{color:#ddd;text-decoration:underline !important;}
 
 input[type=checkbox]{vertical-align:middle;}
-input[type=text],input[type=password]{width:170px;height:24px;}
+input[type=text],input[type=password]{width:270px;height:26px;border-radius:3px;}
+.btn{border-radius:3px;}
