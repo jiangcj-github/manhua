@@ -63,9 +63,9 @@ $result=$conn->query("
         time VARCHAR (255) NOT NULL,
         lastPlayTime VARCHAR (255),
         categery VARCHAR (255) NULL,
-        up int(32) NOT NULL DEFAULT 10,
-        down int(32) NOT NULL DEFAULT 10,
-        playNum int(32) NOT NULL DEFAULT 10000,
+        up int(32) NOT NULL DEFAULT 0,
+        down int(32) NOT NULL DEFAULT 0,
+        playNum int(32) NOT NULL DEFAULT 0,
         unit  int(32) NOT NULL,
         PRIMARY KEY (id)
     )ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8;
