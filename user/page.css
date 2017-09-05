@@ -9,4 +9,4 @@ label{user-select:none;}
 
 input[type=checkbox]{vertical-align:middle;}
 input[type=text],input[type=password]{width:270px;height:26px;border-radius:3px;}
-.btn{border-radius:3px;}
+.btn{border-radius:3px;padding:5px 20px !important;}

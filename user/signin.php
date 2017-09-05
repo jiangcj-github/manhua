@@ -7,15 +7,15 @@
 </head>
 <body>
     <?php include("../nav.php") ?>
-    <?php
-        if($isLogin){
-            die("已登錄用戶：".$_SESSION["login"]["nick"]);
-        }
-    ?>
     <div class="page">
         <div class="sec login-sec">
             <h3>登錄入口</h3>
             <div class="info">
+                <?php
+                    if($isLogin){
+                        die("已登錄用戶：".$_SESSION["login"]["nick"]);
+                    }
+                ?>
                 <table>
                     <tbody>
                         <tr><td colspan="2"><span style="font-weight:bold;">提示：您的瀏覽器必須支持cookie，否則系統無法記錄登錄狀態。</span></td></tr>
@@ -24,7 +24,7 @@
                         <tr><td style="width:100px;">密碼:</td><td><input type="password" name="pass"></td></tr>
                         <tr><td style="width:100px;"></td><td><label style="cursor:pointer;"><input type="checkbox" name="autosign">自動登錄</label></td></tr>
                         <tr><td style="width:100px;"></td><td><span class="err"></span></td></tr>
-                        <tr><td style="width:100px;"></td><td><input type="submit" class="btn btn1" value="確認"></td></tr>
+                        <tr><td style="width:100px;"></td><td><input type="submit" class="btn btn2" value="確認"></td></tr>
                     </tbody>
                 </table>
             </div>

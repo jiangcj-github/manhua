@@ -52,7 +52,6 @@ $_token=md5($ip.$time.$secret);
             </div>
         </div>
     </div>
-    <!--
     <div>
         <h1>操作</h1>
         <h3>刪除</h3>
@@ -61,11 +60,9 @@ $_token=md5($ip.$time.$secret);
             <button id="d_btn">刪除</button>
         </div>
     </div>
-    -->
     <script src="../../web/page.js"></script>
     <script src="/common/common.js"></script>
     <script>
-        /*
         $("#d_btn").click(function(){
             var id=$("#d_id").val();
             if(/^\s*$/.test(id)){
@@ -77,14 +74,33 @@ $_token=md5($ip.$time.$secret);
                data:{id:id},
                success:function(data){
                    if(data.ok){
-                       location.reload();
+                       deleteFile(data.data);
                    }else if(data.msg){
                        alert(data.msg);
+                   }else{
+                       alert("連接失敗");
                    }
                }
            })
         });
-        */
+        var _token="<?php echo $_token ?>";
+        var _time=<?php echo $time ?>;
+        function deleteFile(data){
+            ajaxForm.action(null,{
+                type:"post",
+                url:"http://"+data.domain+"/upload/delete.php",
+                data:{vid:data.id,_token:_token,_time:_time},
+                success:function(data){
+                    if(data.ok){
+                        location.reload();
+                    }else if(data.msg){
+                        alert(data.msg);
+                    }else{
+                        alert("連接失敗");
+                    }
+                }
+            })
+        }
     </script>
 </body>
 </html>
