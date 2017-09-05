@@ -14,8 +14,8 @@
         .content .right .fileShow{margin:10px 0;line-height:26px;}
         .content .right .fileShow .fName{}
         .content .right .fileShow .fSize{font-size:14px;}
-        .content .right .pg-wrap{background:#ccc;height:14px;border-radius:3px;}
-        .content .right .pg-wrap .pg{background:linear-gradient(to bottom,#f90,#c60);height:14px;border-radius:3px;width:0;}
+        .content .right .pg-wrap{background:#ccc;height:10px;border-radius:3px;width:80%;}
+        .content .right .pg-wrap .pg{background:linear-gradient(to bottom,#f90,#c60);height:10px;border-radius:3px;width:0;}
         .content .right .pg-info{margin:10px 0;}
         .content .right .pg-info .per{  }
         .content .right .pg-info .speed{  }
@@ -27,7 +27,7 @@
         .part{margin:20px 0;line-height:30px;}
         .part label{display:block;font-size:16px;color:#f90;}
         .part label:after{content:":";}
-        .part input{width:100%;height:28px;border:none !important;border-radius:3px;}
+        .part input{width:80%;height:28px;border:none !important;border-radius:3px;}
         .part select{width:300px;height:28px;border:none !important;border-radius:3px;}
         .part .btn{padding:5px 20px !important;width:100px;border-radius:3px;}
     </style>
