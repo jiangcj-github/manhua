@@ -103,5 +103,6 @@ if($key_len<=0||$key_len>20){
 <script>var sechkey="<?php echo $key ?>";</script>
 <script src="/common/template-web.js"></script>
 <script src="web/js/search.js"></script>
+<?php include("../footer.php") ?>
 </body>
 </html>

@@ -19,7 +19,7 @@
                 <table>
                     <tbody>
                         <tr><td colspan="2"><span style="font-weight:bold;">提示：您的瀏覽器必須支持cookie，否則系統無法記錄登錄狀態。</span></td></tr>
-                        <tr><td colspan="2"><span style="font-weight:bold;">如果是您的私人設備，請選擇【自動登錄】以提高效率。如果是公共設備，請取消【自動登錄】以便保護您的隱私。<a href="#">詳細</a></span></td></tr>
+                        <tr><td colspan="2"><span style="font-weight:bold;">如果您使用的是公共設備，請取消【自動登錄】以便保護您的隱私。<a href="#">詳細</a></span></td></tr>
                         <tr><td style="width:100px;">用戶名:</td><td><input type="text" name="user"></td></tr>
                         <tr><td style="width:100px;">密碼:</td><td><input type="password" name="pass"></td></tr>
                         <tr><td style="width:100px;"></td><td><label style="cursor:pointer;"><input type="checkbox" name="autosign">自動登錄</label></td></tr>

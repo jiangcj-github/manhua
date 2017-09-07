@@ -92,5 +92,6 @@
 </script>
 <script src="/common/template-web.js"></script>
 <script src="web/js/ct_time.js"></script>
+<?php include("../footer.php") ?>
 </body>
 </html>

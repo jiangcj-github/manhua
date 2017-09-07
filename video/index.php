@@ -148,5 +148,6 @@ foreach($vs2 as $k=>$v){
         </div>
     </div>
 </div>
+<?php include("../footer.php") ?>
 </body>
 </html>

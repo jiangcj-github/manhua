@@ -102,5 +102,6 @@ if($categery!=1&&$categery!=2){
 <script>var categery=<?php echo $categery ?>;</script>
 <script src="/common/template-web.js"></script>
 <script src="web/js/ct_cat1.js"></script>
+<?php include("../footer.php") ?>
 </body>
 </html>

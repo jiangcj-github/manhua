@@ -34,16 +34,16 @@
 </head>
 <body>
 <?php include("../nav.php") ?>
-<?php
-    if(!$isLogin){
-        die("用戶未登錄");
-    }
-?>
 <div class="page page-2col">
     <div class="sec">
         <div class="head">
             上傳視頻
         </div>
+        <?php
+            if(!$isLogin){
+                die("用戶未登錄");
+            }
+        ?>
         <div class="content">
             <img class="preview">
             <div class="right">
@@ -85,11 +85,9 @@
         </div>
     </div>
 </div>
-<script src="/common/jquery-3.2.1.js"></script>
 <script src="/common/fileupload/jquery.ui.widget.js"></script>
 <script src="/common/fileupload/jquery.iframe-transport.js"></script>
 <script src="/common/fileupload/jquery.fileupload.js"></script>
-<script src="/common/common.js"></script>
 <?php
     require_once("../php/global.php");
     //獲取資源服务器token
@@ -119,5 +117,6 @@
     var uid=<?php echo $units[0]["id"]; ?>;
     var udomain="<?php echo $units[0]["domain"]; ?>";
 </script>
+<?php include("../footer.php") ?>
 </body>
 </html>

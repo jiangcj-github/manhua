@@ -257,6 +257,7 @@ $serverName=$_SERVER["SERVER_NAME"];
     </script>
     <script src="web/js/play.js"></script>
     <script>var vid=<?php echo $id ?>;</script>
+    <?php include("../footer.php") ?>
 </body>
 </html>
 <?php
