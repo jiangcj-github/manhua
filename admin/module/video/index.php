@@ -8,8 +8,7 @@ $conn->set_charset("utf8");
 $result=$conn->query("select * from video");
 $data=$result->fetch_all(MYSQLI_ASSOC);
 //獲取資源服务器admin token
-//$ip=$_SERVER["REMOTE_ADDR"];
-$ip="127.0.0.1";
+$ip=$_SERVER["REMOTE_ADDR"];
 $secret="coolpeanut2016";
 $time=(new DateTime())->getTimestamp();
 $_token=md5($ip.$time.$secret);

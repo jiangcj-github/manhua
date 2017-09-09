@@ -91,8 +91,7 @@
 <?php
     require_once("../php/global.php");
     //獲取資源服务器token
-    //$ip=$_SERVER["REMOTE_ADDR"];
-    $ip="127.0.0.1";
+    $ip=$_SERVER["REMOTE_ADDR"];
     $secret="lindakai";
     $time=(new DateTime())->getTimestamp();
     $_token=md5($ip.$time.$secret);
@@ -107,7 +106,7 @@
         $units=$result->fetch_all(MYSQLI_ASSOC);
     }
     if(count($units)<=0){
-        die("服務器錯誤");
+        die("<script>alert('未發現上傳節點');</script>");
     }
 ?>
 <script src="web/js/upload.js"></script>
