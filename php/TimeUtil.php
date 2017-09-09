@@ -17,16 +17,16 @@ function time_tran($the_time){
         return $dur . '秒前';
     }
     else if ($dur < 3600) {
-        return floor($dur / 60) . '分钟前';
+        return floor($dur / 60) . '分鐘前';
     }
     else if ($dur < 86400) {
-        return floor($dur / 3600) . '小时前';
+        return floor($dur / 3600) . '小時前';
     }
     else if ($dur < 2592000) {
         return floor($dur / 86400) . '天前';
     }
     else if ($dur < 31104000) {
-        return floor($dur / 2592000) . '个月前';
+        return floor($dur / 2592000) . '個月前';
     }
     else {
         return floor($dur / 31104000) . '年前';

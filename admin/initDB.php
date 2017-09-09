@@ -63,8 +63,8 @@ $result=$conn->query("
         time VARCHAR (255) NOT NULL,
         lastPlayTime VARCHAR (255),
         categery VARCHAR (255) NULL,
-        up int(32) NOT NULL DEFAULT 0,
-        down int(32) NOT NULL DEFAULT 0,
+        up int(32) NOT NULL DEFAULT 100,
+        down int(32) NOT NULL DEFAULT 100,
         playNum int(32) NOT NULL DEFAULT 0,
         unit  int(32) NOT NULL,
         PRIMARY KEY (id)

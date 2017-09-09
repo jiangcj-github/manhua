@@ -61,7 +61,7 @@ foreach($vs2 as $k=>$v){
                         <div class="more">
                             <div class="time"><?php echo $vs3[$i]["time_str"];?></div>
                             <div class="count"><?php echo $vs3[$i]["playNum"];?><span>views</span></div>
-                            <div class="like"><img src="web/img/like_solid_f90.svg"><?php round(100*$vs3[$i]["up"]/($vs3[$i]["up"]+$vs3[$i]["down"])); ?>%</div>
+                            <div class="like"><img src="web/img/like_solid_f90.svg"><?php echo round(100*$vs3[$i]["up"]/($vs3[$i]["up"]+$vs3[$i]["down"])); ?>%</div>
                         </div>
                     </div>
                 </a>
@@ -93,7 +93,7 @@ foreach($vs2 as $k=>$v){
                     <div class="more">
                         <div class="time"><?php echo $vs1[$i]["time_str"];?></div>
                         <div class="count"><?php echo $vs1[$i]["playNum"];?><span>views</span></div>
-                        <div class="like"><img src="web/img/like_solid_f90.svg"><?php round(100*$vs1[$i]["up"]/($vs1[$i]["up"]+$vs1[$i]["down"])); ?>%</div>
+                        <div class="like"><img src="web/img/like_solid_f90.svg"><?php echo round(100*$vs1[$i]["up"]/($vs1[$i]["up"]+$vs1[$i]["down"])); ?>%</div>
                     </div>
                 </div>
             </a>
@@ -126,7 +126,7 @@ foreach($vs2 as $k=>$v){
                     <div class="more">
                         <div class="time"><?php echo $vs2[$i]["time_str"];?></div>
                         <div class="count"><?php echo $vs2[$i]["playNum"];?><span>views</span></div>
-                        <div class="like"><img src="web/img/like_solid_f90.svg"><?php round(100*$vs2[$i]["up"]/($vs2[$i]["up"]+$vs2[$i]["down"])); ?>%</div>
+                        <div class="like"><img src="web/img/like_solid_f90.svg"><?php echo round(100*$vs2[$i]["up"]/($vs2[$i]["up"]+$vs2[$i]["down"])); ?>%</div>
                     </div>
                 </div>
             </a>
