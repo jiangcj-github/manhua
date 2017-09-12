@@ -110,6 +110,7 @@ $(function(){
     barrage.init();
     comment.init();
     infoDiv.init();
+    $(document).bind("contextmenu", function(){return false;});
 });
 
 /*
