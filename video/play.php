@@ -49,13 +49,13 @@ $serverName=$_SERVER["SERVER_NAME"];
 <head>
     <meta charset=utf-8 />
     <title><?php echo $title; ?>--Site Title</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="web/videojs/video-js.css" rel="stylesheet">
-    <link href="web/videojs/video-js-custom.css" rel="stylesheet">
-    <link href="web/css/vpre.css" rel="stylesheet">
-    <link href="/common/honeySwitch/honeySwitch.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link href="web/videojs/video-js.css" rel="stylesheet"/>
+    <link href="web/videojs/video-js-custom.css" rel="stylesheet"/>
+    <link href="web/css/vpre.css" rel="stylesheet"/>
+    <link href="/common/honeySwitch/honeySwitch.css" rel="stylesheet"/>
     <script src="web/videojs/video.js"></script>
-    <link href="web/css/play.css" rel="stylesheet">
+    <link href="web/css/play.css" rel="stylesheet"/>
 </head>
 <body>
     <?php include("../nav.php") ?>

@@ -25,10 +25,10 @@ foreach($vs2 as $k=>$v){
 <html>
 <head>
     <title>首頁</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="web/css/vpre.css" rel="stylesheet">
-    <link href="web/css/index.css" rel="stylesheet">
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link href="web/css/vpre.css" rel="stylesheet"/>
+    <link href="web/css/index.css" rel="stylesheet"/>
 </head>
 <body>
 <?php include("../nav.php") ?>
