@@ -11,10 +11,10 @@ if($key_len<=0||$key_len>20){
 <html>
 <head>
     <title>搜索結果</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="web/css/vpre.css" rel="stylesheet">
-    <link href="web/css/index.css" rel="stylesheet">
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link href="web/css/vpre.css" rel="stylesheet"/>
+    <link href="web/css/index.css" rel="stylesheet"/>
 </head>
 <body>
 <?php include("../nav.php") ?>

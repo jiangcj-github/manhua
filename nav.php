@@ -2,7 +2,8 @@
     session_start();
     $isLogin=isset($_SESSION["login"]);
 ?>
-<link href="/common/common.css" rel="stylesheet">
+<link rel="shortcut icon" href="/favicon.png"/>
+<link href="/common/common.css" rel="stylesheet"/>
 <style>
     .top{height:26px;line-height:26px;background:#2d2d2d;}
     .top-inner{width:1070px;margin:0 auto;}
@@ -60,7 +61,7 @@
 </div>
 <div class="topBar-wrap">
     <div class="topBar">
-        <a class="brand" href="#"><span style="color:#f90">HD</span><span style="color:#ddd;">Porn</span></a>
+        <a class="brand" href="#"><span style="color:#f90">PA</span><span style="color:#ddd;">404</span></a>
         <div class="sech-group">
             <input type="text" class="sech" placeholder="Search..."><a href="javascript:void(0);" class="sech-btn"></a>
         </div>
@@ -69,15 +70,15 @@
         </div>
         <?php if(!$isLogin){ ?>
         <div class="btn-wrap">
-            <a href="/user/signin.php" class="link" target="_blank">Signin</a>
+            <a href="/user/signin.php" class="link" target="_blank">登錄</a>
             <span>|</span>
-            <a href="/user/signup.php" class="link" target="_blank">Signup</a>
+            <a href="/user/signup.php" class="link" target="_blank">註冊</a>
         </div>
         <?php }else{ ?>
         <div class="btn-wrap">
             <span class="nick"><?php echo $_SESSION["login"]["nick"] ?></span>
             <span>|</span>
-            <a href="/user/signout.php" class="link" target="_blank">Signout</a>
+            <a href="/user/signout.php" class="link" target="_blank">註銷</a>
         </div>
         <?php } ?>
     </div>
