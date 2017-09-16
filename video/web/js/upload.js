@@ -81,8 +81,8 @@ upload.initUpload=function(){
                 _this.log("文件類型不被接受，僅支持MP4格式");
                 return;
             }
-            if(file.size>200*1024*1024||file.size<1*1024*1024){
-                _this.log("文件太大或者太小，必須在[1M,200M]之間");
+            if(file.size>1024*1024*1024||file.size<100*1024*1024){
+                _this.log("文件太大或者太小，必須在[100M,1024M]之間");
                 return;
             }
             //
