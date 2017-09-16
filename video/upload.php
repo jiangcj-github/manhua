@@ -45,7 +45,7 @@
             }
         ?>
         <div class="content">
-            <img class="preview">
+            <img class="preview" src="web/img/color_666.png"/>
             <div class="right">
                 <div class="btnGroup">
                     <button class="btn btn2 addBtn">添加...</button>
