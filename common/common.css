@@ -40,7 +40,7 @@ ul{margin:0;padding:0;}
 
 .pane{padding:10px;margin:10px 10px 10px 0;}
 .pane>h3{line-height:20px;padding:3px 5px;margin:0 0 3px 0;font-size:14px;color:#6f6f6f;}
-.pane>.item-v{margin:10px 0;width:200px;height:150px;}
+.pane>.item-v{margin:10px 0;width:200px;height:140px;}
 .pane>.item-a{line-height:26px;}
 .pane>.item-a:before{content:"»";}
 .pane>.item-img{}
