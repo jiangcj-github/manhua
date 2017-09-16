@@ -16,16 +16,16 @@ $vid=$_REQUEST["vid"];
 $conn = new mysqli($mysql["host"], $mysql["user"], $mysql["password"], $mysql["database"]);
 $conn->set_charset("utf8");
 //查詢video
-$stmt=$conn->prepare("select a.filename,b.domain from video as a join units as b on a.unit=b.id where a.id = ?");
+$stmt=$conn->prepare("select b.domain from video as a join units as b on a.unit=b.id where a.id = ?");
 $stmt->bind_param("i",$vid);
 $stmt->execute();
-$stmt->bind_result($filename,$domain);
+$stmt->bind_result($domain);
 if(!$stmt->fetch()){
     die("404");
 }
 $stmt->close();
 //下載文件
-$url=generateResourceUrl($filename,$domain);
+$url=generateResourceUrl($vid.".mp4",$domain);
 if(!fopen($url,"r")){
     die("404");
 }
