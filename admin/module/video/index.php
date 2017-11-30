@@ -17,7 +17,7 @@ $_token=md5($ip.$time.$secret);
 <head>
     <title>video</title>
     <link href="../../web/page.css" rel="stylesheet">
-    <script src="../../../common/jquery-3.2.1.js"></script>
+    <script src="../../../web/common/jquery-3.2.1.js"></script>
 </head>
 <body>
     <div>
@@ -60,7 +60,7 @@ $_token=md5($ip.$time.$secret);
         </div>
     </div>
     <script src="../../web/page.js"></script>
-    <script src="/common/common.js"></script>
+    <script src="/web/common/common.js"></script>
     <script>
         $("#d_btn").click(function(){
             var id=$("#d_id").val();

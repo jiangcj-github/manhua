@@ -3,8 +3,8 @@
     <title>熱門視頻</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link href="web/css/vpre.css" rel="stylesheet"/>
-    <link href="web/css/index.css" rel="stylesheet"/>
+    <link href="css/vpre.css" rel="stylesheet"/>
+    <link href="css/index.css" rel="stylesheet"/>
 </head>
 <body>
 <?php include("../nav.php") ?>
@@ -30,7 +30,7 @@
     <% for(i=0;i<data.length;i++){ %>
     <% if(i<9&&i%3==0){ %><div class="row"><% } %>
         <% if(i>=9&&(i-9)%5==0){ %><div class="row"><% } %>
-            <a class="col" href="play.php?id={{data[i].id}}" target="_blank">
+            <a class="col" href="../play/play.php?id={{data[i].id}}" target="_blank">
                 <div class="vpre">
                     <div class="label">{{data[i].duration}}</div>
                     <img src="{{data[i].poster}}" class="col-img" />
@@ -40,7 +40,7 @@
                     <div class="more">
                         <div class="time">{{data[i].time_str}}</div>
                         <div class="count">{{data[i].playNum}}<span>views</span></div>
-                        <div class="like"><img src="web/img/like_solid_f90.svg">{{mt.round(100*data[i].up/(data[i].up+data[i].down))}}%</div>
+                        <div class="like"><img src="../common/img/like_solid_f90.svg">{{mt.round(100*data[i].up/(data[i].up+data[i].down))}}%</div>
                     </div>
                 </div>
             </a>
@@ -90,8 +90,8 @@
         <% } %>
     </div>
 </script>
-<script src="/common/template-web.js"></script>
-<script src="web/js/ct_vote.js"></script>
+<script src="/web/common/template-web.js"></script>
+<script src="js/ct_vote.js"></script>
 <?php include("../footer.php") ?>
 </body>
 </html>

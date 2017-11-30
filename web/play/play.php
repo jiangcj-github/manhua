@@ -1,5 +1,5 @@
 <?php
-require_once("../php/global.php");
+require_once("../../php/global.php");
 
 if(!isset($_REQUEST["id"])){
     die("404");
@@ -50,15 +50,15 @@ $serverName=$_SERVER["SERVER_NAME"];
     <meta charset=utf-8 />
     <title><?php echo $title; ?>--Site Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link href="web/videojs/video-js.css" rel="stylesheet"/>
-    <link href="web/videojs/video-js-custom.css" rel="stylesheet"/>
-    <link href="web/css/vpre.css" rel="stylesheet"/>
-    <link href="/common/honeySwitch/honeySwitch.css" rel="stylesheet"/>
-    <script src="web/videojs/video.js"></script>
-    <link href="web/css/play.css" rel="stylesheet"/>
+    <link href="js/videojs/video-js.css" rel="stylesheet"/>
+    <link href="js/videojs/video-js-custom.css" rel="stylesheet"/>
+    <link href="../main/css/vpre.css" rel="stylesheet"/>
+    <link href="/web/common/honeySwitch/honeySwitch.css" rel="stylesheet"/>
+    <script src="js/videojs/video.js"></script>
+    <link href="css/play.css" rel="stylesheet"/>
 </head>
 <body>
-    <?php include("../nav.php") ?>
+    <?php include("../../nav.php") ?>
     <div class="page col2">
         <div class="left">
             <div class="sec v-div">
@@ -90,10 +90,10 @@ $serverName=$_SERVER["SERVER_NAME"];
                     <span>播放<span style="color:#ddd;"><?php echo $playNum ?></span>次</span>
                     <span>評論<span style="color:#ddd;"><?php echo $cmt_count ?></span>條</span>
                     <div class="right">
-                        <a href="javascript:void(0);" class="btn btn2" id="info_share"><img src="web/img/share.svg">分享</a>
-                        <a href="javascript:void(0);" class="btn btn2" id="info_feedback"><img src="web/img/feedback.svg">反饋</a>
-                        <a href="#cm-text" class="btn btn2"><img src="web/img/chat.svg">評論</a>
-                        <a href="download.php?vid=<?php echo $id ?>" target="_blank" class="btn btn2"><img src="web/img/download.svg">下載</a>
+                        <a href="javascript:void(0);" class="btn btn2" id="info_share"><img src="../common/img/share.svg">分享</a>
+                        <a href="javascript:void(0);" class="btn btn2" id="info_feedback"><img src="../common/img/feedback.svg">反饋</a>
+                        <a href="#cm-text" class="btn btn2"><img src="../common/img/chat.svg">評論</a>
+                        <a href="download.php?vid=<?php echo $id ?>" target="_blank" class="btn btn2"><img src="../common/img/download.svg">下載</a>
                     </div>
                 </div>
                 <div class="popup share">
@@ -151,7 +151,7 @@ $serverName=$_SERVER["SERVER_NAME"];
                 <?php for($i=0;$i<count($randVs);$i++){ ?>
                     <div class="item-v vpre">
                         <div class="label"><?php echo $randVs[$i]["duration"] ?></div>
-                        <a href="play.php?id=<?php echo $randVs[$i]["id"] ?>" target="_blank">
+                        <a href="play.php?id=<?php echo $randVs[$i]["id"] ?> target="_blank">
                             <img src="<?php echo $randVs[$i]["poster"] ?>">
                         </a>
                     </div>
@@ -159,12 +159,12 @@ $serverName=$_SERVER["SERVER_NAME"];
             </div>
         </div>
     </div>
-    <script src="/common/template-web.js"></script>
-    <script src="/common/honeySwitch/honeySwitch.js"></script>
+    <script src="/web/common/template-web.js"></script>
+    <script src="/web/common/honeySwitch/honeySwitch.js"></script>
     <script id="cm-li" type="text/html">
         <div class="li">
             <div class="li_l">
-                <img class="head" src="/common/headimg/head.gif">
+                <img class="head" src="/web/common/headimg/head.gif">
                 <div class="nick">{{cm.nick}}</div>
             </div>
             <div class="li_r">
@@ -172,9 +172,9 @@ $serverName=$_SERVER["SERVER_NAME"];
                 <div class="r_b" data-cid="{{cm.id}}">
                     <span class="label1">{{cm.count}}樓</span>
                     <span>{{cm.time}}</span>
-                    <span><a href="javascript:void(0);" onclick="onSendSup(this)"><img src="web/img/like.svg">(<span field="suport">{{cm.suport}}</span>)</a></span>
-                    <span><a href="javascript:void(0);" onclick="onSendObj(this)"><img src="web/img/unlike.svg">(<span field="object">{{cm.object}}</span>)</a></span>
-                    <span><a href="javascript:void(0);" onclick="onToggleResd(this)"><img src="web/img/reply.svg">(<span field="reply">{{cm.reply.length}}</span>)</a></span>
+                    <span><a href="javascript:void(0);" onclick="onSendSup(this)"><img src="../common/img/like.svg">(<span field="suport">{{cm.suport}}</span>)</a></span>
+                    <span><a href="javascript:void(0);" onclick="onSendObj(this)"><img src="../common/img/unlike.svg">(<span field="object">{{cm.object}}</span>)</a></span>
+                    <span><a href="javascript:void(0);" onclick="onToggleResd(this)"><img src="../common/img/reply.svg">(<span field="reply">{{cm.reply.length}}</span>)</a></span>
                 </div>
                 <div class="r_re" data-cid="{{cm.id}}">
                     <% for(var i=0;i<cm.reply.length;i++){ %>
@@ -184,7 +184,7 @@ $serverName=$_SERVER["SERVER_NAME"];
                             <div class="re_li">
                         <% } %>
                             <div class="re_li_l">
-                                <img src="/common/headimg/head.gif">
+                                <img src="/web/common/headimg/head.gif">
                             </div>
                             <div class="re_li_r">
                                 <div class="re_li_r_c"><span class="nick">{{cm.reply[i].nick}}</span>{{cm.reply[i].text}}</div>
@@ -210,7 +210,7 @@ $serverName=$_SERVER["SERVER_NAME"];
     <script id="re-li" type="text/html">
         <div class="re_li">
             <div class="re_li_l">
-                <img src="/common/headimg/head.gif">
+                <img src="/web/common/headimg/head.gif">
             </div>
             <div class="re_li_r">
                 <div class="re_li_r_c"><span class="nick">{{reply.nick}}</span>{{reply.text}}</div>
@@ -255,7 +255,7 @@ $serverName=$_SERVER["SERVER_NAME"];
             <% } %>
         </div>
     </script>
-    <script src="web/js/play.js"></script>
+    <script src="js/play.js"></script>
     <script>var vid=<?php echo $id ?>;</script>
     <?php include("../footer.php") ?>
 </body>

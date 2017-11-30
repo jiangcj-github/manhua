@@ -3,7 +3,7 @@
 <head>
     <meta charset=utf-8 />
     <title>signup</title>
-    <link href="page.css" rel="stylesheet">
+    <link href="css/page.css" rel="stylesheet">
 </head>
 <body>
     <?php include("../nav.php") ?>

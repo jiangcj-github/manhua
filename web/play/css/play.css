@@ -21,8 +21,8 @@ input[type=text]{border-radius:5px 0 0 5px;}
     background:linear-gradient(to bottom,#fff,#ddd);display:inline-flex;}
 .info-div .vote-wrap .vote-btn{width:34px;height:30px;}
 .info-div .vote-wrap .vote-btn:hover{background-color:#ddd;}
-.info-div .vote-btn.up{border-radius:3px 0 0 3px;background-image:url(../img/btn-vote.png);}
-.info-div .vote-btn.down{border-radius:0 3px 3px 0;background-image:url(../img/btn-vote.png);background-position: -34px 0;}
+.info-div .vote-btn.up{border-radius:3px 0 0 3px;background-image:url(../../common/img/btn-vote.png);}
+.info-div .vote-btn.down{border-radius:0 3px 3px 0;background-image:url(../../common/img/btn-vote.png);background-position: -34px 0;}
 .info-div .vote-show{flex-grow:1;border-left: 1px solid #222;border-right: 1px solid #222;}
 .info-div .vote-show .stext{height: 21px;line-height: 21px;text-align: center;font-size: 12px;color: #2e2e2e;font-weight: bold;}
 .info-div .vote-show .slider-wrap{width: 90%;margin: 1px auto;height: 3px;background: #ccc;}

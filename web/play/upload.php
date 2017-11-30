@@ -3,7 +3,7 @@
     <title>上傳視頻</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link href="web/css/vpre.css" rel="stylesheet"/>
+    <link href="../main/css/vpre.css" rel="stylesheet"/>
     <style>
         .sec{padding:20px 50px !important;}
         .sec .head{height:30px;line-height:30px;font-size: 18px;margin: 10px 0;font-family: Arial,Helvetica,sans-serif;color:#f90;}
@@ -45,7 +45,7 @@
             }
         ?>
         <div class="content">
-            <img class="preview" src="web/img/color_666.png"/>
+            <img class="preview" src="../common/img/color_666.png"/>
             <div class="right">
                 <div class="btnGroup">
                     <button class="btn btn2 addBtn">添加...</button>
@@ -85,9 +85,9 @@
         </div>
     </div>
 </div>
-<script src="/common/fileupload/jquery.ui.widget.js"></script>
-<script src="/common/fileupload/jquery.iframe-transport.js"></script>
-<script src="/common/fileupload/jquery.fileupload.js"></script>
+<script src="/web/common/fileupload/jquery.ui.widget.js"></script>
+<script src="/web/common/fileupload/jquery.iframe-transport.js"></script>
+<script src="/web/common/fileupload/jquery.fileupload.js"></script>
 <?php
     require_once("../php/global.php");
     //獲取資源服务器token
@@ -109,7 +109,7 @@
         die("<script>alert('未發現上傳節點');</script>");
     }
 ?>
-<script src="web/js/upload.js"></script>
+<script src="js/upload.js"></script>
 <script>
     var _token="<?php echo $_token; ?>";
     var _time=<?php echo $time; ?>;

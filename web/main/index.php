@@ -1,6 +1,6 @@
 <?php
-require_once("../php/global.php");
-require_once("../php/TimeUtil.php");
+require_once("../../php/global.php");
+require_once("../../php/TimeUtil.php");
 //數據庫連接
 $conn = new mysqli($mysql["host"], $mysql["user"], $mysql["password"], $mysql["database"]);
 $conn->set_charset("utf8");
@@ -27,11 +27,11 @@ foreach($vs2 as $k=>$v){
     <title>首頁</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link href="web/css/vpre.css" rel="stylesheet"/>
-    <link href="web/css/index.css" rel="stylesheet"/>
+    <link href="css/vpre.css" rel="stylesheet"/>
+    <link href="css/index.css" rel="stylesheet"/>
 </head>
 <body>
-<?php include("../nav.php") ?>
+<?php include("../../nav.php") ?>
 <div class="page page-2col">
     <?php
     if($isLogin){
@@ -51,7 +51,7 @@ foreach($vs2 as $k=>$v){
             <div class="head">Recently played</div>
             <?php for($i=0;$i<count($vs3);$i++){
                 if($i%5==0){ echo "<div class=\"row\">"; } ?>
-                <a class="col" href="play.php?id=<?php echo $vs3[$i]["id"];?>" target="_blank">
+                <a class="col" href="/web/play/play.php?id=<?php echo $vs3[$i]["id"] ?> target="_blank">
                     <div class="vpre">
                         <div class="label"><?php echo $vs3[$i]["duration"];?></div>
                         <img src="<?php echo $vs3[$i]["poster"];?>" class="col-img" />
@@ -61,7 +61,7 @@ foreach($vs2 as $k=>$v){
                         <div class="more">
                             <div class="time"><?php echo $vs3[$i]["time_str"];?></div>
                             <div class="count"><?php echo $vs3[$i]["playNum"];?><span>views</span></div>
-                            <div class="like"><img src="web/img/like_solid_f90.svg"><?php echo round(100*$vs3[$i]["up"]/($vs3[$i]["up"]+$vs3[$i]["down"])); ?>%</div>
+                            <div class="like"><img src="../common/img/like_solid_f90.svg"><?php echo round(100*$vs3[$i]["up"]/($vs3[$i]["up"]+$vs3[$i]["down"])); ?>%</div>
                         </div>
                     </div>
                 </a>
@@ -83,7 +83,7 @@ foreach($vs2 as $k=>$v){
         <?php for($i=0;$i<count($vs1);$i++){
             if($i<9&&$i%3==0){ echo "<div class=\"row\">";}
             if($i>=9&&($i-9)%5==0){ echo "<div class=\"row\">";}?>
-            <a class="col" href="play.php?id=<?php echo $vs1[$i]["id"];?>" target="_blank">
+            <a class="col" href="/web/play/play.php?id=<?php echo $vs1[$i]["id"] ?> target="_blank">
                 <div class="vpre">
                     <div class="label"><?php echo $vs1[$i]["duration"];?></div>
                     <img src="<?php echo $vs1[$i]["poster"];?>" class="col-img" />
@@ -93,7 +93,7 @@ foreach($vs2 as $k=>$v){
                     <div class="more">
                         <div class="time"><?php echo $vs1[$i]["time_str"];?></div>
                         <div class="count"><?php echo $vs1[$i]["playNum"];?><span>views</span></div>
-                        <div class="like"><img src="web/img/like_solid_f90.svg"><?php echo round(100*$vs1[$i]["up"]/($vs1[$i]["up"]+$vs1[$i]["down"])); ?>%</div>
+                        <div class="like"><img src="../common/img/like_solid_f90.svg"><?php echo round(100*$vs1[$i]["up"]/($vs1[$i]["up"]+$vs1[$i]["down"])); ?>%</div>
                     </div>
                 </div>
             </a>
@@ -116,7 +116,7 @@ foreach($vs2 as $k=>$v){
         <?php for($i=0;$i<count($vs2);$i++){
             if($i<9&&$i%3==0){ echo "<div class=\"row\">";}
             if($i>=9&&($i-9)%5==0){ echo "<div class=\"row\">";}?>
-            <a class="col" href="play.php?id=<?php echo $vs2[$i]["id"];?>" target="_blank">
+            <a class="col" href="/web/play/play.php?id=<?php echo $vs2[$i]["id"] ?> target="_blank">
                 <div class="vpre">
                     <div class="label"><?php echo $vs2[$i]["duration"];?></div>
                     <img src="<?php echo $vs2[$i]["poster"];?>" class="col-img" />
@@ -126,7 +126,7 @@ foreach($vs2 as $k=>$v){
                     <div class="more">
                         <div class="time"><?php echo $vs2[$i]["time_str"];?></div>
                         <div class="count"><?php echo $vs2[$i]["playNum"];?><span>views</span></div>
-                        <div class="like"><img src="web/img/like_solid_f90.svg"><?php echo round(100*$vs2[$i]["up"]/($vs2[$i]["up"]+$vs2[$i]["down"])); ?>%</div>
+                        <div class="like"><img src="../common/img/like_solid_f90.svg"><?php echo round(100*$vs2[$i]["up"]/($vs2[$i]["up"]+$vs2[$i]["down"])); ?>%</div>
                     </div>
                 </div>
             </a>
@@ -148,6 +148,6 @@ foreach($vs2 as $k=>$v){
         </div>
     </div>
 </div>
-<?php include("../footer.php") ?>
+<?php include("../../footer.php") ?>
 </body>
 </html>

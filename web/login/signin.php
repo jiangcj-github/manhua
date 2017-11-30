@@ -3,7 +3,7 @@
 <head>
     <meta charset=utf-8 />
     <title>signin</title>
-    <link href="page.css" rel="stylesheet">
+    <link href="css/page.css" rel="stylesheet">
 </head>
 <body>
     <?php include("../nav.php") ?>
@@ -30,7 +30,7 @@
             </div>
         </div>
     </div>
-    <script src="/common/md5.min.js"></script>
+    <script src="/web/common/md5.min.js"></script>
     <script>
         function log(msg){
             $(".err").html(msg);

@@ -12,7 +12,7 @@ $data=$result->fetch_all(MYSQLI_ASSOC);
 <head>
     <title>Units管理</title>
     <link href="../../web/page.css" rel="stylesheet">
-    <script src="../../../common/jquery-3.2.1.js"></script>
+    <script src="../../../web/common/jquery-3.2.1.js"></script>
 </head>
 <body>
     <div>
@@ -72,7 +72,7 @@ $data=$result->fetch_all(MYSQLI_ASSOC);
         </div>
     </div>
     <script src="../../web/page.js"></script>
-    <script src="/common/common.js"></script>
+    <script src="/web/common/common.js"></script>
     <script>
         $("#a_btn").click(function() {
             var domain = $("#a_domain").val();

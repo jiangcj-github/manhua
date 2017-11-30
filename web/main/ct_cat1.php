@@ -1,20 +1,19 @@
 <?php
-if(!isset($_REQUEST["key"])){
-    die("404");
+if(!isset($_REQUEST["categery"])){
+   die("404");
 }
-$key=preg_replace("/\s/","",$_REQUEST["key"]);
-$key_len=mb_strlen($key);
-if($key_len<=0||$key_len>20){
-    die("查詢字太長或太短");
+$categery=$_REQUEST["categery"];
+if($categery!=1&&$categery!=2){
+    die("404");
 }
 ?>
 <html>
 <head>
-    <title>搜索結果</title>
-    <meta charset="utf-8"/>
+    <title>分類視頻</title>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link href="web/css/vpre.css" rel="stylesheet"/>
-    <link href="web/css/index.css" rel="stylesheet"/>
+    <link href="css/vpre.css" rel="stylesheet"/>
+    <link href="css/index.css" rel="stylesheet"/>
 </head>
 <body>
 <?php include("../nav.php") ?>
@@ -22,7 +21,7 @@ if($key_len<=0||$key_len>20){
 
     <div class="sec">
         <div class="head">
-            Most Related Videos
+            Categery Videos
         </div>
         <div class="ad1">
             400*560
@@ -40,7 +39,7 @@ if($key_len<=0||$key_len>20){
     <% for(i=0;i<data.length;i++){ %>
     <% if(i<9&&i%3==0){ %><div class="row"><% } %>
         <% if(i>=9&&(i-9)%5==0){ %><div class="row"><% } %>
-            <a class="col" href="play.php?id={{data[i].id}}" target="_blank">
+            <a class="col" href="../play/play.php?id={{data[i].id}}" target="_blank">
                 <div class="vpre">
                     <div class="label">{{data[i].duration}}</div>
                     <img src="{{data[i].poster}}" class="col-img" />
@@ -50,7 +49,7 @@ if($key_len<=0||$key_len>20){
                     <div class="more">
                         <div class="time">{{data[i].time_str}}</div>
                         <div class="count">{{data[i].playNum}}<span>views</span></div>
-                        <div class="like"><img src="web/img/like_solid_f90.svg">{{mt.round(100*data[i].up/(data[i].up+data[i].down))}}%</div>
+                        <div class="like"><img src="../common/img/like_solid_f90.svg">{{mt.round(100*data[i].up/(data[i].up+data[i].down))}}%</div>
                     </div>
                 </div>
             </a>
@@ -100,9 +99,9 @@ if($key_len<=0||$key_len>20){
         <% } %>
     </div>
 </script>
-<script>var sechkey="<?php echo $key ?>";</script>
-<script src="/common/template-web.js"></script>
-<script src="web/js/search.js"></script>
+<script>var categery=<?php echo $categery ?>;</script>
+<script src="/web/common/template-web.js"></script>
+<script src="js/ct_cat1.js"></script>
 <?php include("../footer.php") ?>
 </body>
 </html>

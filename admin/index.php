@@ -3,7 +3,7 @@
 <head>
     <title>Admin</title>
     <link href="web/page.css" rel="stylesheet">
-    <script src="../common/jquery-3.2.1.js"></script>
+    <script src="../web/common/jquery-3.2.1.js"></script>
 </head>
 <body>
     <div>

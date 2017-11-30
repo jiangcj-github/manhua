@@ -25,9 +25,9 @@ $posterUrl=generateResourceUrl($id."_p.png",$domain);
 <head>
     <meta charset=utf-8 />
     <title>embed</title>
-    <link href="web/videojs/video-js.css" rel="stylesheet">
-    <link href="web/videojs/video-js-custom.css" rel="stylesheet">
-    <script src="web/videojs/video.js"></script>
+    <link href="js/videojs/video-js.css" rel="stylesheet">
+    <link href="js/videojs/video-js-custom.css" rel="stylesheet">
+    <script src="js/videojs/video.js"></script>
     <style>
         body{margin:0;padding:0;width:100%;height:100%;}
         main{}
