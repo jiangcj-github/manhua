@@ -1,5 +1,5 @@
 <?php
-    session_start();
+    isset($_SESSION) or session_start();
     $isLogin=isset($_SESSION["login"]);
 ?>
 <link rel="shortcut icon" href="/favicon.png"/>

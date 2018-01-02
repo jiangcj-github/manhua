@@ -6,7 +6,7 @@
 </style>
 <div class="footerBar">
     <div class="footerBar-inner">
-        <div>是否发放付付付付付付付付付付付付付付付付付付付付付</div>
+        <div>是否发放付付</div>
         <a href="#" style="margin:0 10px;">留言</a>
         <img src="/web/common/img/copyright.svg" class="copyright"/><span>PA404.COM @2017</span>
     </div>
