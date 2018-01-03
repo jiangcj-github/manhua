@@ -31,7 +31,7 @@ foreach($vs2 as $k=>$v){
     <link href="css/index.css" rel="stylesheet"/>
 </head>
 <body>
-<?php include("../../nav.php") ?>
+<?php include("../nav.php") ?>
 <div class="page page-2col">
     <?php
     if($isLogin){
@@ -148,6 +148,6 @@ foreach($vs2 as $k=>$v){
         </div>
     </div>
 </div>
-<?php include("../../footer.php") ?>
+<?php include("../footer.php") ?>
 </body>
 </html>
