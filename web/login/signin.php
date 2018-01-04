@@ -2,69 +2,46 @@
 <html>
 <head>
     <meta charset=utf-8 />
-    <title>signin</title>
+    <title>登录</title>
     <link href="css/page.css" rel="stylesheet">
 </head>
 <body>
     <?php include("../nav.php") ?>
     <div class="page">
         <div class="sec login-sec">
-            <h3>登錄入口</h3>
+            <h3>登录入口</h3>
             <div class="info">
                 <?php
                     if($isLogin){
-                        die("已登錄用戶：".$_SESSION["login"]["nick"]);
+                        die("已登录用户：".$_SESSION["login"]["nick"]);
                     }
                 ?>
-                <table>
-                    <tbody>
-                        <tr><td colspan="2"><span style="font-weight:bold;">提示：您的瀏覽器必須支持cookie，否則系統無法記錄登錄狀態。</span></td></tr>
-                        <tr><td colspan="2"><span style="font-weight:bold;">如果您使用的是公共設備，請取消【自動登錄】以便保護您的隱私。<a href="#">詳細</a></span></td></tr>
-                        <tr><td style="width:100px;">用戶名:</td><td><input type="text" name="user"></td></tr>
-                        <tr><td style="width:100px;">密碼:</td><td><input type="password" name="pass"></td></tr>
-                        <tr><td style="width:100px;"></td><td><label style="cursor:pointer;"><input type="checkbox" name="autosign">自動登錄</label></td></tr>
-                        <tr><td style="width:100px;"></td><td><span class="err"></span></td></tr>
-                        <tr><td style="width:100px;"></td><td><input type="submit" class="btn btn2" value="確認"></td></tr>
-                    </tbody>
-                </table>
+                <div class="form form-group">
+                    <label for="email">邮箱：</label>
+                    <input type="text" id="email" tabindex="1">
+                </div>
+                <div class="form form-group">
+                    <label for="pass">密码：</label>
+                    <input type="text" id="pass" tabindex="2" class="password">
+                </div>
+                <div class="form btn-group">
+                    <button class="btn btn2" id="submit" tabindex="3">登&nbsp;录</button>
+                    <span class="err"></span>
+                </div>
+                <div class="form form-group-check">
+                    <label><input type="checkbox" id="auto">自动登录</label>
+                    <a href="signup.php">注册新账户</a>
+                </div>
             </div>
         </div>
     </div>
-    <script src="/web/common/md5.min.js"></script>
     <script>
-        function log(msg){
-            $(".err").html(msg);
-        }
-        $("input[type=submit]").click(function(){
-            var user=$("[name=user]").val();
-            var pass=$("[name=pass]").val();
-            var autosign=$("[name=autosign]").is(":checked");
-            if(!/^[0-9a-zA-Z_-]{5,15}$/.test(user)||!/^[0-9a-zA-Z_-]{8,15}$/.test(pass)){
-                log("用戶名或密碼不正確");
-                return;
-            }
-            pass=md5(pass);
-            ajaxForm.action(this,{
-               type:"post",
-               url:"action/signin.php",
-               data:{user:user,pass:pass},
-               success:function(data){
-                   if(data.ok){
-                       if(autosign){
-                           setCookie("autosign","auto",365*100);
-                           setCookie("user",user,365*100);
-                           setCookie("pass",pass,365*100);
-                       }
-                       location.reload();
-                   }else if(data.msg){
-                       log(data.msg);
-                   }else{
-                       log("查詢出錯");
-                   }
-               }
-            });
+        $(".password").focus(function(){
+            $(this).prop("type","password");
         });
     </script>
+    <script src="/web/common/md5.min.js"></script>
+    <script src="js/signin.js"></script>
 </body>
 </html>
 

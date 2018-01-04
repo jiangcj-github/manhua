@@ -2,11 +2,26 @@ body{font-size:14px;}
 .page{width:1070px;}
 label{user-select:none;}
 
-.sec>h3{margin:0;font-size:14px;padding:0 8px;line-height:22px;border-bottom: 2px solid #222;color:gray;}
-.sec>.info{padding:10px;}
-.sec>.info table tr{line-height:30px;}
-.login-sec a{color:#ddd;text-decoration:underline !important;}
 
 input[type=checkbox]{vertical-align:middle;}
 input[type=text],input[type=password]{width:270px;height:26px;border-radius:3px;}
 .btn{border-radius:3px;padding:5px 20px !important;}
+
+.sec>h3{margin:0;font-size:14px;padding:0 8px;line-height:22px;border-bottom: 2px solid #222;color:gray;}
+.sec>.info{padding:30px 10px;}
+
+.form{display:flex;align-items:center;}
+.form-group{height:44px;}
+.form-group>label{width:80px;display:inline-block;}
+.form-group>input{height:32px;}
+.form-group .info{margin-left:10px;}
+.form-group-check{height:40px;width:350px;}
+.form-group-check>label{margin-left:80px;cursor:pointer;flex-grow:1;}
+.form-group-check>a{color:#999;}
+.btn-group{margin-left:80px;height:44px;}
+.btn-group .btn{width:270px;height:30px;}
+
+.err{margin-left:20px;}
+
+
+

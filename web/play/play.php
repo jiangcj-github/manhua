@@ -58,7 +58,7 @@ $serverName=$_SERVER["SERVER_NAME"];
     <link href="css/play.css" rel="stylesheet"/>
 </head>
 <body>
-    <?php include("../../nav.php") ?>
+    <?php include("../nav.php") ?>
     <div class="page col2">
         <div class="left">
             <div class="sec v-div">

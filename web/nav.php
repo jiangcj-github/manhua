@@ -70,15 +70,15 @@
         </div>
         <?php if(!$isLogin){ ?>
         <div class="btn-wrap">
-            <a href="/web/login/signin.php" class="link" target="_blank">登錄</a>
+            <a href="/web/login/signin.php" class="link">登錄</a>
             <span>|</span>
-            <a href="/web/login/signup.php" class="link" target="_blank">註冊</a>
+            <a href="/web/login/signup.php" class="link">註冊</a>
         </div>
         <?php }else{ ?>
         <div class="btn-wrap">
             <span class="nick"><?php echo $_SESSION["login"]["nick"] ?></span>
             <span>|</span>
-            <a href="/web/login/signout.php" class="link" target="_blank">註銷</a>
+            <a href="/web/login/signout.php" class="link">註銷</a>
         </div>
         <?php } ?>
     </div>

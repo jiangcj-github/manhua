@@ -9,3 +9,6 @@ echo "SIGNOUT OK";
     delCookie("user");
     delCookie("pass");
 </script>
+<script>
+    location.href="signin.php";
+</script>
