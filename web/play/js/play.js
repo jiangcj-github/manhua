@@ -1,7 +1,3 @@
-/**
- * play.js
- * --------------------------------------------------------------------------------------------------------------------
- */
 var bgSpeed=3;
 var player = videojs("v1",{}, function(){
     this.on("durationchange",function(){
@@ -32,75 +28,74 @@ var player = videojs("v1",{}, function(){
     });
 });
 
-/**
- * barrage Manager
- * --------------------------------------------------------------------------------------------------------------------
- */
 var barrage={};
-barrage.sendBtn=$("#bg-submit")[0];
-barrage.sendInput=$("#bg-text")[0];
+barrage.widgets={
+    bargDiv:$(".barg-div"),
+    sendInput:$("#bg-text"),
+    sendBtn:$("#bg-submit")
+};
 barrage.init=function(){
     var _this=this;
     switchEvent("#bg-toggle",
         function(){
-            $(".barg-div").show();
+            _this.widgets.bargDiv.show();
         },function(){
-            $(".barg-div").hide();
+            _this.widgets.bargDiv.hide();
         });
-    $(_this.sendBtn).click(function(){_this.send()});
+    _this.widgets.sendBtn.click(function(){
+        _this.send()
+    });
 };
 barrage.log=function(msg){
     alert(msg);
 };
 barrage.send=function(){
     var _this=this;
-    var msg=$(_this.sendInput).val();
+    var msg=_this.widgets.sendInput.val();
     var pos=player.currentTime();
     var duration=player.duration();
     if(!isLogin){
-        _this.log("您還未登錄");
+        _this.log("未登录");
         return;
     }
     if(pos<=0||pos>=duration){
-        _this.log("無效時間");
+        _this.log("无效时间");
         return;
     }
     if(/^\s*$/.test(msg)){
-        _this.log("無效文本");
+        _this.log("无效文本");
         return;
     }
     if(msg.length<=0||msg.length>15){
-        _this.log("文本超過字符數限制");
+        _this.log("文本太长");
         return;
     }
-    ajaxForm.action(_this.sendBtn,{
+    ajaxForm.action(_this.widgets.sendBtn,{
         type:"post",
-        url:"action/sendBarrage.php",
+        url:"/action/sendBarrage.php",
         data:{vid:vid,msg:msg,pos:pos,duration:duration},
         success:function(data){
             if(data.ok){
                 _this.sendOk(msg,pos);
             }else if(data.msg){
                 _this.log(data.msg);
-            }else{
-                _this.log("查詢失敗");
             }
         }
     });
 };
 barrage.sendOk=function(msg,pos){
     var _this=this;
-    $(_this.sendInput).val(null);
+    _this.widgets.sendInput.val(null);
     setTimeout(bgTimeout,0,60);
     var span=$("<span style='color:blue'></span>").css("left",pos*bgSpeed*16+"px").html(msg);
     var i = Math.floor(Math.random()*5);
-    $(".barg-div").find(".path").eq(i%5).append(span);
+    _this.widgets.bargDiv.find(".path").eq(i%5).append(span);
 };
 var bgTimeout=function(sec){
     if(sec==0){
-        $(barrage.sendBtn).attr("disabled",false).text("推送彈幕");
+        $(barrage.widgets.sendBtn).attr("disabled",false).text("发送弹幕");
     }else{
-        $(barrage.sendBtn).attr("disabled",true).text(sec);
+        $(barrage.widgets.sendBtn).attr("disabled",true).text(sec);
         setTimeout(bgTimeout,1000,sec-1);
     }
 };
@@ -118,19 +113,24 @@ $(function(){
  * ------------------------------------------------------------------------------------------------------------------
  */
 var comment={};
-comment.sendBtn=$("#cm-submit")[0];
-comment.sendInput=$("#cm-text")[0];
+comment.widgets={
+    sendBtn:$("#cm-submit"),
+    sendInput:$("#cm-text"),
+    cmDiv:$(".cm-div")
+};
 comment.log=function(msg){
     alert(msg);
 };
 comment.init=function(){
     var _this=this;
-    $(_this.sendBtn).click(function(){_this.send();});
+    _this.widgets.sendBtn.click(function(){
+        _this.send();
+    });
     cmpage.init();
 };
 comment.send=function(){
     var _this=this;
-    var text = $(_this.sendInput).val();
+    var text = _this.widgets.sendInput.val();
     if (!isLogin) {
         _this.log("您還為登錄");
         return;
@@ -141,22 +141,20 @@ comment.send=function(){
     }
     ajaxForm.action(_this.sendBtn,{
         type: "post",
-        url: "action/sendComment.php",
+        url: "/action/sendComment.php",
         data: {vid: vid, text: text},
         success: function (data) {
             if (data.ok) {
                 _this.sendOk(data.data,text);
             } else if (data.msg) {
                 _this.log(data.msg);
-            } else {
-                _this.log("查詢失敗");
             }
         }
     });
 };
 comment.sendOk=function(data,text){
     var _this=this;
-    $(_this.sendInput).val(null);
+    _this.widgets.sendInput.val(null);
     setTimeout(cmTimeout,0,300);
     //
     var html=template("cm-li",{cm:
@@ -171,7 +169,7 @@ comment.sendOk=function(data,text){
             reply:[]
         }
     });
-    $(".cm-div").prepend(html);
+    _this.widgets.cmDiv.prepend(html);
 };
 comment.getReplyBtn=function(){
     return $(".re_sd").find("button");
@@ -185,10 +183,7 @@ var cmTimeout=function(sec){
     }
 };
 
-/**
- * comment page manager
- * ------------------------------------------------------------------------------------------------------------------
- */
+
 cmpage={};
 cmpage.div=function(){
     return $(".li-page")[0];
@@ -202,7 +197,7 @@ cmpage.init=function(){
     var _this=this;
     ajaxForm.action(null,{
         type:"post",
-        url:"action/loadCommentInfo.php",
+        url:"/action/loadCommentInfo.php",
         data:{vid:vid},
         success:function(data) {
             if(data.ok){
@@ -228,7 +223,7 @@ cmpage.load=function(page){
     }
     ajaxForm.action(null,{
         type:"get",
-        url:"action/loadComment.php",
+        url:"/action/loadComment.php",
         data:{vid:vid,limit:_this.limit,offset:(page-1)*_this.limit},
         success:function(data){
             if(data.ok){
@@ -250,10 +245,8 @@ cmpage.loadOk=function(d){
     html=template("cm-pg",{curPage:_this.curPage,totalPage:_this.totalPage});
     $(_this.pDiv).append(html);
 };
-/**
- * Reply Manager
- * --------------------------------------------------------------------------------------------------------------------
- */
+
+
 function Reply(div){
     this.html=div;
 }
@@ -276,11 +269,11 @@ Reply.prototype.send=function(){
     var _this=this;
     var text=_this.sendInput().val();
     if(!isLogin){
-        comment.log("用戶未登錄");
+        comment.log("未登录");
         return;
     }
     if(/^\s*$/.test(text)){
-        comment.log("無效文本");
+        comment.log("无效文本");
         return;
     }
     ajaxForm.action(_this.sendBtn(),{
@@ -292,8 +285,6 @@ Reply.prototype.send=function(){
                 _this.sendOk(data.data);
             }else if(data.msg){
                 comment.log(data.msg);
-            }else{
-                comment.log("查詢失敗");
             }
         }
     });
@@ -326,7 +317,7 @@ Reply.prototype.lessRe=function(){
 };
 var reTimeout=function(sec){
     if(sec==0){
-        $(comment.getReplyBtn()).attr("disabled",false).text("回復");
+        $(comment.getReplyBtn()).attr("disabled",false).text("回复");
     }else{
         $(comment.getReplyBtn()).attr("disabled",true).text(sec);
         setTimeout(reTimeout,1000,sec-1);
@@ -372,28 +363,26 @@ Suport.prototype.sendSup=function(a){
     var _this=this;
     var cid=_this.getCid();
     if(!isLogin){
-        comment.log("用戶未登錄");
+        comment.log("未登录");
         return;
     }
     if(getCookie("vsup10_"+vid+"#"+cid)){
-        comment.log("已經頂過了，24小時之後再試");
+        comment.log("已经顶过来，24小时后再试");
         return;
     }
     if(matchCookie("vsup10_")>=10){
-        comment.log("操作已到達上限，24小時之後再試");
+        comment.log("操作已达上限，24小时后再试");
         return;
     }
     ajaxForm.action(a,{
         type:"post",
-        url:"action/sendSuport.php",
+        url:"/action/sendSuport.php",
         data:{vid:vid,cid:cid},
         success:function(data){
             if(data.ok){
                 _this.sendSupOk(vid,cid);
             }else if(data.msg){
                 comment.log(data.msg);
-            }else{
-                comment.log("查詢失敗");
             }
         }
     });
@@ -407,15 +396,15 @@ Suport.prototype.sendObj=function(a){
     var _this=this;
     var cid=_this.getCid();
     if(!isLogin){
-        comment.log("用戶未登錄");
+        comment.log("未登录");
         return;
     }
     if(getCookie("vobj10_"+vid+"#"+cid)){
-        comment.log("已經踩過了，24小時之後再試");
+        comment.log("已经踩过来，24小时后再试");
         return;
     }
     if(matchCookie("vobj10_")>=10){
-        comment.log("操作已到達上限，24小時之後再試");
+        comment.log("操作已达上限，24小时后再试");
         return;
     }
     ajaxForm.action(a,{
@@ -427,8 +416,6 @@ Suport.prototype.sendObj=function(a){
                 _this.sendObjOk(vid,cid);
             }else if(data.msg){
                 comment.log(data.msg);
-            }else{
-                comment.log("查詢失敗");
             }
         }
     });
@@ -502,28 +489,26 @@ vote.send=function(btn,v){
     var _this=this;
     if(v!==0&&v!==1) return;
     if(!isLogin){
-        _this.log("用戶未登錄");
+        _this.log("未登录");
         return;
     }
     if(getCookie("vvot10_"+vid)){
-        _this.log("已經投票了，24小時之後再試");
+        _this.log("已经投过票了，24小时后再试");
         return;
     }
     if(matchCookie("vvot10_")>=10){
-        _this.log("操作已到達上限，24小時之後再試");
+        _this.log("操作已达上限，24小时后再试");
         return;
     }
     ajaxForm.action(btn,{
         type:"post",
-        url:"action/sendVideoVote.php",
+        url:"/action/sendVideoVote.php",
         data:{vid:vid,vote:v},
         success:function(data){
             if(data.ok){
                 _this.sendOk(v);
             }else if(data.msg){
                 _this.log(data.msg);
-            }else{
-                _this.log("查詢失敗");
             }
         }
     });
@@ -609,28 +594,26 @@ feedBackPP.send=function(){
     var describ=_this.describInput.val();
     var email=_this.emailInput.val();
     if(!isLogin){
-        _this.log("用戶未登錄");
+        _this.log("未登录");
         return;
     }
     if(/^\s*$/.test(msg)){
-        _this.log("無效反饋信息");
+        _this.log("无效反馈信息");
         return;
     }
     if(email && !/^[0-9A-Za-z-_.]+@[0-9A-Za-z-_.]+$/.test(email)){
-        _this.log("無效Email");
+        _this.log("无效Email");
         return;
     }
     ajaxForm.action(_this.submitBtn,{
        type:"post",
-        url:"action/sendFeedback.php",
+        url:"/action/sendFeedback.php",
         data:{vid:vid,msg:msg,describ:describ,email:email},
         success:function(data){
            if(data.ok){
                _this.sendOk();
            }else if(data.msg){
                _this.log(data.msg);
-           }else{
-               _this.log("查詢失敗");
            }
         }
     });

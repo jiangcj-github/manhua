@@ -12,7 +12,7 @@
 
     <div class="sec">
         <div class="head">
-            Hot Videos
+            热门视频
         </div>
         <div class="ad1">
             400*560

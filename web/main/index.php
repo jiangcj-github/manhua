@@ -24,7 +24,7 @@ foreach($vs2 as $k=>$v){
 ?>
 <html>
 <head>
-    <title>首頁</title>
+    <title>首页</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link href="css/vpre.css" rel="stylesheet"/>
@@ -75,7 +75,7 @@ foreach($vs2 as $k=>$v){
     <?php }} ?>
     <div class="sec">
         <div class="head">
-            Recently Updated
+            最近更新
         </div>
         <div class="ad1">
             400*560
@@ -108,7 +108,7 @@ foreach($vs2 as $k=>$v){
     </div>
     <div class="sec">
         <div class="head">
-            Recommend Videos
+            推荐视频
         </div>
         <div class="ad1">
             400*560

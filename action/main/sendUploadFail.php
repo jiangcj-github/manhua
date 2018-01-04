@@ -10,12 +10,12 @@ require_once("../../php/global.php");
 //是否登錄
 session_start();
 if(!isset($_SESSION["login"])){
-    die_json(["msg"=>"用戶未登錄"]);
+    die_json(["msg"=>"用户未登录"]);
 }
 $nick=$_SESSION["login"]["nick"];
 //參數檢查
 if(!isset($_REQUEST["id"])){
-    die_json(["msg"=>"缺少必需的參數"]);
+    die_json(["msg"=>"缺少参数"]);
 }
 $id=$_REQUEST["id"];
 //數據庫操作

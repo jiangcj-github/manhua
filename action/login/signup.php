@@ -9,7 +9,7 @@ require_once("../../php/global.php");
 
 //參數檢查
 if(!isset($_REQUEST["email"])||!isset($_REQUEST["nick"])||!isset($_REQUEST["pass"])) {
-    die_json(["msg"=>"參數不為空"]);
+    die_json(["msg"=>"缺少参数"]);
 }
 $user = $_REQUEST["email"];
 $nick = $_REQUEST["nick"];
@@ -20,7 +20,7 @@ if(!preg_match("/^[0-9a-zA-Z._-]+@[0-9a-zA-Z._-]+$/",$user)){
     die_json(["msg"=>"邮箱不符合规范"]);
 }
 if(!preg_match("/^[0-9a-zA-Z_-]{8,15}$/",$pass)){
-    die_json(["msg"=>"密碼不符合規則"]);
+    die_json(["msg"=>"密码不符合规范"]);
 }
 //查數據庫
 $conn = new mysqli($mysql["host"], $mysql["user"], $mysql["password"], $mysql["database"]);

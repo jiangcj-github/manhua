@@ -16,7 +16,7 @@ $nick=$_SESSION["login"]["nick"];
 //參數檢查
 if(!isset($_REQUEST["title"])||!isset($_REQUEST["filename"])||!isset($_REQUEST["categery"])
     ||!isset($_REQUEST["unit"])||!isset($_REQUEST["duration"])){
-    die_json(["msg"=>"缺少必需的參數"]);
+    die_json(["msg"=>"缺少参数"]);
 }
 $title=$_REQUEST["title"];
 $filename=$_REQUEST["filename"];
@@ -25,10 +25,10 @@ $unit=$_REQUEST["unit"];
 $duration=$_REQUEST["duration"];
 $time=(new DateTime())->format("Y-m-d H:i:s");
 if(preg_match("/^\s*$/",$title)>0){
-    die_json(["msg"=>"標題為空"]);
+    die_json(["msg"=>"标题为空"]);
 }
 if(preg_match("/^\s*$/",$categery)>0){
-    die_json(["msg"=>"分類為空"]);
+    die_json(["msg"=>"分类为空"]);
 }
 //數據庫操作
 $conn = new mysqli($mysql["host"], $mysql["user"], $mysql["password"], $mysql["database"]);
@@ -40,7 +40,7 @@ $stmt->execute();
 $data=$stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 $stmt->close();
 if(count($data)>0){
-    die_json(["msg"=>"重複視頻"]);
+    die_json(["msg"=>"重复视频"]);
 }
 //插入記錄
 $stmt=$conn->prepare("insert into video(filename,duration,title,time,categery,unit) values(?,?,?,?,?,?)");

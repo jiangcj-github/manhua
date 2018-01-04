@@ -4,7 +4,7 @@ vl.init=function(){
     var _this=this;
     ajaxForm.action(null,{
         type:"get",
-        url:"search/loadVideoInfo.php",
+        url:"/search/loadVideoInfo.php",
         success:function(data) {
             if(data.ok){
                 var count=parseInt(data.data[0]["count"]);
@@ -43,7 +43,7 @@ vl.page=function(p){
     }
     ajaxForm.action(null,{
         type:"get",
-        url:"search/loadCtCat1.php",
+        url:"/search/loadCtCat1.php",
         data:{offset:(_this.curPage-1)*_this.limit,limit:_this.limit,categery:categery},
         success:function(data) {
             if(data.ok){

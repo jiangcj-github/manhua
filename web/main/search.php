@@ -5,7 +5,7 @@ if(!isset($_REQUEST["key"])){
 $key=preg_replace("/\s/","",$_REQUEST["key"]);
 $key_len=mb_strlen($key);
 if($key_len<=0||$key_len>20){
-    die("查詢字太長或太短");
+    die("查询字太长或太短");
 }
 ?>
 <html>
@@ -22,7 +22,7 @@ if($key_len<=0||$key_len>20){
 
     <div class="sec">
         <div class="head">
-            Most Related Videos
+            相关结果
         </div>
         <div class="ad1">
             400*560

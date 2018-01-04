@@ -4,7 +4,7 @@ vl.init=function(){
     var _this=this;
     ajaxForm.action(null,{
         type:"get",
-        url:"search/loadSearch.php",
+        url:"/search/loadSearch.php",
         data:{key:sechkey},
         success:function(data) {
             if(data.ok){

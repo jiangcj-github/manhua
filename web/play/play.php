@@ -71,8 +71,8 @@ $serverName=$_SERVER["SERVER_NAME"];
                    <span class="switch-on" id="bg-toggle"></span>
                 </div>
                 <div class="input-group">
-                    <input type="text" id="bg-text" placeholder="說點什麼吧，不超過15個字">
-                    <button id="bg-submit" class="btn btn2">推送彈幕</button>
+                    <input type="text" id="bg-text" placeholder="说的什么吧，不超过15个字">
+                    <button id="bg-submit" class="btn btn2">发送弹幕</button>
                 </div>
             </div>
             <div class="sec info-div">
@@ -80,7 +80,7 @@ $serverName=$_SERVER["SERVER_NAME"];
                     <div class="vote-wrap" data-up="<?php echo $up ?>" data-down="<?php echo $down ?>">
                         <a href="javascript:void(0);" class="vote-btn up"></a>
                         <div class="vote-show">
-                            <div class="stext">好評(<span id="voteText"><?php echo $vote_rate ?>%</span>)</div>
+                            <div class="stext">好评(<span id="voteText"><?php echo $vote_rate ?>%</span>)</div>
                             <div class="slider-wrap">
                                 <div class="up" id="voteBar" style="width:<?php echo $vote_rate ?>%"></div>
                             </div>
@@ -88,39 +88,39 @@ $serverName=$_SERVER["SERVER_NAME"];
                         <a href="javascript:void(0);" class="vote-btn down"></a>
                     </div>
                     <span>播放<span style="color:#ddd;"><?php echo $playNum ?></span>次</span>
-                    <span>評論<span style="color:#ddd;"><?php echo $cmt_count ?></span>條</span>
+                    <span>评论<span style="color:#ddd;"><?php echo $cmt_count ?></span>条</span>
                     <div class="right">
                         <a href="javascript:void(0);" class="btn btn2" id="info_share"><img src="../common/img/share.svg">分享</a>
-                        <a href="javascript:void(0);" class="btn btn2" id="info_feedback"><img src="../common/img/feedback.svg">反饋</a>
-                        <a href="#cm-text" class="btn btn2"><img src="../common/img/chat.svg">評論</a>
-                        <a href="download.php?vid=<?php echo $id ?>" target="_blank" class="btn btn2"><img src="../common/img/download.svg">下載</a>
+                        <a href="javascript:void(0);" class="btn btn2" id="info_feedback"><img src="../common/img/feedback.svg">反馈</a>
+                        <a href="#cm-text" class="btn btn2"><img src="../common/img/chat.svg">评论</a>
+                        <a href="download.php?vid=<?php echo $id ?>" target="_blank" class="btn btn2"><img src="../common/img/download.svg">下载</a>
                     </div>
                 </div>
                 <div class="popup share">
                     <div class="label">Embed代码</div>
                     <input type="text" id="sp-em" value="<iframe width='640' height='360' src='http://<?php echo $serverName; ?>/video/embed.php?id=<?php echo $id ?>' frameborder='0' allowfullscreen></iframe>">
                     <div class="sep"></div>
-                    <div class="label">寬度和高度</div>
+                    <div class="label">宽度和高度</div>
                     <div class="pprow">
                         <input type="text" id="sp-w" value="640" oninput="sharePP.wChange();" onchange="sharePP.wChange();"><span>&times;</span>
                         <input id="sp-h" type="text" value="360" oninput="sharePP.hChange();" onchange="sharePP.hChange();">
                     </div>
                 </div>
                 <div class="popup feedback">
-                    <div class="label">反饋信息(必需)</div>
+                    <div class="label">反馈信息(必需)</div>
                     <div class="pprow">
-                        <label><input type="radio" name="fp_msg" value="內容令人反感。">內容令我反感。</label>
-                        <label><input type="radio" name="fp_msg" value="非法偷拍或者內容侵犯我的人身權利。">內容侵犯我的人身權利。</label>
-                        <label><input type="radio" name="fp_msg" value="含有性暴力，兒童色情等內容。">含有性暴力，兒童色情等內容。</label>
-                        <label><input type="radio" name="fp_msg" value="內容侵犯版權。">內容侵犯我的版權。</label>
+                        <label><input type="radio" name="fp_msg" value="内容令人反感。">内容令人反感。</label>
+                        <label><input type="radio" name="fp_msg" value="非法偷拍或者內容侵犯人身权利。">内容侵犯人身权利。</label>
+                        <label><input type="radio" name="fp_msg" value="含有性暴力，儿童色情等内容。">含有性暴力，儿童色情等内容。</label>
+                        <label><input type="radio" name="fp_msg" value="内容侵犯版权。">内容侵犯版权。</label>
                         <label><input type="radio" name="fp_msg" value="">其他</label>
                     </div>
                     <input type="text" id="fp_msg_input" style="display:none;">
                     <div class="sep"></div>
-                    <div class="label">詳細說明(可選)</div>
+                    <div class="label">详细说明(可选)</div>
                     <textarea id="fp_describ"></textarea>
                     <div class="sep"></div>
-                    <div class="label">Email(可選)</div>
+                    <div class="label">Email(可选)</div>
                     <input type="text" id="fp_email">
                     <div class="sep"></div>
                     <div class="pprow">
@@ -134,10 +134,13 @@ $serverName=$_SERVER["SERVER_NAME"];
                 <div style="width:200px;height:200px">200*200</div>
             </div>
             <div class="sec sm-div">
-                <textarea id="cm-text" placeholder="說點什麼吧"></textarea>
+                <textarea id="cm-text" placeholder="说的什么吧"></textarea>
                 <button id="cm-submit" class="btn btn2 btn-lg">提交</button>
             </div>
-            <div class="sec cm-div"></div>
+            <div class="sec cm-div">
+                <a href="#"> < </a>
+                <a href="#"> > </a>
+            </div>
         </div>
 
         <div class="right">
@@ -147,7 +150,7 @@ $serverName=$_SERVER["SERVER_NAME"];
                 </div>
             </div>
             <div class="pane">
-                <h3>相關內容</h3>
+                <h3>相关内容</h3>
                 <?php for($i=0;$i<count($randVs);$i++){ ?>
                     <div class="item-v vpre">
                         <div class="label"><?php echo $randVs[$i]["duration"] ?></div>
@@ -170,7 +173,7 @@ $serverName=$_SERVER["SERVER_NAME"];
             <div class="li_r">
                 <div class="r_c">{{cm.text}}</div>
                 <div class="r_b" data-cid="{{cm.id}}">
-                    <span class="label1">{{cm.count}}樓</span>
+                    <span class="label1">{{cm.count}}楼</span>
                     <span>{{cm.time}}</span>
                     <span><a href="javascript:void(0);" onclick="onSendSup(this)"><img src="../common/img/like.svg">(<span field="suport">{{cm.suport}}</span>)</a></span>
                     <span><a href="javascript:void(0);" onclick="onSendObj(this)"><img src="../common/img/unlike.svg">(<span field="object">{{cm.object}}</span>)</a></span>
@@ -195,13 +198,13 @@ $serverName=$_SERVER["SERVER_NAME"];
                     <div class="re-insert" style="height:0"></div>
                     <% if(cm.reply.length>3){ %>
                         <div class="re_ctrl">
-                            <span more>隱藏({{cm.reply.length-3}})項</span>&nbsp;
-                            <a href="javascript:void(0);" onclick="onMoreRe(this)" more>展開</a>
+                            <span more>隐藏({{cm.reply.length-3}})項</span>&nbsp;
+                            <a href="javascript:void(0);" onclick="onMoreRe(this)" more>展开</a>
                             <a href="javascript:void(0);" onclick="onLessRe(this)" less style="display:none;">收起</a>
                         </div>
                     <% } %>
                     <div class="re_sd">
-                        <input type="text" placeholder="說點什麼吧"><button class="btn btn2" onclick="onSendRe(this)">回復</button>
+                        <input type="text" placeholder="说的什么吧"><button class="btn btn2" onclick="onSendRe(this)">回复</button>
                     </div>
                 </div>
             </div>
@@ -221,9 +224,9 @@ $serverName=$_SERVER["SERVER_NAME"];
     <script id="cm-pg" type="text/html">
         <div class="li-page">
             <% if(curPage<=1){ %>
-                <a href="javascript:void(0);" class="disabled">上一頁</a>
+                <a href="javascript:void(0);" class="disabled">上一页</a>
             <% }else{ %>
-                <a href="javascript:void(0);" onclick="cmpage.load({{curPage-1}})">上一頁</a>
+                <a href="javascript:void(0);" onclick="comment.load({{curPage-1}})">上一页</a>
             <% } %>
             <% for(var i=0;i<5;i++){ %>
                 <% if(curPage<=3){ %>
@@ -249,12 +252,13 @@ $serverName=$_SERVER["SERVER_NAME"];
                 <% } %>
             <% } %>
             <% if(curPage>=totalPage){ %>
-                <a href="javascript:void(0);" class="disabled">下一頁</a>
+                <a href="javascript:void(0);" class="disabled">下一页</a>
             <% }else{ %>
-                <a href="javascript:void(0);" onclick="cmpage.load({{curPage+1}})">下一頁</a>
+                <a href="javascript:void(0);" onclick="cmpage.load({{curPage+1}})">下一页</a>
             <% } %>
         </div>
     </script>
+    <script>var totalNum=0;</script>
     <script src="js/play.js"></script>
     <script>var vid=<?php echo $id ?>;</script>
     <?php include("../footer.php") ?>

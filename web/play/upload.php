@@ -37,11 +37,11 @@
 <div class="page page-2col">
     <div class="sec">
         <div class="head">
-            上傳視頻
+            上传视频
         </div>
         <?php
             if(!$isLogin){
-                die("用戶未登錄");
+                die("未登录");
             }
         ?>
         <div class="content">
@@ -52,8 +52,8 @@
                     <input id="vInput" type="file" accept="video/mp4" style="display:none;">
                 </div>
                 <div class="fileShow">
-                    <div class="fName">僅支持MP4格式，文件名不能包含除【0-9a-zA-Z_-】之外的字符。</div>
-                    <div class="fSize">文件大小在【1M,200M】之間</div>
+                    <div class="fName">仅支持MP4格式，文件名不能包含除【0-9a-zA-Z_-】之外的字符。</div>
+                    <div class="fSize">文件大小在【1M,200M】之间</div>
                 </div>
                 <div class="pg-wrap">
                     <div class="pg"></div>
@@ -61,23 +61,23 @@
                 <div class="pg-info">
                     <span class="per">0%</span><span>&nbsp;</span>
                     <span class="speed">0 M/s</span>&nbsp;-&nbsp;<span class="finish">0 M</span>
-                    <span>&nbsp;剩餘時間&nbsp;</span><span class="spare">00:00</span>
+                    <span>&nbsp;剩余时间&nbsp;</span><span class="spare">00:00</span>
                 </div>
                 <div class="btnGroup">
-                    <button class="startBtn btn btn2" disabled="disabled">上傳</button>
+                    <button class="startBtn btn btn2" disabled="disabled">上传</button>
                     <button class="cancelBtn btn btn2" disabled="disabled">取消</button>
                 </div>
             </div>
         </div>
         <div class="part">
-            <label>標題</label>
+            <label>标题</label>
             <input type="text" id="title" placeholder="title">
         </div>
         <div class="part">
-            <label>分類</label>
+            <label>分类</label>
             <select id="categery">
-                <option value="1">亞洲</option>
-                <option value="2">歐美</option>
+                <option value="1">亚洲</option>
+                <option value="2">欧美</option>
             </select>
         </div>
         <div class="part">
@@ -89,7 +89,7 @@
 <script src="/web/common/fileupload/jquery.iframe-transport.js"></script>
 <script src="/web/common/fileupload/jquery.fileupload.js"></script>
 <?php
-    require_once("../php/global.php");
+    require_once("../../php/global.php");
     //獲取資源服务器token
     $ip=$_SERVER["REMOTE_ADDR"];
     $secret="lindakai";
@@ -106,7 +106,7 @@
         $units=$result->fetch_all(MYSQLI_ASSOC);
     }
     if(count($units)<=0){
-        die("<script>alert('未發現上傳節點');</script>");
+        die("<script>alert('未找到上传节点');</script>");
     }
 ?>
 <script src="js/upload.js"></script>

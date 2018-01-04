@@ -4,7 +4,7 @@ require_once("../../php/TimeUtil.php");
 
 //參數檢查
 if(!isset($_REQUEST["offset"])||!isset($_REQUEST["limit"])||!isset($_REQUEST["categery"])){
-    die_json(["msg"=>"缺少必要的參數"]);
+    die_json(["msg"=>"缺少参数"]);
 }
 $offset=$_REQUEST["offset"];
 $limit=$_REQUEST["limit"];

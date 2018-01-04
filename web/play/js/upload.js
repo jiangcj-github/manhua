@@ -1,5 +1,5 @@
 var upload={};
-upload.nodes={
+upload.widgets={
     vShow:$(".content .preview"),
     vInput:function(){ return $(".content #vInput");},
     addBtn:$(".content .addBtn"),
@@ -22,50 +22,50 @@ upload.upSpeed={st:0,sb:0};
 upload.init=function(){
     var _this=this;
     _this.initUpload();
-    _this.nodes.addBtn.click(function(){
-        _this.nodes.vInput().click();
+    _this.widgets.addBtn.click(function(){
+        _this.widgets.vInput().click();
     });
-    _this.nodes.startBtn.click(function(){
+    _this.widgets.startBtn.click(function(){
         if(!_this.data) return;
         var data=_this.data;
-        _this.nodes.addBtn.prop("disabled",true);
-        _this.nodes.startBtn.prop("disabled",true);
-        _this.nodes.cancelBtn.prop("disabled",false);
+        _this.widgets.addBtn.prop("disabled",true);
+        _this.widgets.startBtn.prop("disabled",true);
+        _this.widgets.cancelBtn.prop("disabled",false);
         $.getJSON("http://"+udomain+"/upload/index.php?_token="+_token+"&_time="+_time,{vInput:data.files[0].name},function(rs){
             data.uploadedBytes = rs.vInput && rs.vInput.size;
             if(data.uploadedBytes==data.files[0].size){
-                _this.nodes.startBtn.prop("disabled",true);
-                _this.nodes.cancelBtn.prop("disabled",true);
-                _this.nodes.addBtn.prop("disabled",false);
+                _this.widgets.startBtn.prop("disabled",true);
+                _this.widgets.cancelBtn.prop("disabled",true);
+                _this.widgets.addBtn.prop("disabled",false);
                 //
-                _this.nodes.vFinish.text(_this.formatSize(data.uploadedBytes));
-                _this.nodes.vPg.css("width","100%");
-                _this.nodes.vPer.text("100%");
+                _this.widgets.vFinish.text(_this.formatSize(data.uploadedBytes));
+                _this.widgets.vPg.css("width","100%");
+                _this.widgets.vPer.text("100%");
                 _this.deal(data.files[0]);
             }else{
                 _this.task=data.submit();
                 _this.upSpeed.st=new Date().getTime();
                 _this.upSpeed.sb=data.uploadedBytes;
                 _this.task.success && _this.task.success(function(file){
-                    _this.nodes.startBtn.prop("disabled",true);
-                    _this.nodes.cancelBtn.prop("disabled",true);
-                    _this.nodes.addBtn.prop("disabled",false);
+                    _this.widgets.startBtn.prop("disabled",true);
+                    _this.widgets.cancelBtn.prop("disabled",true);
+                    _this.widgets.addBtn.prop("disabled",false);
                     _this.deal(file.vInput[0]);
                 });
             }
         });
     });
-    _this.nodes.cancelBtn.click(function(){
+    _this.widgets.cancelBtn.click(function(){
         _this.task && _this.task.abort();
-        _this.nodes.addBtn.prop("disabled",false);
-        _this.nodes.startBtn.prop("disabled",false);
-        _this.nodes.cancelBtn.prop("disabled",true);
+        _this.widgets.addBtn.prop("disabled",false);
+        _this.widgets.startBtn.prop("disabled",false);
+        _this.widgets.cancelBtn.prop("disabled",true);
     });
-    _this.nodes.submitBtn.click(function(){_this.submit();})
+    _this.widgets.submitBtn.click(function(){_this.submit();})
 };
 upload.initUpload=function(){
     var _this=this;
-    _this.nodes.vInput().fileupload({
+    _this.widgets.vInput().fileupload({
         maxChunkSize: 2000000, // 2MB
         dataType: "json",
         paramName:"vInput",
@@ -78,17 +78,17 @@ upload.initUpload=function(){
                 return;
             }
             if(file.type!="video/mp4"){
-                _this.log("文件類型不被接受，僅支持MP4格式");
+                _this.log("文件类型不被接受，仅支持MP4格式");
                 return;
             }
             if(file.size>1024*1024*1024||file.size<100*1024*1024){
-                _this.log("文件太大或者太小，必須在[100M,1024M]之間");
+                _this.log("文件太大或者太小，必须在[100M,1024M]之间");
                 return;
             }
             //
             _this.showFile(file);
-            _this.nodes.startBtn.prop("disabled",false);
-            _this.nodes.cancelBtn.prop("disabled",true);
+            _this.widgets.startBtn.prop("disabled",false);
+            _this.widgets.cancelBtn.prop("disabled",true);
             _this.data=data;
         },
         progressall:function(e,data) {
@@ -102,13 +102,13 @@ upload.initUpload=function(){
             var speed_str=_this.formatSpeed(speed);
             var spare_str=_this.formatSpare(spare);
             //
-            _this.nodes.vSpeed.text(speed_str);
-            _this.nodes.vSpare.text(spare_str);
-            _this.nodes.vFinish.text(_this.formatSize(data.loaded));
+            _this.widgets.vSpeed.text(speed_str);
+            _this.widgets.vSpare.text(spare_str);
+            _this.widgets.vFinish.text(_this.formatSize(data.loaded));
             //
             var progress = Math.round(data.loaded/data.total*100);
-            _this.nodes.vPg.css("width",progress+"%");
-            _this.nodes.vPer.text(progress+"%");
+            _this.widgets.vPg.css("width",progress+"%");
+            _this.widgets.vPer.text(progress+"%");
         }
     });
 };
@@ -183,41 +183,41 @@ upload.deal=function(obj){
         data:{_token:_token,_time:_time,name:obj.name},
         success:function(data){
             if(data.ok){
-                _this.nodes.vShow.prop("src",data.data.png);
+                _this.widgets.vShow.prop("src",data.data.png);
                 var upload=data.data;
                 upload.obj=obj;
-                _this.nodes.vShow.data("upload",upload);
+                _this.widgets.vShow.data("upload",upload);
             }
         }
     });
 };
 upload.showFile=function(file){
     var _this=this;
-    _this.nodes.fName.text(file.name);
-    _this.nodes.fSize.text(_this.formatSize(file.size));
+    _this.widgets.fName.text(file.name);
+    _this.widgets.fSize.text(_this.formatSize(file.size));
 };
 //
 upload.submit=function(){
     var _this=this;
-    var title=_this.nodes.titleInput.val();
-    var categery=_this.nodes.categeryInput.val();
-    var isUploaded=_this.nodes.vShow.data("upload")!=null;
+    var title=_this.widgets.titleInput.val();
+    var categery=_this.widgets.categeryInput.val();
+    var isUploaded=_this.widgets.vShow.data("upload")!=null;
     if(!isUploaded){
-        _this.log("還未上傳視頻");
+        _this.log("还未上传视频");
         return;
     }
-    var upload=_this.nodes.vShow.data("upload");
+    var upload=_this.widgets.vShow.data("upload");
     if(/^\s*$/.test(title)){
-        _this.log("未添加標題");
+        _this.log("未添加标题");
         return;
     }
     if(/^\s*$/.test(categery)){
-        _this.log("未添加分類");
+        _this.log("未添加分类");
         return;
     }
-    ajaxForm.action(_this.nodes.submitBtn,{
+    ajaxForm.action(_this.widgets.submitBtn,{
         type:"post",
-        url:"search/sendUpload.php",
+        url:"/search/sendUpload.php",
         data:{title:title,filename:upload.obj.name,duration:upload.duration,categery:categery,unit:uid},
         success:function(data){
             if(data.ok){
@@ -225,8 +225,6 @@ upload.submit=function(){
                 _this.save(id,upload.obj.name);
             }else if(data.msg){
                 _this.log(data.msg);
-            }else{
-                _this.log("提交失敗");
             }
         }
     })
@@ -239,13 +237,10 @@ upload.save=function(id,filename){
         data:{vid:id,name:filename,_token:_token,_time:_time},
         success:function(data){
             if(data.ok){
-                _this.log("上傳成功");
+                _this.log("上传成功");
                 location.reload()
             }else if(data.msg){
                 _this.log(data.msg);
-                _this.saveFail(id);
-            }else{
-                _this.log("保存出錯");
                 _this.saveFail(id);
             }
         }
@@ -254,11 +249,8 @@ upload.save=function(id,filename){
 upload.saveFail=function(id){
     ajaxForm.action(null,{
         type:"post",
-        url:"search/sendUploadFail.php",
+        url:"/search/sendUploadFail.php",
         data:{id:id}
     });
 };
-
-$(function(){
-    upload.init();
-});
+upload.init();

@@ -12,7 +12,7 @@
 
     <div class="sec">
         <div class="head">
-            Most Recently Videos
+            最新视频
         </div>
         <div class="ad1">
             400*560

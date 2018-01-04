@@ -9,7 +9,7 @@ require_once("../../php/global.php");
 
 //參數檢查
 if(!isset($_REQUEST["vid"])){
-    die_json(["msg"=>"缺少必需的參數"]);
+    die_json(["msg"=>"缺少参数"]);
 }
 $vid=$_REQUEST["vid"];
 $limit=2147483648;
