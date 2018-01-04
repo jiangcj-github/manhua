@@ -137,10 +137,7 @@ $serverName=$_SERVER["SERVER_NAME"];
                 <textarea id="cm-text" placeholder="说的什么吧"></textarea>
                 <button id="cm-submit" class="btn btn2 btn-lg">提交</button>
             </div>
-            <div class="sec cm-div">
-                <a href="#"> < </a>
-                <a href="#"> > </a>
-            </div>
+            <div class="sec cm-div"></div>
         </div>
 
         <div class="right">
