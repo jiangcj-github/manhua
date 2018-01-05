@@ -126,75 +126,78 @@ comment.init=function(){
     _this.widgets.sendBtn.click(function(){
         _this.send();
     });
-    cmpage.init();
+    _this.initPage();
 };
 comment.send=function(){
     var _this=this;
     var text = _this.widgets.sendInput.val();
     if (!isLogin) {
-        _this.log("您還為登錄");
+        _this.log("未登录");
         return;
     }
     if (/^\s*$/.test(text)) {
-        _this.log("文本為空");
+        _this.log("文本为空");
         return;
     }
-    ajaxForm.action(_this.sendBtn,{
+    ajaxForm.action(_this.widgets.sendBtn,{
         type: "post",
         url: "/action/sendComment.php",
         data: {vid: vid, text: text},
         success: function (data) {
             if (data.ok) {
-                _this.sendOk(data.data,text);
+                _this.sendOk();
             } else if (data.msg) {
                 _this.log(data.msg);
             }
         }
     });
 };
-comment.sendOk=function(data,text){
+comment.sendOk=function(){
     var _this=this;
     _this.widgets.sendInput.val(null);
     setTimeout(cmTimeout,0,300);
-    //
-    var html=template("cm-li",{cm:
-        {
-            id:data.id,
-            nick:data.nick,
-            text:text,
-            count:data.count,
-            time:data.time,
-            suport:0,
-            object:0,
-            reply:[]
-        }
-    });
-    _this.widgets.cmDiv.prepend(html);
+    _this.initPage();
 };
 comment.getReplyBtn=function(){
     return $(".re_sd").find("button");
 };
-var cmTimeout=function(sec){
-    if(sec==0){
-        $(comment.sendBtn).attr("disabled",false).text("提交");
-    }else{
-        $(comment.sendBtn).attr("disabled",true).text(sec);
-        setTimeout(cmTimeout,1000,sec-1);
-    }
-};
-
-
-cmpage={};
-cmpage.div=function(){
-    return $(".li-page")[0];
-};
-cmpage.pDiv=$(".cm-div")[0];
-cmpage.limit=10;
-cmpage.totalPage=1;
-cmpage.curPage=1;
-cmpage.buffer=[];
-cmpage.init=function(){
+comment.limit=10;
+comment.curPage=0;
+comment.totalPage=0;
+comment.buffer=[];
+comment.load=function(page){
     var _this=this;
+    if(page<1||page>_this.totalPage) return;
+    _this.curPage=page;
+    if(_this.buffer[_this.curPage]){
+        _this.loadOk();
+        return;
+    }
+    ajaxForm.action(null,{
+        type:"get",
+        url:"/action/loadComment.php",
+        data:{vid:vid,limit:_this.limit,offset:(_this.curPage-1)*_this.limit},
+        success:function(data){
+            if(data.ok){
+                _this.buffer[_this.curPage]=data.data;
+                _this.loadOk();
+            }
+        }
+    });
+};
+comment.loadOk=function(){
+    var _this=this;
+    _this.widgets.cmDiv.empty();
+    _this.buffer[_this.curPage].forEach(function(v){
+        var html=template("cm-li",{cm:v});
+        _this.widgets.cmDiv.append(html);
+    });
+    var html=template("cm-pg",{curPage:_this.curPage,totalPage:_this.totalPage});
+    _this.widgets.cmDiv.append(html);
+};
+comment.initPage=function(){
+    var _this=this;
+    _this.buffer=[];
     ajaxForm.action(null,{
         type:"post",
         url:"/action/loadCommentInfo.php",
@@ -207,43 +210,14 @@ cmpage.init=function(){
         }
     })
 };
-cmpage.disabled=function(bool){
-    $(this.div()).find("a").prop("onclick",null);
-};
-cmpage.lastPage=function(){
-    this.load(this.totalPage);
-};
-cmpage.load=function(page){
-    var _this=this;
-    _this.curPage=page;
-    _this.disabled();
-    if(_this.buffer[page]){
-        _this.loadOk(_this.buffer[page]);
-        return;
+
+var cmTimeout=function(sec){
+    if(sec==0){
+        $(comment.widgets.sendBtn).attr("disabled",false).text("提交");
+    }else{
+        $(comment.widgets.sendBtn).attr("disabled",true).text(sec);
+        setTimeout(cmTimeout,1000,sec-1);
     }
-    ajaxForm.action(null,{
-        type:"get",
-        url:"/action/loadComment.php",
-        data:{vid:vid,limit:_this.limit,offset:(page-1)*_this.limit},
-        success:function(data){
-            if(data.ok){
-                if(!_this.buffer[page]){
-                    _this.buffer[page]=data.data;
-                }
-                _this.loadOk(data.data);
-            }
-        }
-    });
-};
-cmpage.loadOk=function(d){
-    var _this=this;
-    $(_this.pDiv).empty();
-    for(var i=0;i<d.length;i++){
-        var html=template("cm-li",{cm:d[i]});
-        $(_this.pDiv).append(html);
-    }
-    html=template("cm-pg",{curPage:_this.curPage,totalPage:_this.totalPage});
-    $(_this.pDiv).append(html);
 };
 
 
@@ -260,7 +234,7 @@ Reply.prototype.getResd=function(){
     return $(this.html).find(".re_sd");
 };
 Reply.prototype.getReplyCountSpan=function(){
-    return $(this.html).parents(".li").find("[field=reply]");
+    return $(this.html).parents(".li").find(".reply");
 };
 Reply.prototype.sendInput=function(){
     return $(this.html).find(".re_sd input");
@@ -278,7 +252,7 @@ Reply.prototype.send=function(){
     }
     ajaxForm.action(_this.sendBtn(),{
         type:"post",
-        url:"action/sendReply.php",
+        url:"/action/sendReply.php",
         data:{vid:vid,cid:_this.getCid(),text:text},
         success:function(data){
             if(data.ok){
@@ -307,13 +281,13 @@ Reply.prototype.toggleResd=function(){
 };
 Reply.prototype.moreRe=function(){
     $(this.html).find(".re_li").show();
-    $(this.html).find(".re_ctrl [more]").hide();
-    $(this.html).find(".re_ctrl [less]").show();
+    $(this.html).find(".re_ctrl .more").hide();
+    $(this.html).find(".re_ctrl .less").show();
 };
 Reply.prototype.lessRe=function(){
     $(this.html).find(".re_li:gt(2)").hide();
-    $(this.html).find(".re_ctrl [more]").show();
-    $(this.html).find(".re_ctrl [less]").hide();
+    $(this.html).find(".re_ctrl .more").show();
+    $(this.html).find(".re_ctrl .less").hide();
 };
 var reTimeout=function(sec){
     if(sec==0){
@@ -388,7 +362,7 @@ Suport.prototype.sendSup=function(a){
     });
 };
 Suport.prototype.sendSupOk=function(vid,cid){
-    var span=$(this.html).find("[field=suport]");
+    var span=$(this.html).find(".suport");
     span.text(parseInt(span.text())+1);
     setCookie("vsup10_"+vid+"#"+cid,1,1);
 };
@@ -409,7 +383,7 @@ Suport.prototype.sendObj=function(a){
     }
     ajaxForm.action(a,{
         type:"post",
-        url:"action/sendObject.php",
+        url:"/action/sendObject.php",
         data:{vid:vid,cid:cid},
         success:function(data){
             if(data.ok){
@@ -421,7 +395,7 @@ Suport.prototype.sendObj=function(a){
     });
 };
 Suport.prototype.sendObjOk=function(vid,cid){
-    var span=$(this.html).find("[field=object]");
+    var span=$(this.html).find(".object");
     span.text(parseInt(span.text())+1);
     setCookie("vobj10_"+vid+"#"+cid,1,1);
 };
@@ -441,51 +415,55 @@ function onSendSup(a){
  * info-div Manager
  */
 var infoDiv={};
-infoDiv.shareBtn=$("#info_share");
-infoDiv.feedbackBtn=$("#info_feedback");
-infoDiv.sharePP=$(".popup.share");
-infoDiv.feedbackPP=$(".popup.feedback");
+infoDiv.widgets={
+    shareBtn:$("#info_share"),
+    feedbackBtn:$("#info_feedback"),
+    sharePP:$(".popup.share"),
+    feedbackPP:$(".popup.feedback")
+};
 infoDiv.init=function(){
     var _this=this;
-    _this.shareBtn.click(function(){_this.toggleShare();});
-    _this.feedbackBtn.click(function(){_this.toggleFeedback();});
+    _this.widgets.shareBtn.click(function(){_this.toggleShare();});
+    _this.widgets.feedbackBtn.click(function(){_this.toggleFeedback();});
     sharePP.init();
     vote.init();
     feedBackPP.init();
 };
 infoDiv.toggleShare=function(){
     var _this=this;
-    _this.feedbackPP.hide();
-    _this.sharePP.toggle();
+    _this.widgets.feedbackPP.hide();
+    _this.widgets.sharePP.toggle();
 };
 infoDiv.toggleFeedback=function(){
     var _this=this;
-    _this.sharePP.hide();
-    _this.feedbackPP.toggle();
+    _this.widgets.sharePP.hide();
+    _this.widgets.feedbackPP.toggle();
 };
 
 /**
  * vote Manager
  */
 var vote={};
-vote.upBtn=$(".vote-btn.up");
-vote.downBtn=$(".vote-btn.down");
-vote.wrapDiv=$(".vote-wrap");
-vote.voteText=$("#voteText");
-vote.voteBar=$("#voteBar");
+vote.widgets={
+    upBtn:$(".vote-btn.up"),
+    downBtn:$(".vote-btn.down"),
+    wrapDiv:$(".vote-wrap"),
+    voteText:$("#voteText"),
+    voteBar:$("#voteBar")
+};
 vote.init=function(){
-  var _this=this;
-  _this.upBtn.click(function(){
-      _this.send(this,1);
-  });
-  _this.downBtn.click(function(){
-     _this.send(this,0);
-  });
+    var _this=this;
+    _this.widgets.upBtn.click(function(){
+        _this.send(1);
+    });
+    _this.widgets.downBtn.click(function(){
+        _this.send(0);
+    });
 };
 vote.log=function(msg){
     alert(msg);
 };
-vote.send=function(btn,v){
+vote.send=function(v){
     var _this=this;
     if(v!==0&&v!==1) return;
     if(!isLogin){
@@ -500,7 +478,7 @@ vote.send=function(btn,v){
         _this.log("操作已达上限，24小时后再试");
         return;
     }
-    ajaxForm.action(btn,{
+    ajaxForm.action(null,{
         type:"post",
         url:"/action/sendVideoVote.php",
         data:{vid:vid,vote:v},
@@ -515,18 +493,18 @@ vote.send=function(btn,v){
 };
 vote.sendOk=function(v){
     var _this=this;
-    var ups=parseInt(_this.wrapDiv.data("up"));
-    var downs=parseInt(_this.wrapDiv.data("down"));
+    var ups=parseInt(_this.widgets.wrapDiv.data("up"));
+    var downs=parseInt(_this.widgets.wrapDiv.data("down"));
     var newRate=0;
     if(v==1){
-        _this.wrapDiv.data("up",ups+1);
-       newRate=Math.round(100*(ups+1)/(ups+downs+1));
+        _this.widgets.wrapDiv.data("up",ups+1);
+        newRate=Math.round(100*(ups+1)/(ups+downs+1));
     }else{
-        _this.wrapDiv.data("down",downs+1);
+        _this.widgets.wrapDiv.data("down",downs+1);
         newRate=Math.round(100*ups/(ups+downs+1));
     }
-    _this.voteText.text(newRate+"%");
-    _this.voteBar.css("width",newRate+"%");
+    _this.widgets.voteText.text(newRate+"%");
+    _this.widgets.voteBar.css("width",newRate+"%");
     setCookie("vvot10_"+vid,1,1);
 };
 
@@ -534,28 +512,30 @@ vote.sendOk=function(v){
  * sharePP Manager
  */
 var sharePP={};
-sharePP.inputEm=$("#sp-em");
-sharePP.inputW=$("#sp-w");
-sharePP.inputH=$("#sp-h");
+sharePP.widgets={
+    inputEm:$("#sp-em"),
+    inputW:$("#sp-w"),
+    inputH:$("#sp-h")
+};
 sharePP.wChange=function(){
     var _this=this;
-    var w=parseInt(_this.inputW.val());
+    var w=parseInt(_this.widgets.inputW.val());
     if(isNaN(w)||w<0){
         w=0;
     }
-    var oval=_this.inputEm.val();
+    var oval=_this.widgets.inputEm.val();
     oval=oval.replace(/width='[0-9]*'/,"width='"+w+"'");
-    _this.inputEm.val(oval);
+    _this.widgets.inputEm.val(oval);
 };
 sharePP.hChange=function(){
     var _this=this;
-    var h=parseInt(_this.inputH.val());
+    var h=parseInt(_this.widgets.inputH.val());
     if(isNaN(h)||h<0){
         h=0;
     }
-    var oval=_this.inputEm.val();
+    var oval=_this.widgets.inputEm.val();
     oval=oval.replace(/height='[0-9]*'/,"height='"+h+"'");
-    _this.inputEm.val(oval);
+    _this.widgets.inputEm.val(oval);
 };
 sharePP.init=function(){};
 
@@ -563,36 +543,38 @@ sharePP.init=function(){};
  * feedbackPP Manager
  */
 var feedBackPP={};
-feedBackPP.msgRadio=$(".popup.feedback").find("input[name=fp_msg]");
-feedBackPP.msgInput=$("#fp_msg_input");
+feedBackPP.widgets={
+    msgRadio:$(".popup.feedback").find("input[name=fp_msg]"),
+    msgInput:$("#fp_msg_input"),
+    describInput:$("#fp_describ"),
+    emailInput:$("#fp_email"),
+    submitBtn:$("#fp_submit")
+};
 feedBackPP.init=function(){
     var _this=this;
-    _this.msgRadio.change(function(){_this.radioChange();})
-    _this.submitBtn.click(function(){_this.send();})
+    _this.widgets.msgRadio.change(function(){_this.radioChange();});
+    _this.widgets.submitBtn.click(function(){_this.send();})
 };
 feedBackPP.log=function(msg){
     alert(msg);
 };
 feedBackPP.radioChange=function(){
     var _this=this;
-    var msg=_this.msgRadio.filter(":checked").val();
+    var msg=_this.widgets.msgRadio.filter(":checked").val();
     if(!msg){
-        _this.msgInput.show();
+        _this.widgets.msgInput.show();
     }else{
-        _this.msgInput.hide();
+        _this.widgets.msgInput.hide();
     }
 };
-feedBackPP.describInput=$("#fp_describ");
-feedBackPP.emailInput=$("#fp_email");
-feedBackPP.submitBtn=$("#fp_submit");
 feedBackPP.send=function(){
     var _this=this;
-    var msg=_this.msgRadio.filter(":checked").val();
+    var msg=_this.widgets.msgRadio.filter(":checked").val();
     if(!msg){
-        msg=_this.msgInput.val();
+        msg=_this.widgets.msgInput.val();
     }
-    var describ=_this.describInput.val();
-    var email=_this.emailInput.val();
+    var describ=_this.widgets.describInput.val();
+    var email=_this.widgets.emailInput.val();
     if(!isLogin){
         _this.log("未登录");
         return;
@@ -601,20 +583,20 @@ feedBackPP.send=function(){
         _this.log("无效反馈信息");
         return;
     }
-    if(email && !/^[0-9A-Za-z-_.]+@[0-9A-Za-z-_.]+$/.test(email)){
+    if(!/^[0-9A-Za-z-_.]+@[0-9A-Za-z-_.]+$/.test(email)){
         _this.log("无效Email");
         return;
     }
-    ajaxForm.action(_this.submitBtn,{
-       type:"post",
+    ajaxForm.action(_this.widgets.submitBtn,{
+        type:"post",
         url:"/action/sendFeedback.php",
         data:{vid:vid,msg:msg,describ:describ,email:email},
         success:function(data){
-           if(data.ok){
-               _this.sendOk();
-           }else if(data.msg){
-               _this.log(data.msg);
-           }
+            if(data.ok){
+                _this.sendOk();
+            }else if(data.msg){
+                _this.log(data.msg);
+            }
         }
     });
 };
@@ -623,9 +605,9 @@ feedBackPP.sendOk=function(){
 };
 var feedTimeout=function(sec){
     if(sec==0){
-        $(feedBackPP.submitBtn).attr("disabled",false).text("提交");
+        $(feedBackPP.widgets.submitBtn).attr("disabled",false).text("提交");
     }else{
-        $(feedBackPP.submitBtn).attr("disabled",true).text(sec);
+        $(feedBackPP.widgets.submitBtn).attr("disabled",true).text(sec);
         setTimeout(feedTimeout,1000,sec-1);
     }
 };

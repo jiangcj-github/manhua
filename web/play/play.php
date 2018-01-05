@@ -172,9 +172,9 @@ $serverName=$_SERVER["SERVER_NAME"];
                 <div class="r_b" data-cid="{{cm.id}}">
                     <span class="label1">{{cm.count}}楼</span>
                     <span>{{cm.time}}</span>
-                    <span><a href="javascript:void(0);" onclick="onSendSup(this)"><img src="../common/img/like.svg">(<span field="suport">{{cm.suport}}</span>)</a></span>
-                    <span><a href="javascript:void(0);" onclick="onSendObj(this)"><img src="../common/img/unlike.svg">(<span field="object">{{cm.object}}</span>)</a></span>
-                    <span><a href="javascript:void(0);" onclick="onToggleResd(this)"><img src="../common/img/reply.svg">(<span field="reply">{{cm.reply.length}}</span>)</a></span>
+                    <span><a href="javascript:void(0);" onclick="onSendSup(this)"><img src="../common/img/like.svg">(<span class="suport">{{cm.suport}}</span>)</a></span>
+                    <span><a href="javascript:void(0);" onclick="onSendObj(this)"><img src="../common/img/unlike.svg">(<span class="object">{{cm.object}}</span>)</a></span>
+                    <span><a href="javascript:void(0);" onclick="onToggleResd(this)"><img src="../common/img/reply.svg">(<span class="reply">{{cm.reply.length}}</span>)</a></span>
                 </div>
                 <div class="r_re" data-cid="{{cm.id}}">
                     <% for(var i=0;i<cm.reply.length;i++){ %>
@@ -195,13 +195,13 @@ $serverName=$_SERVER["SERVER_NAME"];
                     <div class="re-insert" style="height:0"></div>
                     <% if(cm.reply.length>3){ %>
                         <div class="re_ctrl">
-                            <span more>隐藏({{cm.reply.length-3}})項</span>&nbsp;
-                            <a href="javascript:void(0);" onclick="onMoreRe(this)" more>展开</a>
-                            <a href="javascript:void(0);" onclick="onLessRe(this)" less style="display:none;">收起</a>
+                            <span class="more">隐藏({{cm.reply.length-3}})項</span>&nbsp;
+                            <a href="javascript:void(0);" onclick="onMoreRe(this)" class="more">展开</a>
+                            <a href="javascript:void(0);" onclick="onLessRe(this)" class="less" style="display:none;">收起</a>
                         </div>
                     <% } %>
                     <div class="re_sd">
-                        <input type="text" placeholder="说的什么吧"><button class="btn btn2" onclick="onSendRe(this)">回复</button>
+                        <input type="text" placeholder="说点什么吧"><button class="btn btn2" onclick="onSendRe(this)">回复</button>
                     </div>
                 </div>
             </div>
@@ -255,7 +255,6 @@ $serverName=$_SERVER["SERVER_NAME"];
             <% } %>
         </div>
     </script>
-    <script>var totalNum=0;</script>
     <script src="js/play.js"></script>
     <script>var vid=<?php echo $id ?>;</script>
     <?php include("../footer.php") ?>

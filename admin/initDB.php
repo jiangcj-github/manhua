@@ -59,6 +59,7 @@ $result=$conn->query("
         id int(32) NOT NULL AUTO_INCREMENT,
         filename VARCHAR (255) NOT NULL,
         duration VARCHAR (255) NOT NULL,
+        size double NOT NULL,
         title VARCHAR (255) NOT NULL,
         time VARCHAR (255) NOT NULL,
         lastPlayTime VARCHAR (255),

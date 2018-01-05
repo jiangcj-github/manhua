@@ -217,7 +217,7 @@ upload.submit=function(){
     }
     ajaxForm.action(_this.widgets.submitBtn,{
         type:"post",
-        url:"/search/sendUpload.php",
+        url:"/main/sendUpload.php",
         data:{title:title,filename:upload.obj.name,duration:upload.duration,categery:categery,unit:uid},
         success:function(data){
             if(data.ok){
@@ -249,7 +249,7 @@ upload.save=function(id,filename){
 upload.saveFail=function(id){
     ajaxForm.action(null,{
         type:"post",
-        url:"/search/sendUploadFail.php",
+        url:"/main/sendUploadFail.php",
         data:{id:id}
     });
 };

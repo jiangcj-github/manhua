@@ -14,7 +14,7 @@ if(!isset($_SESSION["login"])){
 }
 $nick=$_SESSION["login"]["nick"];
 //參數檢查
-if(!isset($_REQUEST["vid"])||!isset($_REQUEST["msg"])){
+if(!isset($_REQUEST["vid"])||!isset($_REQUEST["msg"])||!isset($_REQUEST["email"])||!isset($_REQUEST["describ"])){
     die_json(["msg"=>"缺少必需的參數"]);
 }
 $vid=$_REQUEST["vid"];
@@ -23,17 +23,12 @@ $time=(new DateTime())->format("Y-m-d H:i:s");
 if(preg_match("/^\s*$/",$msg)>0){
     die_json(["msg"=>"文本為空"]);
 }
-$email="";
-$describ="";
-if(isset($_REQUEST["email"])){
-    $email=$_REQUEST["email"];
-    if($email!=""&&preg_match("/^[0-9A-Za-z-_.]+@[0-9A-Za-z-_.]+$/",$email)<=0){
-        die_json(["msg"=>"無效Email"]);
-    }
+$email=$_REQUEST["email"];
+if($email!=""&&preg_match("/^[0-9A-Za-z-_.]+@[0-9A-Za-z-_.]+$/",$email)<=0){
+    die_json(["msg"=>"無效Email"]);
 }
-if(isset($_REQUEST["describ"])){
-    $describ=$_REQUEST["describ"];
-}
+$describ=$_REQUEST["describ"];
+
 //數據庫操作
 $conn = new mysqli($mysql["host"], $mysql["user"], $mysql["password"], $mysql["database"]);
 $conn->set_charset("utf8");

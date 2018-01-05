@@ -19,9 +19,6 @@ $ip=$_SERVER["REMOTE_ADDR"];
 if(!preg_match("/^[0-9a-zA-Z._-]+@[0-9a-zA-Z._-]+$/",$user)){
     die_json(["msg"=>"邮箱不符合规范"]);
 }
-if(!preg_match("/^[0-9a-zA-Z_-]{8,15}$/",$pass)){
-    die_json(["msg"=>"密码不符合规范"]);
-}
 //查數據庫
 $conn = new mysqli($mysql["host"], $mysql["user"], $mysql["password"], $mysql["database"]);
 $conn->set_charset("utf8");
@@ -58,7 +55,6 @@ $stmt->close();
 //寫數據庫
 $stmt=$conn->prepare("insert into user(user,nick,pass,ip,time) values(?,?,?,?,?)");
 $time=(new DateTime())->format("Y-m-d H:i:s");
-$pass=md5($pass);
 $stmt->bind_param("sssss",$user,$nick,$pass,$ip,$time);
 $stmt->execute();
 $stmt->close();

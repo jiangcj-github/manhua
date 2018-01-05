@@ -41,7 +41,7 @@ signup.send=function(){
     ajaxForm.action(this,{
         type:"post",
         url:"/action/login/signup.php",
-        data:{email:email,nick:nick,pass:pass},
+        data:{email:email,nick:nick,pass:md5(pass)},
         success:function(data){
             if(data.ok){
                 location.href="signin.php";

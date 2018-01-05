@@ -51,6 +51,7 @@
             $(this).prop("type","password");
         });
     </script>
+    <script src="/web/common/md5.min.js"></script>
     <script src="js/signup.js"></script>
 </body>
 </html>
