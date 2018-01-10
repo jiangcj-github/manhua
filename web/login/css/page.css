@@ -4,7 +4,7 @@ label{user-select:none;}
 
 
 input[type=checkbox]{vertical-align:middle;}
-input[type=text],input[type=password]{width:270px;height:26px;border-radius:3px;}
+input[type=text],input[type=password]{width:270px;height:26px;border-radius:3px;border:none !important;}
 .btn{border-radius:3px;padding:5px 20px !important;}
 
 .sec>h3{margin:0;font-size:14px;padding:0 8px;line-height:22px;border-bottom: 2px solid #222;color:gray;}
